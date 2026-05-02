@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main # O master, según el nombre de tu rama en GitHub
+
+media_folder: "images/blog" # Las fotos que suba Umberto irán aquí
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "_posts" # Aquí se guardarán los textos de los artículos
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime" }
+      - { label: "Imagen de Portada", name: "thumbnail", widget: "image" }
+      - { label: "Cuerpo del Mensaje", name: "body", widget: "markdown" }
