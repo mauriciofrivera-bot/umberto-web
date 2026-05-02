@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Umberto Campioni</title>
+    <style>
+        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --carbón: #121212; }
+        body { background-color: var(--oscuro); color: white; font-family: 'Times New Roman', serif; margin: 0; }
+        nav { padding: 25px; text-align: center; border-bottom: 1px solid #2a2a2a; }
+        nav a { color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+        .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
+        h1 { text-align: center; text-transform: uppercase; letter-spacing: 5px; color: var(--dorado); }
+        #blog-posts { display: grid; gap: 30px; margin-top: 50px; }
+        .post-card { background: var(--carbón); border: 1px solid #2a2a2a; padding: 20px; transition: 0.3s; }
+        .post-card:hover { border-color: var(--dorado); }
+        .post-card h2 { margin: 0; font-size: 1.5rem; }
+        .post-card a { color: var(--dorado); text-decoration: none; font-style: italic; display: block; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html">← Back to Home</a></nav>
+    <div class="container">
+        <h1>Journal</h1>
+        <div id="blog-posts">
+            <p style="text-align: center; color: #666;">No posts yet. Write your first one from /admin!</p>
+        </div>
+    </div>
+</body>
+</html>

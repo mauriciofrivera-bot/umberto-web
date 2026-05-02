@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post | Umberto Sommelier</title>
+    <style>
+        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --carbón: #121212; }
+        body { background-color: var(--oscuro); color: white; font-family: 'Times New Roman', serif; line-height: 1.6; }
+        .post-container { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .post-header h1 { font-size: 2.5rem; color: var(--dorado); margin-bottom: 10px; }
+        .post-content img, .post-content iframe { max-width: 100%; height: auto; margin: 20px 0; border: 1px solid #333; }
+        #disqus_thread { margin-top: 80px; padding: 20px; background: var(--carbón); border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <nav style="padding: 20px;"><a href="blog.html" style="color: white; text-decoration: none;">← Volver al Blog</a></nav>
+    <article class="post-container">
+        <header class="post-header">
+            <h1 id="post-title"></h1>
+            <p id="post-date" style="color: var(--dorado); font-style: italic;"></p>
+        </header>
+        
+        <div class="post-content" id="post-body">
+            </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = window.location.pathname;
+            };
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://umberto-sommelier.disqus.com/embed.js'; // Cambiaremos esto por tu nombre de usuario en Disqus
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    </article>
+</body>
+</html>
