@@ -10,7 +10,6 @@
             --dorado: #b58d52;
             --oscuro: #0a0a0a;
             --carbón: #121212;
-            --texto-gris: #a0a0a0;
         }
 
         body {
@@ -22,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* Navegación Elegante */
+        /* Navegación */
         nav {
             display: flex;
             justify-content: space-between;
@@ -30,8 +29,6 @@
             padding: 30px 50px;
             border-bottom: 1px solid #1a1a1a;
             background-color: var(--oscuro);
-            position: relative;
-            z-index: 10;
         }
 
         .logo {
@@ -51,138 +48,77 @@
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--dorado);
-        }
+        .nav-links a:hover { color: var(--dorado); }
 
         /* Hero Section */
         .hero {
-            height: 70vh; /* Ajustado ligeramente para mejor proporción */
+            height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/Umberto_Main_Photo.jpg');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/Umberto_Main_Photo.jpg');
             background-size: cover;
             background-position: center;
-            position: relative;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            margin: 0;
-        }
+        .hero h1 { font-size: 4rem; letter-spacing: 10px; text-transform: uppercase; margin: 0; }
+        .hero p { color: var(--dorado); text-transform: uppercase; letter-spacing: 5px; margin-top: 20px; }
 
-        .hero p {
-            color: var(--dorado);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-top: 20px;
-        }
-
-        /* Grilla de Temáticas (Filtros) - CORREGIDA */
-        .grid-section {
-            padding: 80px 20px; /* Reducido padding lateral */
-            background-color: var(--oscuro);
-        }
-
+        /* Grilla de 3 Botones */
+        .grid-section { padding: 80px 20px; }
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px; /* Espacio entre columnas */
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%; /* Fuerza el ancho total */
         }
 
         .grid-item {
             position: relative;
-            height: 450px; /* Altura fija para simetría */
+            height: 500px;
             overflow: hidden;
             text-decoration: none;
             display: block;
-            border: 1px solid #1a1a1a; /* Borde sutil por defecto */
-            transition: border-color 0.3s;
+            border: 1px solid #1a1a1a;
         }
 
-        .grid-item:hover {
-            border-color: var(--dorado); /* Borde dorado al hacer hover */
-        }
-
-        /* Lógica para forzar la proporción de la imagen */
         .item-bg {
             width: 100%;
             height: 100%;
-            background-size: cover; /* Cubre todo el espacio sin deformar */
-            background-position: center; /* Centra la imagen */
-            background-repeat: no-repeat;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
             position: absolute;
-            top: 0;
-            left: 0;
         }
 
-        .grid-item:hover .item-bg {
-            transform: scale(1.05); /* Efecto de zoom más sutil */
-        }
+        .grid-item:hover .item-bg { transform: scale(1.05); }
 
         .item-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%);
-            transition: background 0.3s;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 70%);
             z-index: 1;
-        }
-
-        .grid-item:hover .item-overlay {
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%);
         }
 
         .item-text {
             position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px; /* Asegura márgenes laterales */
-            color: white;
+            bottom: 40px; left: 30px; right: 30px;
             z-index: 2;
         }
 
-        .item-text span {
-            color: var(--dorado);
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 5px;
-        }
+        .item-text span { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; display: block; }
+        .item-text h3 { margin: 5px 0 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        .item-text h3 {
-            margin: 0;
-            font-size: 1.6rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            line-height: 1.2;
-        }
+        /* Formulario Section */
+        .contact-section { padding: 100px 20px; background-color: var(--carbón); text-align: center; }
+        .contact-section h2 { color: var(--dorado); text-transform: uppercase; letter-spacing: 5px; }
 
-        /* Mobile Adjustments - CORREGIDOS */
         @media (max-width: 900px) {
-            .grid-container { 
-                grid-template-columns: 1fr; /* Una columna en móvil */
-                gap: 15px;
-            }
-            .grid-item {
-                height: 350px; /* Altura menor en móvil */
-            }
-            .hero h1 { font-size: 2.5rem; letter-spacing: 5px; }
-            nav { padding: 20px; flex-direction: column; text-align: center; }
-            .logo { margin-bottom: 15px; }
-            .nav-links a { margin: 0 10px; font-size: 0.7rem; }
+            .grid-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -192,8 +128,9 @@
         <div class="logo">Umberto Campioni</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="blog.html">Journal</a>
-            <a href="#contact">Contact</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About</a>
+            <a href="#work-with-me">Contact</a>
         </div>
     </nav>
 
@@ -204,41 +141,45 @@
 
     <section class="grid-section">
         <div class="grid-container">
-            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/Wine_Uncorked_Logo.jpg');"></div>
-                <div class="item-overlay"></div>
-                <div class="item-text">
-                    <span>Service & Hospitality</span>
-                    <h3>Work the Floor</h3>
-                </div>
-            </a>
-            
             <a href="blog.html?cat=Choose+the+wine" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
+                <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
                 <div class="item-overlay"></div>
                 <div class="item-text">
                     <span>Selection</span>
-                    <h3>Choose the wine</h3>
+                    <h3>Wine Uncorked</h3>
                 </div>
             </a>
             
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/Umberto_Main_Photo.jpg');"></div>
+                <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
                 <div class="item-overlay"></div>
                 <div class="item-text">
-                    <span>No BS Consulting</span>
-                    <h3>Tell you what really matters</h3>
+                    <span>Consulting</span>
+                    <h3>No BS Truth</h3>
+                </div>
+            </a>
+            
+            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
+                <div class="item-bg" style="background-image: url('images/from the floor.jpeg');"></div>
+                <div class="item-overlay"></div>
+                <div class="item-text">
+                    <span>Hospitality</span>
+                    <h3>From the Floor</h3>
                 </div>
             </a>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a; background-color: var(--carbón);">
+    <section id="work-with-me" class="contact-section">
+        <h2>Work with me</h2>
+        <p style="color: #888;">Formulario en construcción...</p>
+    </section>
+
+    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a;">
         <p>&copy; 2026 Umberto Campioni. Built by Rivera Engineering.</p>
     </footer>
 
     <script>
-        // Lógica para el widget de identidad de Netlify
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
