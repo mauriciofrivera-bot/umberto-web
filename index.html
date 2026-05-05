@@ -19,14 +19,15 @@
             background-color: var(--oscuro);
             color: var(--blanco-suave);
             font-family: 'Garamond', 'Times New Roman', serif;
+            overflow-x: hidden;
         }
 
-        /* Navegación */
+        /* NAVEGACIÓN RESPONSIVA */
         nav {
             display: flex;
             justify-content: center;
-            padding: 25px;
-            gap: 40px;
+            padding: 20px;
+            gap: 30px;
             background: var(--oscuro);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: sticky;
@@ -38,11 +39,11 @@
             color: var(--blanco-suave);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
         }
 
-        /* HERO CON EFECTO BLENDING */
+        /* HERO CON BLENDING Y FOTO AJUSTADA */
         .hero {
             position: relative;
             height: 85vh;
@@ -52,7 +53,7 @@
             background-color: var(--oscuro);
         }
 
-        /* Capa Izquierda: Copas */
+        /* Copas - Lado Izquierdo */
         .hero-left {
             position: absolute;
             left: 0;
@@ -61,124 +62,165 @@
             height: 100%;
             background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
             background-size: cover;
-            mask-image: linear-gradient(to right, black 60%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+            mask-image: linear-gradient(to right, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 50%, transparent 100%);
+            z-index: 1;
         }
 
-        /* Capa Derecha: Sommelier */
+        /* Umberto - Lado Derecho (BAJADO PARA VER ROSTRO) */
         .hero-right {
             position: absolute;
             right: 0;
             top: 0;
             width: 60%;
             height: 100%;
-            background: url('images/Umberto_Main_Photo.jpg') no-repeat center center;
+            background: url('images/Umberto_Main_Photo.jpg') no-repeat center 20%; /* Ajustado para bajar la foto */
             background-size: cover;
-            mask-image: linear-gradient(to left, black 60%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+            mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            z-index: 2;
         }
 
-        /* Contenido del Hero */
         .hero-content {
             position: relative;
             z-index: 10;
             padding-left: 10%;
-            max-width: 700px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            max-width: 650px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.9);
         }
 
         .hero h1 {
-            font-size: 4rem;
-            line-height: 1;
+            font-size: 3.8rem;
+            line-height: 1.1;
             margin: 0 0 20px 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-style: italic;
             margin-bottom: 40px;
-            color: #ddd;
+            color: #eee;
         }
+
+        .hero-buttons { display: flex; gap: 15px; }
 
         .btn-gold {
             background-color: var(--dorado);
             color: var(--oscuro);
-            padding: 15px 35px;
+            padding: 15px 30px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
-            display: inline-block;
-            margin-right: 20px;
         }
 
         .btn-outline {
             border: 1px solid var(--dorado);
             color: white;
-            padding: 14px 34px;
+            padding: 14px 29px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            display: inline-block;
+            font-size: 0.85rem;
         }
 
-        /* Cuadrícula de Contenido */
-        .grid-section { padding: 100px 5%; background: var(--oscuro); }
+        /* CUADRÍCULA DE CONTENIDO */
+        .grid-section { padding: 80px 5%; background: var(--oscuro); }
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .grid-item {
             position: relative;
-            height: 450px;
+            height: 480px;
             text-decoration: none;
             overflow: hidden;
-            border: 1px solid #222;
+            border: 1px solid #1a1a1a;
         }
 
         .item-bg {
             width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            transition: 0.6s ease;
+            transition: 0.7s ease-in-out;
         }
 
         .grid-item:hover .item-bg { transform: scale(1.05); }
 
         .item-text {
             position: absolute; bottom: 0; width: 100%; padding: 40px 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            background: linear-gradient(transparent, rgba(0,0,0,0.98));
             text-align: center;
         }
 
-        .item-text h3 { margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 1.4rem; color: white; }
-        .item-text span { color: var(--dorado); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+        .item-text h3 { margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 1.3rem; color: white; }
+        .item-text span { color: var(--dorado); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* Formulario */
-        .contact-section { padding: 100px 10%; background: var(--carbón); text-align: center; }
+        /* FORMULARIO */
+        .contact-section { padding: 80px 10%; background: var(--carbón); text-align: center; }
         .contact-form {
-            max-width: 600px; margin: 40px auto;
+            max-width: 600px; margin: 30px auto;
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
         }
         .contact-form input, .contact-form textarea {
-            background: #000; border: 1px solid #333; padding: 15px; color: white;
+            background: #000; border: 1px solid #2a2a2a; padding: 15px; color: white; font-family: serif;
         }
         .contact-form textarea { grid-column: span 2; height: 120px; }
         .btn-send {
             grid-column: span 2; background: var(--dorado); border: none;
-            padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold;
+            padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold; font-size: 0.9rem;
         }
 
-        @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 50px; }
-            .hero-content { padding-left: 0; }
-            .grid-container { grid-template-columns: 1fr; }
-            .hero-left, .hero-right { width: 100%; opacity: 0.5; }
+        /* --- AJUSTES ESPECÍFICOS PARA SMARTPHONE --- */
+        @media (max-width: 768px) {
+            nav { padding: 15px; gap: 15px; }
+            nav a { font-size: 0.65rem; letter-spacing: 1px; }
+
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+
+            /* Apilado vertical de imágenes en móvil */
+            .hero-left, .hero-right {
+                position: relative;
+                width: 100%;
+                height: 40vh; /* Ocupan menos altura cada una */
+                mask-image: none; /* Quitamos blending lateral en móvil */
+                -webkit-mask-image: none;
+                opacity: 0.7; /* Para que el texto sea legible encima */
+            }
+
+            .hero-right { background-position: center center; } /* Centrado total en móvil */
+
+            .hero-content {
+                padding: 40px 20px;
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; margin-bottom: 30px; }
+            .hero-buttons { flex-direction: column; align-items: center; width: 100%; }
+            .btn-gold, .btn-outline { width: 80%; text-align: center; margin: 0; }
+            .btn-gold { margin-bottom: 10px; }
+
+            /* Cuadrícula a columna única en móvil */
+            .grid-container { grid-template-columns: 1fr; gap: 15px; }
+            .grid-item { height: 380px; }
+            .item-text h3 { font-size: 1.1rem; }
+
+            /* Formulario a columna única */
+            .contact-form { grid-template-columns: 1fr; }
+            .contact-form textarea { grid-column: span 1; }
+            .btn-send { grid-column: span 1; }
         }
     </style>
 </head>
@@ -199,63 +241,4 @@
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
                 <a href="blog.html" class="btn-gold">Start Reading</a>
-                <a href="#work-with-me" class="btn-outline">Ask me anything</a>
-            </div>
-        </div>
-    </header>
-
-    <section class="grid-section">
-        <div class="grid-container">
-            <a href="blog.html?cat=Choose+the+wine" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
-                <div class="item-text">
-                    <span>Selection</span>
-                    <h3>Wine Uncorked</h3>
-                </div>
-            </a>
-            
-            <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
-                <div class="item-text">
-                    <span>Consulting</span>
-                    <h3>No BS Truth</h3>
-                </div>
-            </a>
-            
-            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/from the floor.jpeg');"></div>
-                <div class="item-text">
-                    <span>Hospitality</span>
-                    <h3>From the Floor</h3>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section id="work-with-me" class="contact-section">
-        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 5px;">Ask the Sommelier</h2>
-        <form class="contact-form" name="contact" method="POST" data-netlify="true">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="message" placeholder="Your Question" required></textarea>
-            <button type="submit" class="btn-send">Send Message</button>
-        </form>
-    </section>
-
-    <footer style="text-align: center; padding: 60px; color: #555; font-size: 0.8rem; border-top: 1px solid #1a1a1a;">
-        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
-    </footer>
-
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+                <a href="#work-with-me" class
