@@ -26,8 +26,8 @@
         nav {
             display: flex;
             justify-content: center;
-            padding: 15px;
-            gap: 20px;
+            padding: 20px;
+            gap: 30px;
             background: var(--oscuro);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: sticky;
@@ -39,68 +39,78 @@
             color: var(--blanco-suave);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
         }
 
-        /* HERO COMPACTO */
+        /* HERO - RESTAURADO SEGÚN TU PREFERENCIA */
         .hero {
             position: relative;
-            height: 60vh;
+            height: 85vh;
             display: flex;
             align-items: center;
             overflow: hidden;
             background-color: var(--oscuro);
         }
 
-        .hero-left, .hero-right {
+        .hero-left {
             position: absolute;
-            top: 0; width: 60%; height: 100%;
+            left: 0; top: 0; width: 65%; height: 100%;
+            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
             background-size: cover;
+            mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
             z-index: 1;
         }
 
-        .hero-left {
-            left: 0;
-            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
-            mask-image: linear-gradient(to right, black 20%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, black 20%, transparent 100%);
-            opacity: 0.6;
-        }
-
         .hero-right {
-            right: 0;
-            background: url('images/Umberto_Main_Photo.jpg') no-repeat center 15%;
-            mask-image: linear-gradient(to left, black 20%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 20%, transparent 100%);
+            position: absolute;
+            right: 0; top: 0; width: 65%; height: 100%;
+            background: url('images/Umberto_Main_Photo.jpg') no-repeat;
+            background-position: center 15%; 
+            background-size: cover;
+            mask-image: linear-gradient(to left, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
+            z-index: 2;
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            width: 100%;
-            text-align: center;
+            padding-left: 8%;
+            max-width: 600px;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.9);
         }
 
-        .hero h1 { font-size: clamp(1.4rem, 3.5vw, 3rem); margin-bottom: 10px; text-transform: uppercase; }
-        .hero p { font-size: clamp(0.8rem, 1.5vw, 1.1rem); font-style: italic; margin-bottom: 20px; color: #aaa; }
+        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin: 0 0 20px 0; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; font-style: italic; margin-bottom: 40px; color: #eee; }
 
-        .btn-gold, .btn-outline {
+        .btn-gold {
+            background-color: var(--dorado);
+            color: var(--oscuro) !important;
+            padding: 15px 30px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             font-weight: bold;
-            padding: 10px 20px;
             display: inline-block;
         }
 
-        .btn-gold { background: var(--dorado); color: var(--oscuro) !important; }
-        .btn-outline { border: 1px solid var(--dorado); color: white !important; margin-left: 10px; }
+        .btn-outline {
+            border: 1px solid var(--dorado);
+            color: white !important;
+            padding: 14px 29px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-left: 15px;
+        }
 
         /* BANNER AVISO */
         .article-banner {
             width: 100%;
-            min-height: 250px;
+            min-height: 350px;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/Featured_Background.jpg');
             background-size: cover;
             background-position: center;
@@ -109,14 +119,14 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
-            border-top: 1px solid #1a1a1a;
+            padding: 40px 20px;
+            border-top: 1px solid #222;
         }
 
-        .article-banner h2 { font-size: clamp(1rem, 2.5vw, 1.8rem); margin-bottom: 10px; }
-        .article-banner p { font-style: italic; color: #999; margin-bottom: 15px; font-size: 0.85rem; max-width: 450px; }
+        .article-banner h2 { font-size: 2.2rem; margin-bottom: 20px; }
+        .article-banner p { font-style: italic; color: #ccc; margin-bottom: 30px; max-width: 500px; font-size: 1.1rem; }
 
-        /* CUADRÍCULA - AJUSTE DE IMAGEN DENTRO DEL BOX */
+        /* CUADRÍCULA - AJUSTE DE IMÁGENES DENTRO DEL BOX */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -126,60 +136,69 @@
 
         .grid-item {
             position: relative;
-            height: 280px; 
+            height: 350px; /* Tamaño reducido de la cuadrícula */
             text-decoration: none !important;
-            overflow: hidden;
+            border: 0.5px solid #111;
+            background-color: #000;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            border: 0.5px solid #111;
-            background-color: #000; /* Fondo negro por si la imagen no llena todo */
+            overflow: hidden;
         }
 
-        .item-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-size: contain; /* CAMBIO CLAVE: Muestra la imagen completa sin recortar */
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 1;
+        .item-image-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 20px; /* Margen interno para que no toquen el borde */
         }
+
+        .item-image-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Asegura que la imagen se vea completa */
+            transition: transform 0.8s ease;
+        }
+
+        .grid-item:hover img { transform: scale(1.05); }
 
         .item-text {
-            position: relative;
-            z-index: 2;
             width: 100%;
-            padding: 10px 5px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 20px 5px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
             text-align: center;
         }
 
         .item-text h3 {
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: clamp(0.5rem, 1vw, 0.9rem);
+            font-size: clamp(0.7rem, 1.2vw, 1.2rem);
             color: white !important;
         }
 
-        /* FORMULARIO Y FOOTER */
-        .contact-section { padding: 40px 5%; background: var(--carbón); text-align: center; }
+        /* CONTACTO Y FOOTER */
+        .contact-section { padding: 80px 10%; background: var(--carbón); text-align: center; }
         .contact-form {
-            max-width: 500px; margin: 20px auto 0;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+            max-width: 600px; margin: 30px auto 0;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
         }
-        .contact-form input, .contact-form textarea { background: #000; border: 1px solid #222; padding: 10px; color: white; font-size: 0.75rem; }
-        .contact-form textarea { grid-column: span 2; height: 70px; }
-        .btn-send { grid-column: span 2; background: var(--dorado); border: none; padding: 12px; cursor: pointer; text-transform: uppercase; font-weight: bold; font-size: 0.75rem; }
+        .contact-form input, .contact-form textarea { background: #000; border: 1px solid #2a2a2a; padding: 15px; color: white; }
+        .contact-form textarea { grid-column: span 2; height: 120px; }
+        .btn-send { grid-column: span 2; background: var(--dorado); border: none; padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold; }
 
-        footer { text-align: center; padding: 30px; color: #444; font-size: 0.65rem; background: var(--oscuro); }
+        footer { text-align: center; padding: 50px; color: #444; font-size: 0.8rem; border-top: 1px solid #111; }
 
-        /* MÓVIL ESPECÍFICO */
-        @media (max-width: 600px) {
-            .grid-item { height: 140px; } 
-            .hero { height: 40vh; }
-            .hero-buttons { display: flex; flex-direction: row; justify-content: center; }
-            .item-text { padding: 5px; }
-            .item-text h3 { font-size: 0.45rem; letter-spacing: 1px; }
+        @media (max-width: 768px) {
+            .hero { height: auto; min-height: 100vh; flex-direction: column; }
+            .hero-left, .hero-right { position: relative; width: 100%; height: 35vh; mask-image: none; -webkit-mask-image: none; }
+            .hero-right { background-position: center center; }
+            .hero-content { padding: 40px 20px; text-align: center; }
+            .hero h1 { font-size: 2.2rem; }
+            .btn-gold, .btn-outline { width: 100%; margin: 10px 0; }
+            .grid-item { height: 200px; }
+            .item-image-wrapper { padding: 10px; }
+            .item-text h3 { font-size: 0.6rem; letter-spacing: 1px; }
         }
     </style>
 </head>
@@ -216,20 +235,26 @@
     <section class="grid-section">
         <div class="grid-container">
             <a href="blog.html?cat=Choose+the+wine" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
+                <div class="item-image-wrapper">
+                    <img src="images/Wine Uncorked_Logo.jpg" alt="Wine Uncorked">
+                </div>
                 <div class="item-text">
                     <h3>Wine Uncorked</h3>
                 </div>
             </a>
             
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
-                <div class="item-text" style="background: transparent;">
+                <div class="item-image-wrapper">
+                    <img src="images/NBS_Logo.jpg" alt="No BS Truth">
+                </div>
+                <div class="item-text">
                     </div>
             </a>
             
             <a href="blog.html?cat=Work+the+Floor" class="grid-item">
-                <div class="item-bg" style="background-image: url('images/from the floor.jpeg');"></div>
+                <div class="item-image-wrapper">
+                    <img src="images/from the floor.jpeg" alt="From the Floor">
+                </div>
                 <div class="item-text">
                     <h3>From the Floor</h3>
                 </div>
@@ -238,7 +263,7 @@
     </section>
 
     <section id="work-with-me" class="contact-section">
-        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 2px; font-size: 1rem;">Ask the Sommelier</h2>
+        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 4px; font-size: 1.5rem;">Ask the Sommelier</h2>
         <form class="contact-form" name="contact" method="POST" data-netlify="true">
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -251,16 +276,5 @@
         <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
-    </script>
 </body>
 </html>
