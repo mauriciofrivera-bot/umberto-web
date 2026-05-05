@@ -19,17 +19,19 @@
             background-color: var(--oscuro);
             color: var(--blanco-suave);
             font-family: 'Garamond', 'Times New Roman', serif;
-            line-height: 1.6;
         }
 
-        /* Nav Estilo Minimal */
+        /* Navegación */
         nav {
             display: flex;
             justify-content: center;
             padding: 25px;
             gap: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
             background: var(--oscuro);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         nav a {
@@ -38,77 +40,104 @@
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
-        nav a:hover { color: var(--dorado); }
-
-        /* Hero Section Basado en la Foto */
+        /* HERO CON EFECTO BLENDING */
         .hero {
-            height: 90vh;
+            position: relative;
+            height: 85vh;
             display: flex;
-            background: linear-gradient(to right, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.1) 100%), url('images/Umberto_Main_Photo.jpg');
-            background-size: cover;
-            background-position: center;
             align-items: center;
-            padding: 0 10%;
+            overflow: hidden;
+            background-color: var(--oscuro);
         }
 
-        .hero-content { max-width: 600px; }
+        /* Capa Izquierda: Copas */
+        .hero-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
+            background-size: cover;
+            mask-image: linear-gradient(to right, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+        }
+
+        /* Capa Derecha: Sommelier */
+        .hero-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            background: url('images/Umberto_Main_Photo.jpg') no-repeat center center;
+            background-size: cover;
+            mask-image: linear-gradient(to left, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+        }
+
+        /* Contenido del Hero */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding-left: 10%;
+            max-width: 700px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
 
         .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            line-height: 1;
+            margin: 0 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-style: italic;
-            margin-bottom: 30px;
-            color: #ccc;
+            margin-bottom: 40px;
+            color: #ddd;
         }
 
-        /* Botones del Diseño */
         .btn-gold {
             background-color: var(--dorado);
             color: var(--oscuro);
-            padding: 12px 30px;
+            padding: 15px 35px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            margin-right: 15px;
             display: inline-block;
+            margin-right: 20px;
         }
 
         .btn-outline {
             border: 1px solid var(--dorado);
-            color: var(--blanco-suave);
-            padding: 11px 29px;
+            color: white;
+            padding: 14px 34px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             display: inline-block;
         }
 
-        /* Grid de 3 Temáticas */
-        .grid-section { padding: 100px 5%; text-align: center; }
-        .grid-section h2 { font-size: 2rem; margin-bottom: 50px; letter-spacing: 3px; }
-
+        /* Cuadrícula de Contenido */
+        .grid-section { padding: 100px 5%; background: var(--oscuro); }
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .grid-item {
-            text-decoration: none;
-            color: white;
             position: relative;
-            height: 400px;
+            height: 450px;
+            text-decoration: none;
             overflow: hidden;
             border: 1px solid #222;
         }
@@ -116,61 +145,40 @@
         .item-bg {
             width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            transition: 0.5s;
+            transition: 0.6s ease;
         }
 
         .grid-item:hover .item-bg { transform: scale(1.05); }
 
         .item-text {
-            position: absolute; bottom: 0; width: 100%;
-            padding: 30px 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-        }
-
-        .item-text h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; }
-        .item-text span { color: var(--dorado); font-size: 0.7rem; text-transform: uppercase; }
-
-        /* Sección Contacto: Ask the Sommelier */
-        .contact-section {
-            padding: 80px 10%;
-            background: var(--carbón);
+            position: absolute; bottom: 0; width: 100%; padding: 40px 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
             text-align: center;
         }
 
-        .contact-section h2 { color: var(--dorado); margin-bottom: 40px; text-transform: uppercase; }
+        .item-text h3 { margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 1.4rem; color: white; }
+        .item-text span { color: var(--dorado); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
+        /* Formulario */
+        .contact-section { padding: 100px 10%; background: var(--carbón); text-align: center; }
         .contact-form {
-            max-width: 700px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            max-width: 600px; margin: 40px auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
         }
-
         .contact-form input, .contact-form textarea {
-            background: transparent;
-            border: 1px solid #444;
-            padding: 15px;
-            color: white;
-            font-family: serif;
+            background: #000; border: 1px solid #333; padding: 15px; color: white;
         }
-
-        .contact-form textarea { grid-column: span 2; height: 100px; }
-
+        .contact-form textarea { grid-column: span 2; height: 120px; }
         .btn-send {
-            grid-column: span 2;
-            background: var(--dorado);
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
+            grid-column: span 2; background: var(--dorado); border: none;
+            padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold;
         }
 
-        @media (max-width: 768px) {
-            .grid-container, .contact-form { grid-template-columns: 1fr; }
-            .contact-form textarea { grid-column: span 1; }
-            .hero h1 { font-size: 2.5rem; }
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 50px; }
+            .hero-content { padding-left: 0; }
+            .grid-container { grid-template-columns: 1fr; }
+            .hero-left, .hero-right { width: 100%; opacity: 0.5; }
         }
     </style>
 </head>
@@ -180,22 +188,23 @@
         <a href="index.html">Home</a>
         <a href="blog.html">Blog</a>
         <a href="about.html">About</a>
-        <a href="#work-with-me">Contact</a>
+        <a href="#work-with-me">Work with me</a>
     </nav>
 
     <header class="hero">
+        <div class="hero-left"></div>
+        <div class="hero-right"></div>
         <div class="hero-content">
-            <h1>Wine. Hospitality. <br>No bullshit.</h1>
+            <h1>Wine. Hospitality. <br>No Bullshit.</h1>
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
-                <a href="blog.html" class="btn-gold">Start reading</a>
+                <a href="blog.html" class="btn-gold">Start Reading</a>
                 <a href="#work-with-me" class="btn-outline">Ask me anything</a>
             </div>
         </div>
     </header>
 
     <section class="grid-section">
-        <h2>What You'll Find Here</h2>
         <div class="grid-container">
             <a href="blog.html?cat=Choose+the+wine" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
@@ -224,17 +233,16 @@
     </section>
 
     <section id="work-with-me" class="contact-section">
-        <h2>Ask the Sommelier</h2>
+        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 5px;">Ask the Sommelier</h2>
         <form class="contact-form" name="contact" method="POST" data-netlify="true">
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <textarea name="message" placeholder="Your Question" required></textarea>
-            <button type="submit" class="btn-send">Send</button>
+            <button type="submit" class="btn-send">Send Message</button>
         </form>
     </section>
 
-    <footer style="text-align: center; padding: 60px; color: #666; font-size: 0.8rem; letter-spacing: 1px;">
-        <p>No spam. Just real wine and restaurant truth.</p>
+    <footer style="text-align: center; padding: 60px; color: #555; font-size: 0.8rem; border-top: 1px solid #1a1a1a;">
         <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
