@@ -29,6 +29,9 @@
             align-items: center;
             padding: 30px 50px;
             border-bottom: 1px solid #1a1a1a;
+            background-color: var(--oscuro);
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
@@ -54,7 +57,7 @@
 
         /* Hero Section */
         .hero {
-            height: 80vh;
+            height: 70vh; /* Ajustado ligeramente para mejor proporción */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -63,6 +66,7 @@
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/Umberto_Main_Photo.jpg');
             background-size: cover;
             background-position: center;
+            position: relative;
         }
 
         .hero h1 {
@@ -79,38 +83,50 @@
             margin-top: 20px;
         }
 
-        /* Grilla de Temáticas (Filtros) */
+        /* Grilla de Temáticas (Filtros) - CORREGIDA */
         .grid-section {
-            padding: 100px 50px;
+            padding: 80px 20px; /* Reducido padding lateral */
             background-color: var(--oscuro);
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 20px; /* Espacio entre columnas */
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%; /* Fuerza el ancho total */
         }
 
         .grid-item {
             position: relative;
-            height: 450px;
+            height: 450px; /* Altura fija para simetría */
             overflow: hidden;
             text-decoration: none;
             display: block;
+            border: 1px solid #1a1a1a; /* Borde sutil por defecto */
+            transition: border-color 0.3s;
         }
 
+        .grid-item:hover {
+            border-color: var(--dorado); /* Borde dorado al hacer hover */
+        }
+
+        /* Lógica para forzar la proporción de la imagen */
         .item-bg {
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
+            background-size: cover; /* Cubre todo el espacio sin deformar */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .grid-item:hover .item-bg {
-            transform: scale(1.1);
+            transform: scale(1.05); /* Efecto de zoom más sutil */
         }
 
         .item-overlay {
@@ -119,19 +135,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%);
             transition: background 0.3s;
+            z-index: 1;
         }
 
         .grid-item:hover .item-overlay {
-            background: rgba(0,0,0,0.2);
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%);
         }
 
         .item-text {
             position: absolute;
-            bottom: 40px;
-            left: 40px;
+            bottom: 30px;
+            left: 30px;
+            right: 30px; /* Asegura márgenes laterales */
             color: white;
+            z-index: 2;
         }
 
         .item-text span {
@@ -139,21 +158,31 @@
             text-transform: uppercase;
             font-size: 0.7rem;
             letter-spacing: 2px;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .item-text h3 {
-            margin: 10px 0 0;
-            font-size: 1.8rem;
+            margin: 0;
+            font-size: 1.6rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            line-height: 1.2;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
-            nav { padding: 20px; flex-direction: column; }
-            .nav-links { margin-top: 20px; }
+        /* Mobile Adjustments - CORREGIDOS */
+        @media (max-width: 900px) {
+            .grid-container { 
+                grid-template-columns: 1fr; /* Una columna en móvil */
+                gap: 15px;
+            }
+            .grid-item {
+                height: 350px; /* Altura menor en móvil */
+            }
+            .hero h1 { font-size: 2.5rem; letter-spacing: 5px; }
+            nav { padding: 20px; flex-direction: column; text-align: center; }
+            .logo { margin-bottom: 15px; }
+            .nav-links a { margin: 0 10px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -204,7 +233,7 @@
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a;">
+    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a; background-color: var(--carbón);">
         <p>&copy; 2026 Umberto Campioni. Built by Rivera Engineering.</p>
     </footer>
 
