@@ -241,4 +241,63 @@
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
                 <a href="blog.html" class="btn-gold">Start Reading</a>
-                <a href="#work-with-me" class
+                <a href="#work-with-me" class="btn-outline">Ask me anything</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="grid-section">
+        <div class="grid-container">
+            <a href="blog.html?cat=Choose+the+wine" class="grid-item">
+                <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
+                <div class="item-text">
+                    <span>Selection</span>
+                    <h3>Wine Uncorked</h3>
+                </div>
+            </a>
+            
+            <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
+                <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
+                <div class="item-text">
+                    <span>Consulting</span>
+                    <h3>No BS Truth</h3>
+                </div>
+            </a>
+            
+            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
+                <div class="item-bg" style="background-image: url('images/from the floor.jpeg');"></div>
+                <div class="item-text">
+                    <span>Hospitality</span>
+                    <h3>From the Floor</h3>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="work-with-me" class="contact-section">
+        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 4px; font-size: 1.5rem;">Ask the Sommelier</h2>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Your Question" required></textarea>
+            <button type="submit" class="btn-send">Send Message</button>
+        </form>
+    </section>
+
+    <footer style="text-align: center; padding: 50px 20px; color: #555; font-size: 0.75rem; border-top: 1px solid #1a1a1a;">
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
