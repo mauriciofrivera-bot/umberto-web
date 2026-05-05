@@ -10,114 +10,166 @@
             --dorado: #b58d52;
             --oscuro: #0a0a0a;
             --carbón: #121212;
+            --blanco-suave: #f0f0f0;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--oscuro);
-            color: white;
-            font-family: 'Times New Roman', serif;
-            overflow-x: hidden;
+            color: var(--blanco-suave);
+            font-family: 'Garamond', 'Times New Roman', serif;
+            line-height: 1.6;
         }
 
-        /* Navegación */
+        /* Nav Estilo Minimal */
         nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 50px;
-            border-bottom: 1px solid #1a1a1a;
-            background-color: var(--oscuro);
-        }
-
-        .logo {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--dorado);
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 30px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--dorado); }
-
-        /* Hero Section */
-        .hero {
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/Umberto_Main_Photo.jpg');
+            padding: 25px;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: var(--oscuro);
+        }
+
+        nav a {
+            color: var(--blanco-suave);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--dorado); }
+
+        /* Hero Section Basado en la Foto */
+        .hero {
+            height: 90vh;
+            display: flex;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.1) 100%), url('images/Umberto_Main_Photo.jpg');
             background-size: cover;
             background-position: center;
+            align-items: center;
+            padding: 0 10%;
         }
 
-        .hero h1 { font-size: 4rem; letter-spacing: 10px; text-transform: uppercase; margin: 0; }
-        .hero p { color: var(--dorado); text-transform: uppercase; letter-spacing: 5px; margin-top: 20px; }
+        .hero-content { max-width: 600px; }
 
-        /* Grilla de 3 Botones */
-        .grid-section { padding: 80px 20px; }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        /* Botones del Diseño */
+        .btn-gold {
+            background-color: var(--dorado);
+            color: var(--oscuro);
+            padding: 12px 30px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 15px;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--dorado);
+            color: var(--blanco-suave);
+            padding: 11px 29px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* Grid de 3 Temáticas */
+        .grid-section { padding: 100px 5%; text-align: center; }
+        .grid-section h2 { font-size: 2rem; margin-bottom: 50px; letter-spacing: 3px; }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .grid-item {
-            position: relative;
-            height: 500px;
-            overflow: hidden;
             text-decoration: none;
-            display: block;
-            border: 1px solid #1a1a1a;
+            color: white;
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border: 1px solid #222;
         }
 
         .item-bg {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.8s ease;
-            position: absolute;
+            width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transition: 0.5s;
         }
 
         .grid-item:hover .item-bg { transform: scale(1.05); }
 
-        .item-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 70%);
-            z-index: 1;
-        }
-
         .item-text {
-            position: absolute;
-            bottom: 40px; left: 30px; right: 30px;
-            z-index: 2;
+            position: absolute; bottom: 0; width: 100%;
+            padding: 30px 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
         }
 
-        .item-text span { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; display: block; }
-        .item-text h3 { margin: 5px 0 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .item-text h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; }
+        .item-text span { color: var(--dorado); font-size: 0.7rem; text-transform: uppercase; }
 
-        /* Formulario Section */
-        .contact-section { padding: 100px 20px; background-color: var(--carbón); text-align: center; }
-        .contact-section h2 { color: var(--dorado); text-transform: uppercase; letter-spacing: 5px; }
+        /* Sección Contacto: Ask the Sommelier */
+        .contact-section {
+            padding: 80px 10%;
+            background: var(--carbón);
+            text-align: center;
+        }
 
-        @media (max-width: 900px) {
-            .grid-container { grid-template-columns: 1fr; }
+        .contact-section h2 { color: var(--dorado); margin-bottom: 40px; text-transform: uppercase; }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            background: transparent;
+            border: 1px solid #444;
+            padding: 15px;
+            color: white;
+            font-family: serif;
+        }
+
+        .contact-form textarea { grid-column: span 2; height: 100px; }
+
+        .btn-send {
+            grid-column: span 2;
+            background: var(--dorado);
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container, .contact-form { grid-template-columns: 1fr; }
+            .contact-form textarea { grid-column: span 1; }
             .hero h1 { font-size: 2.5rem; }
         }
     </style>
@@ -125,25 +177,28 @@
 <body>
 
     <nav>
-        <div class="logo">Umberto Campioni</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="blog.html">Blog</a>
-            <a href="about.html">About</a>
-            <a href="#work-with-me">Contact</a>
-        </div>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="#work-with-me">Contact</a>
     </nav>
 
-    <section class="hero">
-        <h1>Sommelier</h1>
-        <p>Expertise & Wine Culture</p>
-    </section>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Wine. Hospitality. <br>No bullshit.</h1>
+            <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
+            <div class="hero-buttons">
+                <a href="blog.html" class="btn-gold">Start reading</a>
+                <a href="#work-with-me" class="btn-outline">Ask me anything</a>
+            </div>
+        </div>
+    </header>
 
     <section class="grid-section">
+        <h2>What You'll Find Here</h2>
         <div class="grid-container">
             <a href="blog.html?cat=Choose+the+wine" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/Wine Uncorked_Logo.jpg');"></div>
-                <div class="item-overlay"></div>
                 <div class="item-text">
                     <span>Selection</span>
                     <h3>Wine Uncorked</h3>
@@ -152,7 +207,6 @@
             
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
-                <div class="item-overlay"></div>
                 <div class="item-text">
                     <span>Consulting</span>
                     <h3>No BS Truth</h3>
@@ -161,7 +215,6 @@
             
             <a href="blog.html?cat=Work+the+Floor" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/from the floor.jpeg');"></div>
-                <div class="item-overlay"></div>
                 <div class="item-text">
                     <span>Hospitality</span>
                     <h3>From the Floor</h3>
@@ -171,12 +224,18 @@
     </section>
 
     <section id="work-with-me" class="contact-section">
-        <h2>Work with me</h2>
-        <p style="color: #888;">Formulario en construcción...</p>
+        <h2>Ask the Sommelier</h2>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Your Question" required></textarea>
+            <button type="submit" class="btn-send">Send</button>
+        </form>
     </section>
 
-    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a;">
-        <p>&copy; 2026 Umberto Campioni. Built by Rivera Engineering.</p>
+    <footer style="text-align: center; padding: 60px; color: #666; font-size: 0.8rem; letter-spacing: 1px;">
+        <p>No spam. Just real wine and restaurant truth.</p>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
     <script>
