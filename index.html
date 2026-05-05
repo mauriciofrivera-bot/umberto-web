@@ -3,293 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umberto Campioni | Sommelier</title>
+    <title>Umberto Campioni | Sommelier & Wine Consultant</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    
     <style>
         :root {
             --dorado: #b58d52;
             --oscuro: #0a0a0a;
             --carbón: #121212;
-            --blanco: #ffffff;
-            --gris-borde: #2a2a2a;
+            --texto-gris: #a0a0a0;
         }
 
         body {
-            font-family: 'Times New Roman', serif;
-            background-color: var(--oscuro);
-            color: var(--blanco);
             margin: 0;
+            padding: 0;
+            background-color: var(--oscuro);
+            color: white;
+            font-family: 'Times New Roman', serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* --- NAVEGACIÓN --- */
+        /* Navegación Elegante */
         nav {
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            padding: 25px;
-            position: absolute;
-            width: 100%;
-            z-index: 100;
-            box-sizing: border-box;
-        }
-
-        nav a {
-            color: var(--blanco);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
-        nav a:hover { color: var(--dorado); }
-
-        /* --- HERO --- */
-        .hero {
-            height: 75vh;
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            position: relative;
+            padding: 30px 50px;
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        .hero-images {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            z-index: 1;
+        .logo {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--dorado);
         }
 
-        .hero-img { width: 50%; height: 100%; background-size: cover; position: relative; }
-
-        /* RUTAS CORREGIDAS: Ahora buscan dentro de la carpeta /images/ */
-        .img-left {
-            background-image: url('images/Glasses_Bkgrnd.jpg');
-            background-position: center;
-            -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
-            mask-image: linear-gradient(to right, black 60%, transparent 100%);
-        }
-
-        .img-right {
-            background-image: url('images/Umberto_Main_Photo.jpg');
-            background-position: top center; 
-            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
-            mask-image: linear-gradient(to left, black 60%, transparent 100%);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.45);
-            z-index: 2;
-        }
-
-        .hero-content { position: relative; z-index: 10; text-align: center; }
-
-        .hero-text h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); line-height: 0.9; margin: 0; text-transform: uppercase; letter-spacing: -2px; }
-
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
-
-        .btn-main {
-            border: 1px solid var(--blanco);
-            padding: 12px 24px;
-            color: var(--blanco);
+        .nav-links a {
+            color: white;
             text-decoration: none;
+            margin-left: 30px;
             text-transform: uppercase;
             font-size: 0.75rem;
             letter-spacing: 2px;
-            background: rgba(0,0,0,0.3);
-            transition: 0.3s;
+            transition: color 0.3s;
         }
 
-        .btn-main:hover { background: var(--dorado); border-color: var(--dorado); color: var(--oscuro); }
+        .nav-links a:hover {
+            color: var(--dorado);
+        }
 
-        /* --- SECCIÓN GRILLA --- */
-        .grid-section {
-            padding: 50px 10px;
-            background: linear-gradient(to bottom, var(--oscuro), var(--carbón));
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border-top: 1px solid var(--gris-borde);
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/Umberto_Main_Photo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .hero p {
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-top: 20px;
+        }
+
+        /* Grilla de Temáticas (Filtros) */
+        .grid-section {
+            padding: 100px 50px;
+            background-color: var(--oscuro);
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 10px;
-            max-width: 1100px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .grid-item {
             position: relative;
-            height: 320px;
+            height: 450px;
             overflow: hidden;
-            display: flex;
-            align-items: flex-end; 
-            justify-content: center; 
             text-decoration: none;
-            border: 1px solid var(--gris-borde);
-            transition: 0.3s;
+            display: block;
         }
 
-        .grid-item:hover { border-color: var(--dorado); }
-
         .item-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            z-index: 1;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .grid-item:hover .item-bg {
+            transform: scale(1.1);
         }
 
         .item-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, transparent 60%);
-            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            transition: background 0.3s;
+        }
+
+        .grid-item:hover .item-overlay {
+            background: rgba(0,0,0,0.2);
         }
 
         .item-text {
-            position: relative;
-            z-index: 3;
-            padding: 20px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .item-text h3 { color: var(--blanco); font-size: 0.85rem; text-transform: uppercase; margin: 5px 0 0; letter-spacing: 1px; }
-
-        .item-text span { color: var(--dorado); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- SECCIÓN CONTACTO --- */
-        .contact-section {
-            padding: 80px 20px;
-            background-color: var(--carbón);
-            text-align: center;
-            border-top: 1px solid var(--gris-borde);
-        }
-
-        .contact-container { max-width: 600px; margin: 0 auto; }
-
-        form { display: flex; flex-direction: column; gap: 12px; }
-
-        .form-row { display: flex; gap: 12px; }
-
-        input, textarea {
-            background: #0a0a0a;
-            border: 1px solid var(--gris-borde);
-            padding: 18px;
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
             color: white;
-            font-family: 'Times New Roman', serif;
-            outline: none;
-            transition: 0.3s;
         }
 
-        .form-row input { flex: 1; }
-
-        input:focus, textarea:focus { border-color: var(--dorado); }
-
-        .btn-submit {
-            background: var(--dorado);
-            color: var(--oscuro);
-            border: none;
-            padding: 18px;
+        .item-text span {
+            color: var(--dorado);
             text-transform: uppercase;
-            font-weight: bold;
-            cursor: pointer;
-            letter-spacing: 3px;
-            margin-top: 10px;
-            transition: 0.3s;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
         }
 
-        .btn-submit:hover { background: var(--blanco); }
+        .item-text h3 {
+            margin: 10px 0 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-        /* --- RESPONSIVE SMARTPHONE --- */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .hero { height: 55vh; }
-            .hero-images { flex-direction: row; }
-            .hero-text h1 { font-size: 2.8rem; }
-            .grid-item { height: 200px; }
-            .form-row { flex-direction: column; }
-            .contact-section { padding: 50px 20px; }
+            .grid-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            nav { padding: 20px; flex-direction: column; }
+            .nav-links { margin-top: 20px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="blog.html">Blog</a>
-        <a href="#contact">Work with me</a>
+        <div class="logo">Umberto Campioni</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="blog.html">Journal</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-images">
-            <div class="hero-img img-left"></div>
-            <div class="hero-img img-right"></div>
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Wine.<br>Hospitality.<br><span style="color: var(--dorado);">No bullshit.</span></h1>
-                <div class="btn-group">
-                    <a href="blog.html" class="btn-main">Read the blog</a>
-                    <a href="#contact" class="btn-main">Work with me</a>
-                </div>
-            </div>
-        </div>
+        <h1>Sommelier</h1>
+        <p>Expertise & Wine Culture</p>
     </section>
 
     <section class="grid-section">
         <div class="grid-container">
-            <a href="blog.html" class="grid-item">
+            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/Wine_Uncorked_Logo.jpg');"></div>
                 <div class="item-overlay"></div>
-                <div class="item-text"><span>Education</span><h3>Wine Uncorked</h3></div>
+                <div class="item-text">
+                    <span>Service & Hospitality</span>
+                    <h3>Work the Floor</h3>
+                </div>
             </a>
-            <a href="#contact" class="grid-item">
+            
+            <a href="blog.html?cat=Choose+the+wine" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/NBS_Logo.jpg');"></div>
                 <div class="item-overlay"></div>
-                <div class="item-text"><span>Consulting</span><h3>Things your sommelier won't tell you</h3></div>
+                <div class="item-text">
+                    <span>Selection</span>
+                    <h3>Choose the wine</h3>
+                </div>
             </a>
-            <a href="#" class="grid-item">
+            
+            <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
                 <div class="item-bg" style="background-image: url('images/Umberto_Main_Photo.jpg');"></div>
                 <div class="item-overlay"></div>
-                <div class="item-text"><span>Expertise</span><h3>Meet Umberto</h3></div>
+                <div class="item-text">
+                    <span>No BS Consulting</span>
+                    <h3>Tell you what really matters</h3>
+                </div>
             </a>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <div class="contact-container">
-            <h2 style="text-transform: uppercase; letter-spacing: 4px; margin-bottom: 5px; color: var(--blanco);">Work with me</h2>
-            <p style="color: var(--dorado); font-style: italic; margin-bottom: 40px;">No spam. Just real wine and restaurant truth.</p>
-            
-            <form name="inquiries" method="POST" data-netlify="true">
-                <div class="form-row">
-                    <input type="text" name="name" placeholder="NAME" required>
-                    <input type="email" name="email" placeholder="EMAIL" required>
-                </div>
-                <textarea name="message" rows="4" placeholder="YOUR QUESTION OR PROJECT" required></textarea>
-                <button type="submit" class="btn-submit">Send Inquiry</button>
-            </form>
-        </div>
-    </section>
+    <footer style="text-align: center; padding: 50px; color: #444; border-top: 1px solid #1a1a1a;">
+        <p>&copy; 2026 Umberto Campioni. Built by Rivera Engineering.</p>
+    </footer>
 
     <script>
-      // Este script ayuda a que el widget de Netlify Identity funcione correctamente al loguearse
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
+        // Lógica para el widget de identidad de Netlify
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
             });
-          }
-        });
-      }
+        }
     </script>
 </body>
 </html>

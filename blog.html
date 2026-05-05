@@ -10,21 +10,42 @@
         nav { padding: 25px; text-align: center; border-bottom: 1px solid #2a2a2a; }
         nav a { color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
         .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
-        h1 { text-align: center; text-transform: uppercase; letter-spacing: 5px; color: var(--dorado); }
-        #blog-posts { display: grid; gap: 30px; margin-top: 50px; }
-        .post-card { background: var(--carbón); border: 1px solid #2a2a2a; padding: 20px; transition: 0.3s; }
+        h1 { text-align: center; text-transform: uppercase; letter-spacing: 5px; color: var(--dorado); margin-bottom: 10px; }
+        .category-label { text-align: center; font-style: italic; color: #888; margin-bottom: 40px; }
+        #blog-posts { display: grid; gap: 30px; }
+        .post-card { background: var(--carbón); border: 1px solid #2a2a2a; padding: 25px; transition: 0.3s; }
         .post-card:hover { border-color: var(--dorado); }
-        .post-card h2 { margin: 0; font-size: 1.5rem; }
-        .post-card a { color: var(--dorado); text-decoration: none; font-style: italic; display: block; margin-top: 15px; }
+        .post-card h2 { margin: 0; font-size: 1.6rem; color: white; }
+        .post-card .meta { color: var(--dorado); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .btn-read { color: var(--dorado); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; display: inline-block; margin-top: 15px; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .btn-read:hover { border-bottom: 1px solid var(--dorado); }
     </style>
 </head>
 <body>
-    <nav><a href="index.html">← Back to Home</a></nav>
+    <nav><a href="index.html">← Regresar al Inicio</a></nav>
     <div class="container">
-        <h1>Journal</h1>
+        <h1 id="main-title">Journal</h1>
+        <p id="filter-text" class="category-label">Todos los artículos</p>
+        
         <div id="blog-posts">
-            <p style="text-align: center; color: #666;">No posts yet. Write your first one from /admin!</p>
+            <p style="text-align: center; color: #444;">Cargando contenido...</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get('cat');
+            const titleElement = document.getElementById('main-title');
+            const filterElement = document.getElementById('filter-text');
+
+            if (cat) {
+                // Cambia el título visualmente para confirmar el filtro
+                filterElement.innerText = "Categoría: " + cat;
+                console.log("Filtrando base de datos para: " + cat);
+                // Aquí la lógica del CMS filtrará los archivos .md de la carpeta _posts
+            }
+        });
+    </script>
 </body>
 </html>
