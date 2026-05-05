@@ -13,7 +13,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Categoría", name: "category", widget: "select", options: ["Work the Floor", "Choose the wine", "Tell you what really matters"] }
+      - { label: "Categorías", name: "categories", widget: "list", summary: "{{fields.category}}", field: { label: "Categoría", name: "category", widget: "select", options: ["Work the Floor", "Choose the wine", "Tell you what really matters"] } }
       - { label: "Fecha", name: "date", widget: "datetime" }
       - { label: "Imagen de Portada", name: "thumbnail", widget: "image" }
       - { label: "Cuerpo del Mensaje", name: "body", widget: "markdown" }
