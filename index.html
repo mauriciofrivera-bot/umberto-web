@@ -96,7 +96,7 @@
         /* BANNER AVISO */
         .article-banner {
             width: 100%;
-            min-height: 300px;
+            min-height: 280px;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/Featured_Background.jpg');
             background-size: cover;
             background-position: center;
@@ -105,67 +105,60 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             border-top: 1px solid #222;
         }
 
         .article-banner h2 { font-size: clamp(1.1rem, 4vw, 2.2rem); margin-bottom: 15px; }
 
-        /* CUADRÍCULA - FORZADA A 3 COLUMNAS SIEMPRE */
+        /* CUADRÍCULA - 3 COLUMNAS FIJAS CON ALINEACIÓN SIMÉTRICA */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr) !important; /* BLOQUEO DE ESTRUCTURA VERTICAL */
+            grid-template-columns: repeat(3, 1fr) !important;
             width: 100%;
             background: var(--oscuro);
         }
 
         .grid-item {
             position: relative;
-            height: clamp(180px, 40vw, 400px);
+            height: clamp(180px, 35vw, 400px);
             text-decoration: none !important;
             border: 0.5px solid #111;
             display: flex;
             flex-direction: column;
             background: #000;
+            overflow: hidden;
         }
 
+        /* Contenedor unificado para centrar todas las imágenes igual */
         .item-img-box {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 15px; /* Espacio uniforme para evitar desalineación */
         }
 
         .item-img-box img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+            display: block;
         }
 
         .item-text {
             width: 100%;
-            padding: 15px 2px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding-bottom: 15px;
+            background: transparent;
             text-align: center;
         }
 
         .item-text h3 {
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: clamp(0.5rem, 2.5vw, 1.2rem); /* Ajuste dinámico para no desbordar */
+            font-size: clamp(0.5rem, 2.5vw, 1rem);
             color: white !important;
         }
-
-        /* CONTACTO */
-        .contact-section { padding: 60px 5%; background: var(--carbón); text-align: center; }
-        .contact-form {
-            max-width: 600px; margin: 30px auto 0;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        }
-        .contact-form input, .contact-form textarea { background: #000; border: 1px solid #222; padding: 12px; color: white; font-size: 0.8rem; }
-        .contact-form textarea { grid-column: span 2; height: 100px; }
-        .btn-send { grid-column: span 2; background: var(--dorado); border: none; padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold; }
 
         footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
 
@@ -177,7 +170,7 @@
         <a href="index.html">Home</a>
         <a href="blog.html">Blog</a>
         <a href="about.html">About</a>
-        <a href="#work-with-me">Contact</a>
+        <a href="contact.html">Contact</a>
     </nav>
 
     <header class="hero">
@@ -188,7 +181,7 @@
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
                 <a href="blog.html" class="btn-gold">Start Reading</a>
-                <a href="#work-with-me" class="btn-outline">Ask me anything</a>
+                <a href="contact.html" class="btn-outline">Ask me anything</a>
             </div>
         </div>
     </header>
@@ -204,30 +197,26 @@
     <section class="grid-section">
         <div class="grid-container">
             <a href="blog.html?cat=Choose+the+wine" class="grid-item">
-                <div class="item-img-box"><img src="images/Wine Uncorked_Logo.jpg"></div>
+                <div class="item-img-box">
+                    <img src="images/Wine Uncorked_Logo.jpg" alt="Wine Uncorked">
+                </div>
                 <div class="item-text"><h3>Wine Uncorked</h3></div>
             </a>
             
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
-                <div class="item-img-box"><img src="images/NBS_Logo.jpg"></div>
+                <div class="item-img-box">
+                    <img src="images/NBS_Logo.jpg" alt="No BS Truth">
+                </div>
                 <div class="item-text"></div>
             </a>
             
             <a href="blog.html?cat=Work+the+Floor" class="grid-item">
-                <div class="item-img-box"><img src="images/from the floor.jpeg"></div>
+                <div class="item-img-box">
+                    <img src="images/from the floor.jpeg" alt="From the Floor">
+                </div>
                 <div class="item-text"><h3>From the Floor</h3></div>
             </a>
         </div>
-    </section>
-
-    <section id="work-with-me" class="contact-section">
-        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 3px; font-size: 1.2rem;">Ask the Sommelier</h2>
-        <form class="contact-form" name="contact" method="POST" data-netlify="true">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="message" placeholder="Your Question" required></textarea>
-            <button type="submit" class="btn-send">Send Message</button>
-        </form>
     </section>
 
     <footer>
