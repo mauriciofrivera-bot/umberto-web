@@ -13,20 +13,25 @@
             --blanco-suave: #f0f0f0;
         }
 
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             background-color: var(--oscuro);
             color: var(--blanco-suave);
             font-family: 'Garamond', 'Times New Roman', serif;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* NAVEGACIÓN */
+        /* NAVEGACIÓN SIN GAP */
         nav {
             display: flex;
             justify-content: center;
-            padding: 20px;
+            padding: 25px;
             gap: 30px;
             background: var(--oscuro);
             border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -46,10 +51,10 @@
 
         nav a:hover { color: var(--dorado); }
 
-        /* HERO - BLENDING Y ROSTRO */
+        /* HERO - FLUIDO */
         .hero {
             position: relative;
-            height: 85vh;
+            height: 90vh;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -58,7 +63,7 @@
 
         .hero-left {
             position: absolute;
-            left: 0; top: 0; width: 65%; height: 100%;
+            left: 0; top: 0; width: 60%; height: 100%;
             background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
             background-size: cover;
             mask-image: linear-gradient(to right, black 40%, transparent 100%);
@@ -68,7 +73,7 @@
 
         .hero-right {
             position: absolute;
-            right: 0; top: 0; width: 65%; height: 100%;
+            right: 0; top: 0; width: 60%; height: 100%;
             background: url('images/Umberto_Main_Photo.jpg') no-repeat;
             background-position: center 15%; 
             background-size: cover;
@@ -80,135 +85,160 @@
         .hero-content {
             position: relative;
             z-index: 10;
-            padding-left: 8%;
-            max-width: 600px;
-            text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+            padding-left: 10%;
+            max-width: 700px;
+            text-shadow: 0 2px 20px rgba(0,0,0,1);
         }
 
-        .hero h1 { font-size: 3.5rem; line-height: 1.1; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; }
-        .hero p { font-size: 1.2rem; font-style: italic; margin-bottom: 40px; color: #eee; }
+        .hero h1 { font-size: 4rem; line-height: 1; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .hero p { font-size: 1.4rem; font-style: italic; margin-bottom: 40px; color: #ccc; }
 
         .btn-gold {
             background-color: var(--dorado);
             color: var(--oscuro) !important;
-            padding: 15px 30px;
+            padding: 18px 35px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: bold;
             display: inline-block;
-            transition: 0.3s;
+            transition: 0.4s;
         }
 
         .btn-outline {
             border: 1px solid var(--dorado);
             color: white !important;
-            padding: 14px 29px;
+            padding: 17px 34px;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             display: inline-block;
-            transition: 0.3s;
+            transition: 0.4s;
+            margin-left: 15px;
         }
 
-        /* SECCIÓN ARTÍCULO DESTACADO */
+        /* SECCIÓN AVISO - TOTALMENTE FLUIDA */
         .featured-article {
-            padding: 80px 8%;
             background-color: var(--oscuro);
+            padding: 0; /* Eliminamos el gap exterior */
+            width: 100%;
         }
 
         .article-banner {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/Featured_Background.jpg');
+            width: 100%;
+            min-height: 450px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/Featured_Background.jpg');
             background-size: cover;
             background-position: center;
-            padding: 80px 50px;
-            border: 1px solid #222;
-            text-align: left;
+            background-attachment: fixed; /* Efecto parallax para más elegancia */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
         }
 
-        .article-banner h2 { font-size: 2.2rem; margin-bottom: 20px; }
-        .article-banner p { font-style: italic; color: #ccc; margin-bottom: 35px; max-width: 550px; font-size: 1.1rem; }
+        .article-banner h2 { font-size: 2.5rem; margin-bottom: 20px; max-width: 800px; text-transform: uppercase; }
+        .article-banner p { font-style: italic; color: #ddd; margin-bottom: 40px; max-width: 600px; font-size: 1.2rem; }
 
-        /* CUADRÍCULA - TIPOGRAFÍA NIVELADA */
-        .grid-section { padding: 60px 5%; background: var(--oscuro); }
+        /* CUADRÍCULA SIN GAPS */
+        .grid-section { 
+            padding: 0; 
+            background: var(--oscuro);
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            gap: 0; /* Eliminamos espacios entre cuadros */
         }
 
         .grid-item {
             position: relative;
-            height: 450px;
+            height: 550px;
             text-decoration: none !important;
             overflow: hidden;
-            border: 1px solid #1a1a1a;
             color: white !important;
-            display: flex; /* Para centrado total */
+            display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            border: 1px solid #0a0a0a;
         }
-
-        .grid-item:visited { color: white !important; }
 
         .item-bg {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            transition: 0.8s ease;
+            transition: 1s ease;
             z-index: 1;
         }
 
-        .grid-item:hover .item-bg { transform: scale(1.05); }
+        .grid-item:hover .item-bg { transform: scale(1.08); }
 
         .item-text {
             position: relative;
             z-index: 2;
             width: 100%;
-            padding: 60px 0; /* Aumentado para mejor balance */
-            background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 80px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.98));
+            text-align: center;
         }
 
         .item-text h3 {
-            margin: 0;
             text-transform: uppercase;
-            letter-spacing: 4px; /* Mayor tracking para elegancia */
-            font-size: 1.25rem; /* Tamaño unificado */
+            letter-spacing: 5px;
+            font-size: 1.5rem;
             color: white !important;
+        }
+
+        /* CONTACTO FLUIDO */
+        .contact-section { 
+            padding: 100px 10%; 
+            background: var(--carbón); 
             text-align: center;
-            width: 90%;
         }
 
-        /* CONTACTO */
-        .contact-section { padding: 80px 10%; background: var(--carbón); text-align: center; }
         .contact-form {
-            max-width: 600px; margin: 30px auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+            max-width: 700px; margin: 50px auto 0;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
         }
-        .contact-form input, .contact-form textarea { background: #000; border: 1px solid #2a2a2a; padding: 15px; color: white; font-family: serif; }
-        .contact-form textarea { grid-column: span 2; height: 120px; }
-        .btn-send { grid-column: span 2; background: var(--dorado); border: none; padding: 15px; cursor: pointer; text-transform: uppercase; font-weight: bold; font-size: 0.9rem; }
+        
+        .contact-form input, .contact-form textarea { 
+            background: #000; border: 1px solid #333; padding: 20px; color: white; 
+            font-family: serif; font-size: 1rem;
+        }
+        
+        .contact-form textarea { grid-column: span 2; height: 150px; }
+        
+        .btn-send { 
+            grid-column: span 2; background: var(--dorado); border: none; 
+            padding: 20px; cursor: pointer; text-transform: uppercase; 
+            font-weight: bold; font-size: 1rem; letter-spacing: 2px;
+        }
 
-        /* RESPONSIVO SMARTPHONE */
+        footer {
+            text-align: center; 
+            padding: 80px 20px; 
+            color: #444; 
+            font-size: 0.8rem; 
+            background: var(--oscuro);
+            border-top: 1px solid #111;
+        }
+
+        /* RESPONSIVO */
         @media (max-width: 768px) {
             .hero { height: auto; min-height: 100vh; flex-direction: column; }
-            .hero-left, .hero-right { position: relative; width: 100%; height: 35vh; mask-image: none; -webkit-mask-image: none; }
-            .hero-right { background-position: center center; }
-            .hero-content { padding: 40px 20px; text-align: center; }
-            .hero h1 { font-size: 2.2rem; }
-            .btn-gold, .btn-outline { width: 100%; margin: 0 0 10px 0; text-align: center; }
-            .article-banner { padding: 40px 20px; text-align: center; }
-            .article-banner h2 { font-size: 1.6rem; }
+            .hero-left, .hero-right { position: relative; width: 100%; height: 40vh; mask-image: none; -webkit-mask-image: none; }
+            .hero-content { padding: 60px 20px; text-align: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-outline { margin-left: 0; margin-top: 15px; }
+            .article-banner h2 { font-size: 1.8rem; }
             .grid-container { grid-template-columns: 1fr; }
-            .item-text h3 { font-size: 1.1rem; letter-spacing: 2px; }
+            .grid-item { height: 450px; }
             .contact-form { grid-template-columns: 1fr; }
             .contact-form textarea, .btn-send { grid-column: span 1; }
         }
@@ -231,7 +261,7 @@
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
                 <a href="blog.html" class="btn-gold">Start Reading</a>
-                <a href="#work-with-me" class="btn-outline" style="margin-left: 15px;">Ask me anything</a>
+                <a href="#work-with-me" class="btn-outline">Ask me anything</a>
             </div>
         </div>
     </header>
@@ -268,7 +298,7 @@
     </section>
 
     <section id="work-with-me" class="contact-section">
-        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 4px;">Ask the Sommelier</h2>
+        <h2 style="color: var(--dorado); text-transform: uppercase; letter-spacing: 5px; font-size: 2rem;">Ask the Sommelier</h2>
         <form class="contact-form" name="contact" method="POST" data-netlify="true">
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -277,7 +307,7 @@
         </form>
     </section>
 
-    <footer style="text-align: center; padding: 60px 20px; color: #444; font-size: 0.8rem; border-top: 1px solid #111;">
+    <footer>
         <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
