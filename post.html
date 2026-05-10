@@ -1,3 +1,6 @@
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
 <script>
     const USER = 'mauriciofrivera-bot';
     const REPO = 'umberto-web';
@@ -12,51 +15,43 @@
             return;
         }
 
-        // Añadimos un timestamp (?t=...) para obligar a GitHub a darnos la versión más nueva
-        const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}?t=${Date.now()}`;
+        const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
         try {
             const res = await fetch(url);
-            
-            if (!res.ok) {
-                throw new Error(`No se pudo acceder al archivo. Estado: ${res.status}`);
-            }
+            if (!res.ok) throw new Error("No se encontró el archivo del artículo.");
 
-            const rawText = await res.text();
-            const parts = rawText.split('---');
+            const text = await res.text();
+            const parts = text.split('---');
 
             if (parts.length >= 3) {
                 const meta = jsyaml.load(parts[1]);
-                const markdownContent = parts.slice(2).join('---');
+                const content = parts.slice(2).join('---');
 
-                document.getElementById('post-title').innerText = meta.title || "Sin Título";
-                document.getElementById('post-category').innerText = meta.category || "Journal";
+                document.getElementById('post-title').innerText = meta.title || "Journal";
+                document.getElementById('post-category').innerText = meta.category || "General";
                 
-                if (metadata.featured_image) {
+                // --- CORRECCIÓN DE RUTA DE IMAGEN ---
+                if (meta.featured_image) {
                     const img = document.getElementById('post-image');
-                    img.src = metadata.featured_image;
+                    // Quitamos el "/" inicial si existe para que la ruta sea relativa
+                    let cleanSrc = meta.featured_image.startsWith('/') 
+                        ? meta.featured_image.substring(1) 
+                        : meta.featured_image;
+                    
+                    img.src = cleanSrc;
                     img.style.display = 'block';
+                    img.onerror = () => img.style.display = 'none';
                 }
 
-                display.innerHTML = marked.parse(markdownContent);
-            } else {
-                // Si no hay separadores ---, renderizar todo el texto
-                display.innerHTML = marked.parse(rawText);
+                display.innerHTML = marked.parse(content);
             }
         } catch (err) {
-            console.error("Detalle del error:", err);
-            display.innerHTML = `
-                <div style="text-align:center; padding: 40px; border: 1px solid #222;">
-                    <p style="color: var(--dorado); font-weight: bold;">AVISO DE SISTEMA</p>
-                    <p style="font-size: 0.85rem; color: #888; margin-top: 10px;">
-                        ${err.message}<br>
-                        Intentando leer: <strong>_posts/${fileName}</strong>
-                    </p>
-                    <p style="font-size: 0.7rem; margin-top: 20px;">
-                        Si acabas de hacer el cambio a Público, espera 30 segundos y presiona <strong>CTRL + F5</strong>.
-                    </p>
-                </div>
-            `;
+            console.error("Error:", err);
+            display.innerHTML = `<p style="text-align:center; color: #666; padding: 50px;">
+                Cargando contenido... <br>
+                <small>Si no aparece, verifica que el artículo esté publicado en GitHub.</small>
+            </p>`;
         }
     }
 
