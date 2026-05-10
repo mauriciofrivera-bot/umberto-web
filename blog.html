@@ -68,12 +68,17 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    
     <script>
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
 
         async function loadBlog() {
             const grid = document.getElementById('blog-grid');
+            
+            // 1. Capturar el tag desde la URL (?cat=...)
+            const params = new URLSearchParams(window.location.search);
+            const catFilter = params.get('cat');
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts`);
@@ -91,33 +96,53 @@
                         if (parts.length >= 3) {
                             const meta = jsyaml.load(parts[1]);
                             
-                            // --- LÓGICA DE IMAGEN (Usando thumbnail) ---
-                            let imageSrc = '';
-                            if (meta.thumbnail) {
-                                // Extraemos el nombre del archivo para asegurar la ruta images/blog/
-                                const fileNameOnly = meta.thumbnail.split('/').pop();
-                                imageSrc = `images/blog/${fileNameOnly}`;
+                            // 2. Lógica de Filtrado por Categoría
+                            let shouldShow = true;
+                            if (catFilter) {
+                                // Normalizamos categorías del post para comparar sin errores de formato
+                                const postCategories = Array.isArray(meta.categories) 
+                                    ? meta.categories.map(c => c.toLowerCase().trim()) 
+                                    : (meta.categories ? [meta.categories.toLowerCase().trim()] : []);
+                                
+                                // Si el filtro no está en las categorías del post, no lo mostramos
+                                if (!postCategories.includes(catFilter.toLowerCase().trim())) {
+                                    shouldShow = false;
+                                }
                             }
 
-                            const card = document.createElement('a');
-                            card.href = `post.html?article=${file.name}`;
-                            card.className = 'post-card';
-                            card.innerHTML = `
-                                <div class="img-box">
-                                    <img src="${imageSrc}" alt="${meta.title}" 
-                                         onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${imageSrc.split('/').pop()}'">
-                                </div>
-                                <div class="post-info">
-                                    <h2>${meta.title || 'Sin título'}</h2>
-                                    <span class="read-link">Read article</span>
-                                </div>
-                            `;
-                            grid.appendChild(card);
-                            
-                            setTimeout(() => card.classList.add('active'), 100);
+                            if (shouldShow) {
+                                let imageSrc = '';
+                                if (meta.thumbnail) {
+                                    const fileNameOnly = meta.thumbnail.split('/').pop();
+                                    imageSrc = `images/blog/${fileNameOnly}`;
+                                }
+
+                                const card = document.createElement('a');
+                                card.href = `post.html?article=${file.name}`;
+                                card.className = 'post-card';
+                                card.innerHTML = `
+                                    <div class="img-box">
+                                        <img src="${imageSrc}" alt="${meta.title}" 
+                                             onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${imageSrc.split('/').pop()}'">
+                                    </div>
+                                    <div class="post-info">
+                                        <h2>${meta.title || 'Sin título'}</h2>
+                                        <span class="read-link">Read article</span>
+                                    </div>
+                                `;
+                                grid.appendChild(card);
+                                
+                                setTimeout(() => card.classList.add('active'), 100);
+                            }
                         }
                     }
                 }
+
+                // Mensaje si no hay resultados para un filtro específico
+                if (grid.innerHTML === '' && catFilter) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--dorado);">No se encontraron artículos en esta categoría.</p>';
+                }
+
             } catch (err) {
                 console.error(err);
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Error al sincronizar el Journal.</p>';
