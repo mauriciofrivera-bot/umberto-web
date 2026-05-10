@@ -1,68 +1,118 @@
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal | Umberto Campioni</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
-<script>
-    const USER = 'mauriciofrivera-bot';
-    const REPO = 'umberto-web';
+    <style>
+        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --blanco: #f0f0f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; line-height: 1.8; }
+        
+        nav { display: flex; justify-content: center; padding: 20px; gap: 25px; border-bottom: 1px solid #111; }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
 
-    async function renderPost() {
-        const params = new URLSearchParams(window.location.search);
-        const fileName = params.get('article');
-        const display = document.getElementById('post-content');
+        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        #post-title { font-size: 3rem; text-transform: uppercase; letter-spacing: 3px; font-weight: normal; margin-bottom: 10px; }
+        #post-category { color: var(--dorado); font-style: italic; font-size: 0.9rem; }
 
-        if (!fileName) {
-            window.location.href = 'blog.html';
-            return;
-        }
+        #post-image { width: 100%; height: auto; max-height: 500px; object-fit: cover; margin-bottom: 40px; display: none; border: 1px solid #222; }
+        #post-content { font-size: 1.2rem; color: #ccc; }
+        #post-content p { margin-bottom: 25px; }
 
-        const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
+        .back-btn { display: inline-block; margin-top: 40px; color: var(--dorado); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; border-bottom: 1px solid var(--dorado); }
+        
+        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
 
-        try {
-            const res = await fetch(url);
-            if (!res.ok) throw new Error("Artículo no encontrado.");
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
 
-            const text = await res.text();
-            const parts = text.split('---');
+    <article class="container">
+        <header class="header">
+            <div id="post-category">Cargando...</div>
+            <h1 id="post-title">Sincronizando</h1>
+        </header>
 
-            if (parts.length >= 3) {
-                const meta = jsyaml.load(parts[1]);
-                const content = parts.slice(2).join('---');
+        <img id="post-image" src="" alt="Portada">
 
-                // Títulos y Meta
-                document.title = `${meta.title || 'Journal'} | Umberto Campioni`;
-                document.getElementById('post-title').innerText = meta.title || "Sin título";
-                document.getElementById('post-category').innerText = meta.category || "Journal";
-                
-                // Lógica Robusta de Imagen
-                if (meta.featured_image) {
-                    const img = document.getElementById('post-image');
-                    
-                    // Limpiamos la ruta: quitamos "/" iniciales si existen
-                    let cleanSrc = meta.featured_image;
-                    if (cleanSrc.startsWith('/')) {
-                        cleanSrc = cleanSrc.substring(1);
-                    }
-                    
-                    img.src = cleanSrc;
-                    img.style.display = 'block';
-                    
-                    // Si la imagen no existe en el repo, ocultamos el error
-                    img.onerror = () => {
-                        console.warn("Imagen no encontrada en la ruta:", cleanSrc);
-                        img.style.display = 'none';
-                    };
-                }
+        <div id="post-content">
+            </div>
 
-                // Renderizar el Markdown
-                display.innerHTML = marked.parse(content);
+        <a href="blog.html" class="back-btn">← Volver al Journal</a>
+    </article>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script>
+        // CONFIGURACIÓN FINAL
+        const USER = 'mauriciofrivera-bot';
+        const REPO = 'umberto-web';
+
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const fileName = params.get('article');
+            
+            // Referencias a los elementos del DOM
+            const titleEl = document.getElementById('post-title');
+            const catEl = document.getElementById('post-category');
+            const imgEl = document.getElementById('post-image');
+            const contentEl = document.getElementById('post-content');
+
+            if (!fileName) {
+                window.location.href = 'blog.html';
+                return;
             }
-        } catch (err) {
-            console.error("Error de Rivera Engineering:", err);
-            display.innerHTML = `<p style="text-align:center; color:#666; padding:50px;">
-                El contenido no pudo ser cargado. Verifica la conexión con el repositorio.
-            </p>`;
-        }
-    }
 
-    window.onload = renderPost;
-</script>
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
+
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("No se encontró el archivo.");
+
+                const text = await res.text();
+                const parts = text.split('---');
+
+                if (parts.length >= 3) {
+                    const meta = jsyaml.load(parts[1]);
+                    const content = parts.slice(2).join('---');
+
+                    // Inyectar Metadatos
+                    titleEl.innerText = meta.title || "Sin título";
+                    catEl.innerText = meta.category || "Journal";
+                    
+                    if (meta.featured_image) {
+                        // Limpiar ruta de imagen (quitar "/" inicial si existe)
+                        let src = meta.featured_image.startsWith('/') ? meta.featured_image.substring(1) : meta.featured_image;
+                        imgEl.src = src;
+                        imgEl.style.display = 'block';
+                        imgEl.onerror = () => imgEl.style.display = 'none';
+                    }
+
+                    // Convertir Markdown a HTML
+                    contentEl.innerHTML = marked.parse(content);
+                }
+            } catch (err) {
+                console.error(err);
+                titleEl.innerText = "Error";
+                contentEl.innerHTML = `<p style="text-align:center;">No se pudo cargar el artículo. Revisa que esté publicado en la rama 'main'.</p>`;
+            }
+        }
+
+        window.onload = loadPost;
+    </script>
+</body>
+</html>
