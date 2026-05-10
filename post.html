@@ -1,76 +1,55 @@
-<script>
-        const GITHUB_USER = 'mauriciofrivera-bot';
-        const GITHUB_REPO = 'umberto-web';
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
-        async function loadFullPost() {
+    <script>
+        // CONFIGURACIÓN RIVERA ENGINEERING
+        const USER = 'mauriciofrivera-bot';
+        const REPO = 'umberto-web';
+
+        async function renderPost() {
             const params = new URLSearchParams(window.location.search);
-            const fileName = params.get('article');
-            const contentArea = document.getElementById('post-content');
+            const file = params.get('article');
+            const display = document.getElementById('post-content');
 
-            if (!fileName) {
+            if (!file) {
                 window.location.href = 'blog.html';
                 return;
             }
 
+            // Usamos una URL que elude el caché del navegador añadiendo un número aleatorio al final (?v=...)
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${file}?v=${Math.random()}`;
+
             try {
-                // 1. Intentar obtener el archivo crudo (evita problemas de Base64 de la API)
-                const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/_posts/${fileName}`;
-                console.log("Intentando cargar desde:", rawUrl);
-                
-                const response = await fetch(rawUrl);
-                
-                if (!response.ok) {
-                    throw new Error(`Servidor de archivos no responde (Status: ${response.status})`);
-                }
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("Archivo no encontrado en GitHub");
 
-                const rawText = await response.text();
-                console.log("Archivo recibido correctamente.");
+                const text = await res.text();
+                const parts = text.split('---');
 
-                // 2. Limpiar caracteres invisibles que Decap CMS a veces añade
-                const cleanText = rawText.trim();
-
-                // 3. Separar Frontmatter (Metadatos) del Cuerpo
-                const parts = cleanText.split('---');
-                
-                // Nota: Si el archivo empieza con ---, el primer elemento de 'parts' estará vacío.
-                // Por eso buscamos los datos en parts[1] y el cuerpo en parts[2]
                 if (parts.length >= 3) {
-                    const metadata = jsyaml.load(parts[1]);
-                    const markdownBody = parts.slice(2).join('---').trim();
+                    const meta = jsyaml.load(parts[1]);
+                    const content = parts.slice(2).join('---');
 
-                    console.log("Metadatos procesados:", metadata);
-
-                    // Inyectar en el HTML
-                    document.title = `${metadata.title || 'Artículo'} | Umberto Campioni`;
-                    document.getElementById('post-title').innerText = metadata.title || 'Sin título';
-                    document.getElementById('post-category').innerText = metadata.category || 'Journal';
+                    // Inyectar datos
+                    document.getElementById('post-title').innerText = meta.title || "Untitled";
+                    document.getElementById('post-category').innerText = meta.category || "Journal";
                     
-                    if (metadata.featured_image) {
+                    if (meta.featured_image) {
                         const img = document.getElementById('post-image');
-                        img.src = metadata.featured_image;
+                        img.src = meta.featured_image;
                         img.style.display = 'block';
                     }
 
-                    // Renderizar Markdown
-                    contentArea.innerHTML = marked.parse(markdownBody);
-                } else {
-                    throw new Error("El archivo no tiene el formato esperado (--- metadatos --- contenido).");
+                    document.getElementById('post-content').innerHTML = marked.parse(content);
                 }
-
-            } catch (error) {
-                console.error("Error Detallado:", error);
-                contentArea.innerHTML = `
-                    <div style="text-align:center; padding: 40px; border: 1px solid #222;">
-                        <p style="color: var(--dorado); text-transform: uppercase;">Ajuste de Sincronización</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">
-                            Error: ${error.message}<br>
-                            Archivo solicitado: <strong>${fileName}</strong>
-                        </p>
-                        <a href="blog.html" style="color: white; display: block; margin-top: 20px; font-size: 0.8rem;">← Volver al blog</a>
-                    </div>
-                `;
+            } catch (err) {
+                console.error("DEBUG:", err);
+                display.innerHTML = `<p style="text-align:center; color:var(--dorado);">
+                    Sincronizando contenido... <br>
+                    <small style="color:#666;">Si el error persiste, verifica que el archivo esté en la rama 'main'.</small>
+                </p>`;
             }
         }
 
-        window.onload = loadFullPost;
+        window.onload = renderPost;
     </script>
