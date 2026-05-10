@@ -1,55 +1,73 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
-    <script>
-        // CONFIGURACIÓN RIVERA ENGINEERING
-        const USER = 'mauriciofrivera-bot';
-        const REPO = 'umberto-web';
+<script>
+    // CONFIGURACIÓN RIVERA ENGINEERING
+    const USER = 'mauriciofrivera-bot';
+    const REPO = 'umberto-web';
 
-        async function renderPost() {
-            const params = new URLSearchParams(window.location.search);
-            const file = params.get('article');
-            const display = document.getElementById('post-content');
+    async function renderPost() {
+        const params = new URLSearchParams(window.location.search);
+        const fileName = params.get('article');
+        const display = document.getElementById('post-content');
 
-            if (!file) {
-                window.location.href = 'blog.html';
-                return;
-            }
-
-            // Usamos una URL que elude el caché del navegador añadiendo un número aleatorio al final (?v=...)
-            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${file}?v=${Math.random()}`;
-
-            try {
-                const res = await fetch(url);
-                if (!res.ok) throw new Error("Archivo no encontrado en GitHub");
-
-                const text = await res.text();
-                const parts = text.split('---');
-
-                if (parts.length >= 3) {
-                    const meta = jsyaml.load(parts[1]);
-                    const content = parts.slice(2).join('---');
-
-                    // Inyectar datos
-                    document.getElementById('post-title').innerText = meta.title || "Untitled";
-                    document.getElementById('post-category').innerText = meta.category || "Journal";
-                    
-                    if (meta.featured_image) {
-                        const img = document.getElementById('post-image');
-                        img.src = meta.featured_image;
-                        img.style.display = 'block';
-                    }
-
-                    document.getElementById('post-content').innerHTML = marked.parse(content);
-                }
-            } catch (err) {
-                console.error("DEBUG:", err);
-                display.innerHTML = `<p style="text-align:center; color:var(--dorado);">
-                    Sincronizando contenido... <br>
-                    <small style="color:#666;">Si el error persiste, verifica que el archivo esté en la rama 'main'.</small>
-                </p>`;
-            }
+        if (!fileName) {
+            window.location.href = 'blog.html';
+            return;
         }
 
-        window.onload = renderPost;
-    </script>
+        // Usamos la API oficial para mayor compatibilidad
+        const apiUrl = `https://api.github.com/repos/${USER}/${REPO}/contents/_posts/${fileName}`;
+
+        try {
+            const res = await fetch(apiUrl);
+            if (!res.ok) throw new Error(`No se encontró el archivo: ${res.status}`);
+
+            const data = await res.json();
+            
+            // Decodificamos Base64 manejando caracteres latinos (UTF-8)
+            const rawText = decodeURIComponent(escape(atob(data.content)));
+            
+            // Limpieza de caracteres invisibles
+            const cleanText = rawText.trim();
+            const parts = cleanText.split('---');
+
+            // Lógica para extraer metadatos y cuerpo
+            if (parts.length >= 3) {
+                // El CMS pone los metadatos entre los dos primeros conjuntos de ---
+                const meta = jsyaml.load(parts[1]);
+                const markdownContent = parts.slice(2).join('---');
+
+                // Llenar la interfaz
+                document.getElementById('post-title').innerText = meta.title || "Untitled Post";
+                document.getElementById('post-category').innerText = meta.category || "Journal";
+                
+                if (meta.featured_image) {
+                    const img = document.getElementById('post-image');
+                    img.src = meta.featured_image;
+                    img.style.display = 'block';
+                }
+
+                // Renderizar Markdown a HTML
+                display.innerHTML = marked.parse(markdownContent);
+                console.log("Post renderizado con éxito.");
+            } else {
+                // Si el archivo no tiene --- iniciales, intentamos renderizarlo completo
+                display.innerHTML = marked.parse(cleanText);
+            }
+        } catch (err) {
+            console.error("ERROR CRÍTICO:", err);
+            display.innerHTML = `
+                <div style="text-align:center; padding: 40px; border: 1px solid #222;">
+                    <p style="color: var(--dorado); font-size: 1.2rem;">SINCRONIZANDO...</p>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
+                        Verificando archivo: <strong>${fileName}</strong> en la rama <strong>main</strong>.
+                    </p>
+                    <a href="blog.html" style="color: white; display: block; margin-top: 20px; font-size: 0.7rem;">[ REINTENTAR ]</a>
+                </div>
+            `;
+        }
+    }
+
+    window.onload = renderPost;
+</script>
