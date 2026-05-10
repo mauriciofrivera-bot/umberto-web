@@ -13,7 +13,6 @@
             --dorado: #b58d52;
             --oscuro: #0a0a0a;
             --blanco: #f0f0f0;
-            --gris: #a0a0a0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,20 +22,14 @@
             color: var(--blanco);
             font-family: 'Garamond', serif;
             line-height: 1.8;
-            overflow-x: hidden;
         }
 
-        /* --- NAVEGACIÓN --- */
         nav {
             display: flex;
             justify-content: center;
             padding: 25px;
             gap: 30px;
             border-bottom: 1px solid #111;
-            background: var(--oscuro);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         nav a {
@@ -45,16 +38,12 @@
             text-transform: uppercase;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
-        nav a:hover { color: var(--dorado); }
-
-        /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 60px auto;
-            padding: 0 25px;
+            padding: 0 20px;
         }
 
         .header {
@@ -65,10 +54,9 @@
         #post-title {
             font-size: clamp(2rem, 5vw, 3.5rem);
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             font-weight: normal;
-            margin-bottom: 15px;
-            line-height: 1.1;
+            margin-bottom: 10px;
         }
 
         #post-category {
@@ -76,15 +64,14 @@
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 2px;
-            font-style: italic;
         }
 
-        /* --- IMAGEN DE PORTADA --- */
-        .img-wrapper {
+        /* Contenedor de imagen optimizado */
+        .img-container {
             width: 100%;
             margin-bottom: 50px;
+            display: none; /* Se activa si la imagen carga */
             border: 1px solid #1a1a1a;
-            display: none; /* Se activa vía JS */
         }
 
         #post-image {
@@ -93,49 +80,25 @@
             display: block;
         }
 
-        /* --- CUERPO DEL ARTÍCULO --- */
         #post-content {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: #ccc;
-            text-align: justify;
         }
 
-        #post-content p { margin-bottom: 30px; }
-        
-        #post-content h2, #post-content h3 {
-            color: white;
-            margin: 45px 0 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        #post-content p { margin-bottom: 25px; }
 
-        #post-content blockquote {
-            border-left: 3px solid var(--dorado);
-            padding-left: 30px;
-            font-style: italic;
-            margin: 40px 0;
-            color: var(--blanco);
-        }
-
-        .back-nav {
-            margin-top: 80px;
+        .back-link {
+            display: block;
+            margin-top: 60px;
             text-align: center;
-            border-top: 1px solid #111;
-            padding-top: 40px;
-        }
-
-        .back-btn {
             color: var(--dorado);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
-        .back-btn:hover { letter-spacing: 4px; }
-
-        footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; }
+        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -153,16 +116,14 @@
             <h1 id="post-title">Sincronizando...</h1>
         </header>
 
-        <div id="post-img-wrapper" class="img-wrapper">
-            <img id="post-image" src="" alt="Portada del artículo">
+        <div id="img-wrapper" class="img-container">
+            <img id="post-image" src="" alt="">
         </div>
 
         <div id="post-content">
             </div>
 
-        <div class="back-nav">
-            <a href="blog.html" class="back-btn">← Back to Journal</a>
-        </div>
+        <a href="blog.html" class="back-link">← Volver al Journal</a>
     </article>
 
     <footer>
@@ -173,69 +134,72 @@
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
 
-        async function initPost() {
+        async function loadArticle() {
             const params = new URLSearchParams(window.location.search);
             const fileName = params.get('article');
             
-            const titleEl = document.getElementById('post-title');
-            const catEl = document.getElementById('post-category');
-            const imgEl = document.getElementById('post-image');
-            const wrapperEl = document.getElementById('post-img-wrapper');
-            const contentEl = document.getElementById('post-content');
-
             if (!fileName) {
                 window.location.href = 'blog.html';
                 return;
             }
 
-            // Usamos la URL "raw" con un bypass de caché
-            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}?t=${Date.now()}`;
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
             try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("No se pudo obtener el archivo.");
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("No se pudo cargar el archivo");
 
-                const rawText = await response.text();
-                const parts = rawText.split('---');
+                const text = await res.text();
+                const parts = text.split('---');
 
                 if (parts.length >= 3) {
-                    const metadata = jsyaml.load(parts[1]);
-                    const bodyMarkdown = parts.slice(2).join('---').trim();
+                    const meta = jsyaml.load(parts[1]);
+                    const content = parts.slice(2).join('---');
 
-                    // 1. Títulos
-                    titleEl.innerText = metadata.title || "Untitled";
-                    catEl.innerText = metadata.category || "Journal";
-                    document.title = `${metadata.title} | Umberto Campioni`;
+                    // 1. Textos
+                    document.getElementById('post-title').innerText = meta.title || "Sin título";
+                    document.getElementById('post-category').innerText = meta.category || "Journal";
+                    document.title = `${meta.title} | Umberto Campioni`;
 
-                    // 2. Lógica Robusta de Imagen
-                    if (metadata.featured_image) {
-                        let path = metadata.featured_image;
+                    // 2. LÓGICA DE IMAGEN DE RESCATE
+                    if (meta.featured_image) {
+                        const img = document.getElementById('post-image');
+                        const wrapper = document.getElementById('img-wrapper');
                         
-                        // Limpiar ruta: eliminar "/" inicial si existe
-                        if (path.startsWith('/')) path = path.substring(1);
+                        // Limpiamos la ruta de barras iniciales
+                        let cleanPath = meta.featured_image;
+                        if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
                         
-                        // Si la ruta no incluye 'images/blog/' la forzamos (opcional según tu config)
-                        imgEl.src = path;
-                        wrapperEl.style.display = 'block';
+                        // Intento 1: Ruta relativa (funciona en la mayoría de los casos)
+                        img.src = cleanPath;
+                        wrapper.style.display = 'block';
 
-                        // Manejo de error si la imagen no existe en el servidor
-                        imgEl.onerror = () => {
-                            console.warn("Imagen no encontrada en ruta:", path);
-                            wrapperEl.style.display = 'none';
+                        // Intento 2: Si falla el 1, pedimos directamente a GitHub Raw
+                        img.onerror = () => {
+                            console.warn("Fallo local, intentando ruta directa de GitHub...");
+                            // Extraemos solo el nombre del archivo por si la ruta de carpetas está mal
+                            const fileNameOnly = cleanPath.split('/').pop();
+                            img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileNameOnly}`;
+                            
+                            // Si incluso así falla, ocultamos el cuadro
+                            img.onerror = () => {
+                                console.error("Imagen no encontrada definitivamente.");
+                                wrapper.style.display = 'none';
+                            };
                         };
                     }
 
                     // 3. Renderizar Markdown
-                    contentEl.innerHTML = marked.parse(bodyMarkdown);
+                    document.getElementById('post-content').innerHTML = marked.parse(content);
                 }
             } catch (err) {
-                console.error("Error de carga:", err);
-                titleEl.innerText = "Error";
-                contentEl.innerHTML = `<p style="text-align:center;">El artículo no está disponible actualmente. Por favor, verifica la publicación en GitHub.</p>`;
+                console.error(err);
+                document.getElementById('post-title').innerText = "Error";
+                document.getElementById('post-content').innerHTML = "<p>Hubo un problema al cargar el contenido.</p>";
             }
         }
 
-        window.onload = initPost;
+        window.onload = loadArticle;
     </script>
 </body>
 </html>
