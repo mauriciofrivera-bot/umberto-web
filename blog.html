@@ -5,47 +5,249 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Umberto Campioni</title>
     <style>
-        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --carbón: #121212; }
-        body { background-color: var(--oscuro); color: white; font-family: 'Times New Roman', serif; margin: 0; }
-        nav { padding: 25px; text-align: center; border-bottom: 1px solid #2a2a2a; }
-        nav a { color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
-        .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
-        h1 { text-align: center; text-transform: uppercase; letter-spacing: 5px; color: var(--dorado); margin-bottom: 10px; }
-        .category-label { text-align: center; font-style: italic; color: #888; margin-bottom: 40px; }
-        #blog-posts { display: grid; gap: 30px; }
-        .post-card { background: var(--carbón); border: 1px solid #2a2a2a; padding: 25px; transition: 0.3s; }
-        .post-card:hover { border-color: var(--dorado); }
-        .post-card h2 { margin: 0; font-size: 1.6rem; color: white; }
-        .post-card .meta { color: var(--dorado); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .btn-read { color: var(--dorado); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; display: inline-block; margin-top: 15px; border-bottom: 1px solid transparent; transition: 0.3s; }
-        .btn-read:hover { border-bottom: 1px solid var(--dorado); }
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --blanco-suave: #f0f0f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--oscuro);
+            color: var(--blanco-suave);
+            font-family: 'Garamond', 'Times New Roman', serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 25px;
+            background: var(--oscuro);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--blanco-suave);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--dorado); }
+
+        /* --- CABECERA --- */
+        .blog-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .blog-header h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .blog-header p {
+            font-style: italic;
+            color: var(--dorado);
+            letter-spacing: 1px;
+        }
+
+        /* --- CUADRÍCULA DE BLOG --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .post-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s;
+        }
+
+        .post-img-box {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            background: #111;
+            margin-bottom: 25px;
+        }
+
+        .post-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 1.5s cubic-bezier(0.15, 0.45, 0.15, 1);
+        }
+
+        .post-card:hover img { transform: scale(1.03); }
+
+        .post-content h2 {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
+
+        .post-content p {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-bottom: 25px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            color: var(--dorado);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
+            transition: 0.3s;
+        }
+
+        .post-card:hover .read-more { border-bottom: 1px solid var(--dorado); }
+
+        /* --- EFECTO REVELADO --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.8s cubic-bezier(0.15, 0.45, 0.15, 1), 
+                        transform 1.8s cubic-bezier(0.15, 0.45, 0.15, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; margin-top: 60px; }
+
+        @media (max-width: 600px) {
+            .blog-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <nav><a href="index.html">← Regresar al Inicio</a></nav>
-    <div class="container">
-        <h1 id="main-title">Journal</h1>
-        <p id="filter-text" class="category-label">Todos los artículos</p>
-        
-        <div id="blog-posts">
-            <p style="text-align: center; color: #444;">Cargando contenido...</p>
-        </div>
-    </div>
 
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <header class="blog-header reveal">
+        <h1>Journal</h1>
+        <p>Expertise from the floor to the glass.</p>
+    </header>
+
+    <main id="blog-posts" class="blog-grid">
+        <p id="status-msg" style="grid-column: 1/-1; text-align: center; color: #444; font-style: italic;">
+            Sincronizando con el archivo de Rivera Engineering...
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const params = new URLSearchParams(window.location.search);
-            const cat = params.get('cat');
-            const titleElement = document.getElementById('main-title');
-            const filterElement = document.getElementById('filter-text');
+        // CONFIGURACIÓN ACTUALIZADA
+        const GITHUB_USER = 'mauriciorivera-bot';
+        const GITHUB_REPO = 'umberto-web';
 
-            if (cat) {
-                // Cambia el título visualmente para confirmar el filtro
-                filterElement.innerText = "Categoría: " + cat;
-                console.log("Filtrando base de datos para: " + cat);
-                // Aquí la lógica del CMS filtrará los archivos .md de la carpeta _posts
+        async function fetchBlogPosts() {
+            const container = document.getElementById('blog-posts');
+            const statusMsg = document.getElementById('status-msg');
+
+            try {
+                // Consulta a la API de GitHub para listar contenidos de _posts
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/_posts`);
+                
+                if (!response.ok) throw new Error("No se pudo conectar con el repositorio.");
+                
+                const files = await response.json();
+                if (statusMsg) statusMsg.remove();
+
+                // Filtrar solo archivos Markdown
+                const markdownFiles = files.filter(f => f.name.endsWith('.md'));
+
+                if (markdownFiles.length === 0) {
+                    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No hay artículos publicados aún.</p>';
+                    return;
+                }
+
+                for (const file of markdownFiles) {
+                    const postRes = await fetch(file.download_url);
+                    const rawText = await postRes.text();
+
+                    // Parsear el contenido (Metadatos vs Cuerpo)
+                    const parts = rawText.split('---');
+                    if (parts.length >= 3) {
+                        const metadata = jsyaml.load(parts[1]);
+                        const bodyContent = parts.slice(2).join('---').trim();
+                        
+                        // Crear la tarjeta del post
+                        const card = document.createElement('a');
+                        card.href = `post.html?article=${file.name}`;
+                        card.className = 'post-card reveal';
+                        
+                        card.innerHTML = `
+                            <div class="post-img-box">
+                                <img src="${metadata.featured_image || 'images/default-blog.jpg'}" alt="${metadata.title}">
+                            </div>
+                            <div class="post-content">
+                                <h2>${metadata.title}</h2>
+                                <p>${metadata.description || bodyContent.substring(0, 160) + '...'}</p>
+                                <span class="read-more">Read article</span>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    }
+                }
+
+                // Iniciar animaciones de revelado
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) entry.target.classList.add('active');
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            } catch (error) {
+                console.error("Error Rivera Engineering:", error);
+                if (statusMsg) statusMsg.innerText = "Error de sincronización. Verifica la conexión con GitHub.";
             }
-        });
+        }
+
+        window.onload = fetchBlogPosts;
     </script>
 </body>
 </html>
