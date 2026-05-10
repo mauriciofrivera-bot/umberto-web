@@ -30,17 +30,20 @@
             gap: 20px;
             background: var(--oscuro);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         nav a {
             color: var(--blanco-suave);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 1px;
         }
 
-        /* HERO - SIEMPRE HORIZONTAL */
+        /* HERO - ESTRUCTURA FIJA */
         .hero {
             position: relative;
             height: 70vh;
@@ -50,25 +53,25 @@
             background-color: var(--oscuro);
         }
 
-        .hero-left, .hero-right {
+        .hero-left {
             position: absolute;
-            top: 0; width: 65%; height: 100%;
+            left: 0; top: 0; width: 60%; height: 100%;
+            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
             background-size: cover;
+            mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
             z-index: 1;
         }
 
-        .hero-left {
-            left: 0;
-            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
-            mask-image: linear-gradient(to right, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
-        }
-
         .hero-right {
-            right: 0;
-            background: url('images/Umberto_Main_Photo.jpg') no-repeat center 15%;
+            position: absolute;
+            right: 0; top: 0; width: 60%; height: 100%;
+            background: url('images/Umberto_Main_Photo.jpg') no-repeat;
+            background-size: cover;
+            background-position: center 15%; 
             mask-image: linear-gradient(to left, black 40%, transparent 100%);
             -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
+            z-index: 2;
         }
 
         .hero-content {
@@ -79,26 +82,33 @@
             padding: 0 5%;
         }
 
-        .hero h1 { font-size: clamp(1.5rem, 5vw, 3.5rem); text-transform: uppercase; margin-bottom: 15px; }
-        .hero p { font-size: clamp(0.8rem, 2vw, 1.2rem); font-style: italic; margin-bottom: 30px; }
+        .hero h1 { 
+            font-size: clamp(1.8rem, 5vw, 4rem); 
+            text-transform: uppercase; 
+            margin-bottom: 15px; 
+            letter-spacing: 3px; /* Elegancia técnica */
+        }
+
+        .hero p { font-size: clamp(0.9rem, 2vw, 1.4rem); font-style: italic; margin-bottom: 30px; }
 
         .btn-gold, .btn-outline {
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
             display: inline-block;
         }
         .btn-gold { background: var(--dorado); color: var(--oscuro) !important; }
         .btn-outline { border: 1px solid var(--dorado); color: white !important; margin-left: 10px; }
 
-        /* BANNER AVISO */
+        /* SECCIÓN AVISO - TIPOGRAFÍA UNIFICADA */
         .article-banner {
             width: 100%;
             min-height: 280px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/Featured_Background.jpg');
-            background-size: cover;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('images/Glasses_Bkgrnd.jpg');
+            background-size: 100% auto; 
+            background-repeat: no-repeat;
             background-position: center;
             display: flex;
             flex-direction: column;
@@ -109,9 +119,23 @@
             border-top: 1px solid #222;
         }
 
-        .article-banner h2 { font-size: clamp(1.1rem, 4vw, 2.2rem); margin-bottom: 15px; }
+        .article-banner h2 { 
+            font-size: clamp(1.3rem, 4vw, 2.4rem); 
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 4px; /* Mayor espaciado para lujo visual */
+            font-weight: normal;
+        }
 
-        /* CUADRÍCULA - 3 COLUMNAS FIJAS CON ALINEACIÓN SIMÉTRICA */
+        .article-banner p {
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        /* CUADRÍCULA */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr) !important;
@@ -121,22 +145,23 @@
 
         .grid-item {
             position: relative;
-            height: clamp(180px, 35vw, 400px);
+            height: clamp(160px, 30vw, 350px);
             text-decoration: none !important;
             border: 0.5px solid #111;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: #000;
             overflow: hidden;
         }
 
-        /* Contenedor unificado para centrar todas las imágenes igual */
         .item-img-box {
-            flex: 1;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px; /* Espacio uniforme para evitar desalineación */
+            padding: 15px;
         }
 
         .item-img-box img {
@@ -146,22 +171,13 @@
             display: block;
         }
 
-        .item-text {
-            width: 100%;
-            padding-bottom: 15px;
-            background: transparent;
-            text-align: center;
-        }
-
-        .item-text h3 {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: clamp(0.5rem, 2.5vw, 1rem);
-            color: white !important;
-        }
-
         footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
 
+        @media (max-width: 600px) {
+            .article-banner { background-size: cover; }
+            .grid-item { height: 140px; }
+            .item-img-box { padding: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -200,21 +216,18 @@
                 <div class="item-img-box">
                     <img src="images/Wine Uncorked_Logo.jpg" alt="Wine Uncorked">
                 </div>
-                <div class="item-text"><h3>Wine Uncorked</h3></div>
             </a>
             
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
                 <div class="item-img-box">
                     <img src="images/NBS_Logo.jpg" alt="No BS Truth">
                 </div>
-                <div class="item-text"></div>
             </a>
             
             <a href="blog.html?cat=Work+the+Floor" class="grid-item">
                 <div class="item-img-box">
                     <img src="images/from the floor.jpeg" alt="From the Floor">
                 </div>
-                <div class="item-text"><h3>From the Floor</h3></div>
             </a>
         </div>
     </section>
