@@ -4,131 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal | Umberto Campioni</title>
-    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
     <style>
-        :root {
-            --dorado: #b58d52;
-            --oscuro: #0a0a0a;
-            --blanco: #f0f0f0;
-        }
-
+        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --blanco: #f0f0f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--oscuro);
-            color: var(--blanco);
-            font-family: 'Garamond', serif;
-            line-height: 1.8;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 25px;
-            gap: 30px;
-            border-bottom: 1px solid #111;
-        }
-
-        nav a {
-            color: var(--blanco);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        #post-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: normal;
-            margin-bottom: 10px;
-        }
-
-        #post-category {
-            color: var(--dorado);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-        }
-
-        /* Contenedor de imagen optimizado */
-        .img-container {
-            width: 100%;
-            margin-bottom: 50px;
-            display: none; /* Se activa si la imagen carga */
-            border: 1px solid #1a1a1a;
-        }
-
-        #post-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        #post-content {
-            font-size: 1.2rem;
-            color: #ccc;
-        }
-
-        #post-content p { margin-bottom: 25px; }
-
-        .back-link {
-            display: block;
-            margin-top: 60px;
-            text-align: center;
-            color: var(--dorado);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-        }
-
+        body { background-color: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; line-height: 1.8; }
+        nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 50px; }
+        #post-title { font-size: 3rem; text-transform: uppercase; letter-spacing: 3px; font-weight: normal; }
+        .img-container { width: 100%; margin-bottom: 50px; display: none; border: 1px solid #1a1a1a; }
+        #post-image { width: 100%; height: auto; display: block; }
+        #post-content { font-size: 1.2rem; color: #ccc; }
         footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
     </style>
 </head>
 <body>
-
     <nav>
-        <a href="index.html">Home</a>
-        <a href="blog.html">Blog</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html">Home</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a>
     </nav>
-
     <article class="container">
-        <header class="header">
-            <div id="post-category">Journal</div>
-            <h1 id="post-title">Sincronizando...</h1>
-        </header>
-
-        <div id="img-wrapper" class="img-container">
-            <img id="post-image" src="" alt="">
-        </div>
-
-        <div id="post-content">
-            </div>
-
-        <a href="blog.html" class="back-link">← Volver al Journal</a>
+        <header class="header"><h1 id="post-title">Sincronizando...</h1></header>
+        <div id="img-wrapper" class="img-container"><img id="post-image" src="" alt=""></div>
+        <div id="post-content"></div>
     </article>
-
-    <footer>
-        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
-    </footer>
+    <footer><p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p></footer>
 
     <script>
         const USER = 'mauriciofrivera-bot';
@@ -137,68 +39,34 @@
         async function loadArticle() {
             const params = new URLSearchParams(window.location.search);
             const fileName = params.get('article');
-            
-            if (!fileName) {
-                window.location.href = 'blog.html';
-                return;
-            }
+            if (!fileName) return;
 
             const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
-
             try {
                 const res = await fetch(url);
-                if (!res.ok) throw new Error("No se pudo cargar el archivo");
-
                 const text = await res.text();
                 const parts = text.split('---');
-
                 if (parts.length >= 3) {
                     const meta = jsyaml.load(parts[1]);
-                    const content = parts.slice(2).join('---');
-
-                    // 1. Textos
-                    document.getElementById('post-title').innerText = meta.title || "Sin título";
-                    document.getElementById('post-category').innerText = meta.category || "Journal";
-                    document.title = `${meta.title} | Umberto Campioni`;
-
-                    // 2. LÓGICA DE IMAGEN DE RESCATE
+                    document.getElementById('post-title').innerText = meta.title;
+                    
                     if (meta.featured_image) {
                         const img = document.getElementById('post-image');
                         const wrapper = document.getElementById('img-wrapper');
+                        let path = meta.featured_image;
+                        if (path.startsWith('/')) path = path.substring(1);
                         
-                        // Limpiamos la ruta de barras iniciales
-                        let cleanPath = meta.featured_image;
-                        if (cleanPath.startsWith('/')) cleanPath = cleanPath.substring(1);
-                        
-                        // Intento 1: Ruta relativa (funciona en la mayoría de los casos)
-                        img.src = cleanPath;
+                        img.src = path;
                         wrapper.style.display = 'block';
-
-                        // Intento 2: Si falla el 1, pedimos directamente a GitHub Raw
                         img.onerror = () => {
-                            console.warn("Fallo local, intentando ruta directa de GitHub...");
-                            // Extraemos solo el nombre del archivo por si la ruta de carpetas está mal
-                            const fileNameOnly = cleanPath.split('/').pop();
-                            img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileNameOnly}`;
-                            
-                            // Si incluso así falla, ocultamos el cuadro
-                            img.onerror = () => {
-                                console.error("Imagen no encontrada definitivamente.");
-                                wrapper.style.display = 'none';
-                            };
+                            img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/${path}`;
+                            img.onerror = () => wrapper.style.display = 'none';
                         };
                     }
-
-                    // 3. Renderizar Markdown
-                    document.getElementById('post-content').innerHTML = marked.parse(content);
+                    document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
                 }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('post-title').innerText = "Error";
-                document.getElementById('post-content').innerHTML = "<p>Hubo un problema al cargar el contenido.</p>";
-            }
+            } catch (err) { console.error(err); }
         }
-
         window.onload = loadArticle;
     </script>
 </body>

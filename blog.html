@@ -5,69 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal | Umberto Campioni</title>
     <style>
-        :root {
-            --dorado: #b58d52;
-            --oscuro: #0a0a0a;
-            --blanco: #f0f0f0;
-        }
+        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --blanco: #f0f0f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; }
-        
         nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
         nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
-
         .blog-header { text-align: center; padding: 80px 20px 40px; }
         .blog-header h1 { font-size: 3.5rem; text-transform: uppercase; letter-spacing: 5px; font-weight: normal; }
-
-        .blog-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 40px; 
-            padding: 40px 5%; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-
-        .post-card { 
-            text-decoration: none; 
-            color: inherit; 
-            opacity: 0; 
-            transform: translateY(20px); 
-            transition: 1s all ease; 
-        }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        .post-card { text-decoration: none; color: inherit; opacity: 0; transform: translateY(20px); transition: 1s all ease; }
         .post-card.active { opacity: 1; transform: translateY(0); }
-
         .img-box { width: 100%; height: 280px; background: #111; overflow: hidden; margin-bottom: 20px; border: 1px solid #1a1a1a; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .post-card:hover img { transform: scale(1.05); }
-
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
         .post-info h2 { font-size: 1.6rem; text-transform: uppercase; margin-bottom: 10px; font-weight: normal; }
-        .post-info p { color: #888; font-size: 0.95rem; margin-bottom: 15px; }
         .read-link { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
-
         footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
     </style>
 </head>
 <body>
-
     <nav>
         <a href="index.html">Home</a>
         <a href="blog.html">Blog</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
     </nav>
-
     <header class="blog-header">
         <h1>Journal</h1>
         <p style="color: var(--dorado); font-style: italic; margin-top: 10px;">Expertise in every detail.</p>
     </header>
-
-    <main id="blog-grid" class="blog-grid">
-        </main>
-
-    <footer>
-        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
-    </footer>
+    <main id="blog-grid" class="blog-grid"></main>
+    <footer><p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     <script>
@@ -76,55 +43,38 @@
 
         async function loadBlog() {
             const grid = document.getElementById('blog-grid');
-
             try {
-                // Obtenemos lista de archivos de la carpeta _posts
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts`);
-                if (!res.ok) throw new Error("Error conectando con GitHub");
-                
                 const files = await res.json();
-                grid.innerHTML = ''; // Limpiamos el mensaje de carga
-
                 for (const file of files) {
                     if (file.name.endsWith('.md')) {
                         const postRes = await fetch(file.download_url);
                         const text = await postRes.text();
                         const parts = text.split('---');
-
                         if (parts.length >= 3) {
                             const meta = jsyaml.load(parts[1]);
-                            const content = parts.slice(2).join('---').substring(0, 100) + "...";
-
-                            // --- Lógica de corrección de imagen ---
-                            let imagePath = meta.featured_image || '';
-                            if (imagePath.startsWith('/')) imagePath = imagePath.substring(1);
+                            let imgPath = meta.featured_image || '';
+                            if (imgPath.startsWith('/')) imgPath = imgPath.substring(1);
 
                             const card = document.createElement('a');
                             card.href = `post.html?article=${file.name}`;
                             card.className = 'post-card';
                             card.innerHTML = `
                                 <div class="img-box">
-                                    <img src="${imagePath}" alt="${meta.title}" onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${imagePath.split('/').pop()}'">
+                                    <img src="${imgPath}" alt="${meta.title}" onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/${imgPath}'">
                                 </div>
                                 <div class="post-info">
                                     <h2>${meta.title || 'Sin título'}</h2>
-                                    <p>${meta.description || content}</p>
                                     <span class="read-link">Read article</span>
                                 </div>
                             `;
                             grid.appendChild(card);
-                            
-                            // Animación de entrada
                             setTimeout(() => card.classList.add('active'), 100);
                         }
                     }
                 }
-            } catch (err) {
-                console.error(err);
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Error al sincronizar el Journal.</p>';
-            }
+            } catch (err) { console.error(err); }
         }
-
         window.onload = loadBlog;
     </script>
 </body>
