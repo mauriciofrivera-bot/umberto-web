@@ -19,7 +19,7 @@
 
         try {
             const res = await fetch(url);
-            if (!res.ok) throw new Error("No se encontró el archivo del artículo.");
+            if (!res.ok) throw new Error("Artículo no encontrado.");
 
             const text = await res.text();
             const parts = text.split('---');
@@ -28,29 +28,38 @@
                 const meta = jsyaml.load(parts[1]);
                 const content = parts.slice(2).join('---');
 
-                document.getElementById('post-title').innerText = meta.title || "Journal";
-                document.getElementById('post-category').innerText = meta.category || "General";
+                // Títulos y Meta
+                document.title = `${meta.title || 'Journal'} | Umberto Campioni`;
+                document.getElementById('post-title').innerText = meta.title || "Sin título";
+                document.getElementById('post-category').innerText = meta.category || "Journal";
                 
-                // --- CORRECCIÓN DE RUTA DE IMAGEN ---
+                // Lógica Robusta de Imagen
                 if (meta.featured_image) {
                     const img = document.getElementById('post-image');
-                    // Quitamos el "/" inicial si existe para que la ruta sea relativa
-                    let cleanSrc = meta.featured_image.startsWith('/') 
-                        ? meta.featured_image.substring(1) 
-                        : meta.featured_image;
+                    
+                    // Limpiamos la ruta: quitamos "/" iniciales si existen
+                    let cleanSrc = meta.featured_image;
+                    if (cleanSrc.startsWith('/')) {
+                        cleanSrc = cleanSrc.substring(1);
+                    }
                     
                     img.src = cleanSrc;
                     img.style.display = 'block';
-                    img.onerror = () => img.style.display = 'none';
+                    
+                    // Si la imagen no existe en el repo, ocultamos el error
+                    img.onerror = () => {
+                        console.warn("Imagen no encontrada en la ruta:", cleanSrc);
+                        img.style.display = 'none';
+                    };
                 }
 
+                // Renderizar el Markdown
                 display.innerHTML = marked.parse(content);
             }
         } catch (err) {
-            console.error("Error:", err);
-            display.innerHTML = `<p style="text-align:center; color: #666; padding: 50px;">
-                Cargando contenido... <br>
-                <small>Si no aparece, verifica que el artículo esté publicado en GitHub.</small>
+            console.error("Error de Rivera Engineering:", err);
+            display.innerHTML = `<p style="text-align:center; color:#666; padding:50px;">
+                El contenido no pudo ser cargado. Verifica la conexión con el repositorio.
             </p>`;
         }
     }
