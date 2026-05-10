@@ -9,25 +9,133 @@
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
     <style>
-        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --blanco: #f0f0f0; }
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --blanco: #f0f0f0;
+            --gris: #a0a0a0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; line-height: 1.8; }
+
+        body {
+            background-color: var(--oscuro);
+            color: var(--blanco);
+            font-family: 'Garamond', serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 25px;
+            gap: 30px;
+            border-bottom: 1px solid #111;
+            background: var(--oscuro);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--blanco);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--dorado); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 0 25px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        #post-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: normal;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        #post-category {
+            color: var(--dorado);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        /* --- IMAGEN DE PORTADA --- */
+        .img-wrapper {
+            width: 100%;
+            margin-bottom: 50px;
+            border: 1px solid #1a1a1a;
+            display: none; /* Se activa vía JS */
+        }
+
+        #post-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- CUERPO DEL ARTÍCULO --- */
+        #post-content {
+            font-size: 1.25rem;
+            color: #ccc;
+            text-align: justify;
+        }
+
+        #post-content p { margin-bottom: 30px; }
         
-        nav { display: flex; justify-content: center; padding: 20px; gap: 25px; border-bottom: 1px solid #111; }
-        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+        #post-content h2, #post-content h3 {
+            color: white;
+            margin: 45px 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
-        .header { text-align: center; margin-bottom: 40px; }
-        #post-title { font-size: 3rem; text-transform: uppercase; letter-spacing: 3px; font-weight: normal; margin-bottom: 10px; }
-        #post-category { color: var(--dorado); font-style: italic; font-size: 0.9rem; }
+        #post-content blockquote {
+            border-left: 3px solid var(--dorado);
+            padding-left: 30px;
+            font-style: italic;
+            margin: 40px 0;
+            color: var(--blanco);
+        }
 
-        #post-image { width: 100%; height: auto; max-height: 500px; object-fit: cover; margin-bottom: 40px; display: none; border: 1px solid #222; }
-        #post-content { font-size: 1.2rem; color: #ccc; }
-        #post-content p { margin-bottom: 25px; }
+        .back-nav {
+            margin-top: 80px;
+            text-align: center;
+            border-top: 1px solid #111;
+            padding-top: 40px;
+        }
 
-        .back-btn { display: inline-block; margin-top: 40px; color: var(--dorado); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; border-bottom: 1px solid var(--dorado); }
-        
-        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; }
+        .back-btn {
+            color: var(--dorado);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { letter-spacing: 4px; }
+
+        footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -41,16 +149,20 @@
 
     <article class="container">
         <header class="header">
-            <div id="post-category">Cargando...</div>
-            <h1 id="post-title">Sincronizando</h1>
+            <div id="post-category">Journal</div>
+            <h1 id="post-title">Sincronizando...</h1>
         </header>
 
-        <img id="post-image" src="" alt="Portada">
+        <div id="post-img-wrapper" class="img-wrapper">
+            <img id="post-image" src="" alt="Portada del artículo">
+        </div>
 
         <div id="post-content">
             </div>
 
-        <a href="blog.html" class="back-btn">← Volver al Journal</a>
+        <div class="back-nav">
+            <a href="blog.html" class="back-btn">← Back to Journal</a>
+        </div>
     </article>
 
     <footer>
@@ -58,18 +170,17 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN FINAL
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
 
-        async function loadPost() {
+        async function initPost() {
             const params = new URLSearchParams(window.location.search);
             const fileName = params.get('article');
             
-            // Referencias a los elementos del DOM
             const titleEl = document.getElementById('post-title');
             const catEl = document.getElementById('post-category');
             const imgEl = document.getElementById('post-image');
+            const wrapperEl = document.getElementById('post-img-wrapper');
             const contentEl = document.getElementById('post-content');
 
             if (!fileName) {
@@ -77,42 +188,54 @@
                 return;
             }
 
-            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
+            // Usamos la URL "raw" con un bypass de caché
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}?t=${Date.now()}`;
 
             try {
-                const res = await fetch(url);
-                if (!res.ok) throw new Error("No se encontró el archivo.");
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("No se pudo obtener el archivo.");
 
-                const text = await res.text();
-                const parts = text.split('---');
+                const rawText = await response.text();
+                const parts = rawText.split('---');
 
                 if (parts.length >= 3) {
-                    const meta = jsyaml.load(parts[1]);
-                    const content = parts.slice(2).join('---');
+                    const metadata = jsyaml.load(parts[1]);
+                    const bodyMarkdown = parts.slice(2).join('---').trim();
 
-                    // Inyectar Metadatos
-                    titleEl.innerText = meta.title || "Sin título";
-                    catEl.innerText = meta.category || "Journal";
-                    
-                    if (meta.featured_image) {
-                        // Limpiar ruta de imagen (quitar "/" inicial si existe)
-                        let src = meta.featured_image.startsWith('/') ? meta.featured_image.substring(1) : meta.featured_image;
-                        imgEl.src = src;
-                        imgEl.style.display = 'block';
-                        imgEl.onerror = () => imgEl.style.display = 'none';
+                    // 1. Títulos
+                    titleEl.innerText = metadata.title || "Untitled";
+                    catEl.innerText = metadata.category || "Journal";
+                    document.title = `${metadata.title} | Umberto Campioni`;
+
+                    // 2. Lógica Robusta de Imagen
+                    if (metadata.featured_image) {
+                        let path = metadata.featured_image;
+                        
+                        // Limpiar ruta: eliminar "/" inicial si existe
+                        if (path.startsWith('/')) path = path.substring(1);
+                        
+                        // Si la ruta no incluye 'images/blog/' la forzamos (opcional según tu config)
+                        imgEl.src = path;
+                        wrapperEl.style.display = 'block';
+
+                        // Manejo de error si la imagen no existe en el servidor
+                        imgEl.onerror = () => {
+                            console.warn("Imagen no encontrada en ruta:", path);
+                            wrapperEl.style.display = 'none';
+                        };
                     }
 
-                    // Convertir Markdown a HTML
-                    contentEl.innerHTML = marked.parse(content);
+                    // 3. Renderizar Markdown
+                    contentEl.innerHTML = marked.parse(bodyMarkdown);
                 }
             } catch (err) {
-                console.error(err);
+                console.error("Error de carga:", err);
                 titleEl.innerText = "Error";
-                contentEl.innerHTML = `<p style="text-align:center;">No se pudo cargar el artículo. Revisa que esté publicado en la rama 'main'.</p>`;
+                contentEl.innerHTML = `<p style="text-align:center;">El artículo no está disponible actualmente. Por favor, verifica la publicación en GitHub.</p>`;
             }
         }
 
-        window.onload = loadPost;
+        window.onload = initPost;
     </script>
 </body>
 </html>
