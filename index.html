@@ -23,6 +23,20 @@
             line-height: 1.3;
         }
 
+        /* --- EFECTO DE REVELADO LENTO --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.8s cubic-bezier(0.15, 0.45, 0.15, 1), 
+                        transform 1.8s cubic-bezier(0.15, 0.45, 0.15, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         nav {
             display: flex;
             justify-content: center;
@@ -43,7 +57,6 @@
             letter-spacing: 1px;
         }
 
-        /* HERO - ESTRUCTURA FIJA */
         .hero {
             position: relative;
             height: 70vh;
@@ -53,19 +66,22 @@
             background-color: var(--oscuro);
         }
 
-        .hero-left {
+        .hero-left, .hero-right {
             position: absolute;
-            left: 0; top: 0; width: 60%; height: 100%;
-            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
+            top: 0; width: 60%; height: 100%;
             background-size: cover;
-            mask-image: linear-gradient(to right, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
             z-index: 1;
         }
 
+        .hero-left {
+            left: 0;
+            background: url('images/Glasses_Bkgrnd.jpg') no-repeat center center;
+            mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
+        }
+
         .hero-right {
-            position: absolute;
-            right: 0; top: 0; width: 60%; height: 100%;
+            right: 0;
             background: url('images/Umberto_Main_Photo.jpg') no-repeat;
             background-size: cover;
             background-position: center 15%; 
@@ -82,13 +98,7 @@
             padding: 0 5%;
         }
 
-        .hero h1 { 
-            font-size: clamp(1.8rem, 5vw, 4rem); 
-            text-transform: uppercase; 
-            margin-bottom: 15px; 
-            letter-spacing: 3px; /* Elegancia técnica */
-        }
-
+        .hero h1 { font-size: clamp(1.8rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 3px; }
         .hero p { font-size: clamp(0.9rem, 2vw, 1.4rem); font-style: italic; margin-bottom: 30px; }
 
         .btn-gold, .btn-outline {
@@ -102,7 +112,6 @@
         .btn-gold { background: var(--dorado); color: var(--oscuro) !important; }
         .btn-outline { border: 1px solid var(--dorado); color: white !important; margin-left: 10px; }
 
-        /* SECCIÓN AVISO - TIPOGRAFÍA UNIFICADA */
         .article-banner {
             width: 100%;
             min-height: 280px;
@@ -123,51 +132,38 @@
             font-size: clamp(1.3rem, 4vw, 2.4rem); 
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 4px; /* Mayor espaciado para lujo visual */
+            letter-spacing: 4px;
             font-weight: normal;
         }
 
-        .article-banner p {
-            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-            font-style: italic;
-            color: #ccc;
-            margin-bottom: 25px;
-            max-width: 600px;
-        }
+        .article-banner p { font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-style: italic; color: #ccc; margin-bottom: 25px; }
 
-        /* CUADRÍCULA */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr) !important;
             width: 100%;
-            background: var(--oscuro);
+            background: transparent;
         }
 
         .grid-item {
             position: relative;
             height: clamp(160px, 30vw, 350px);
             text-decoration: none !important;
-            border: 0.5px solid #111;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000;
             overflow: hidden;
         }
 
         .item-img-box {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
         }
 
-        .item-img-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+        .item-img-box img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
             display: block;
         }
 
@@ -192,7 +188,7 @@
     <header class="hero">
         <div class="hero-left"></div>
         <div class="hero-right"></div>
-        <div class="hero-content">
+        <div class="hero-content reveal">
             <h1>Wine. Hospitality. <br>No Bullshit.</h1>
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
@@ -204,29 +200,29 @@
 
     <section class="featured-article">
         <div class="article-banner">
-            <h2>Expensive wine is not always better.</h2>
-            <p>If you think expensive means better... you're wasting money.</p>
-            <a href="blog.html" class="btn-gold">Read the article</a>
+            <div class="reveal">
+                <h2>Expensive wine is not always better.</h2>
+                <p>If you think expensive means better... you're wasting money.</p>
+                <a href="blog.html" class="btn-gold">Read the article</a>
+            </div>
         </div>
     </section>
 
     <section class="grid-section">
         <div class="grid-container">
-            <a href="blog.html?cat=Choose+the+wine" class="grid-item">
+            <a href="blog.html?cat=Choose+the+wine" class="grid-item reveal">
                 <div class="item-img-box">
-                    <img src="images/Wine Uncorked_Logo.jpg" alt="Wine Uncorked">
+                    <img src="images/Wine_Uncorked_Logo_transparent.png" alt="Wine Uncorked">
                 </div>
             </a>
-            
-            <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item">
+            <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item reveal">
                 <div class="item-img-box">
-                    <img src="images/NBS_Logo.jpg" alt="No BS Truth">
+                    <img src="images/NBS_Logo_transparent.png" alt="No BS Truth">
                 </div>
             </a>
-            
-            <a href="blog.html?cat=Work+the+Floor" class="grid-item">
+            <a href="blog.html?cat=Work+the+Floor" class="grid-item reveal">
                 <div class="item-img-box">
-                    <img src="images/from the floor.jpeg" alt="From the Floor">
+                    <img src="images/from_the_floor_transparent.png" alt="From the Floor">
                 </div>
             </a>
         </div>
@@ -236,5 +232,12 @@
         <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
+    <script>
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
