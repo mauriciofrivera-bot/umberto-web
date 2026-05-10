@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work With Me | Umberto Campioni</title>
+    <style>
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --blanco-suave: #f0f0f0;
+            --crema-fondo: #f9f7f2; /* Color de fondo según tu imagen */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--crema-fondo);
+            color: #1a1a1a;
+            font-family: 'Garamond', serif;
+            line-height: 1.6;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 25px;
+            background: var(--oscuro);
+        }
+
+        nav a {
+            color: var(--blanco-suave);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        h1 { font-size: 2.5rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; font-weight: normal; }
+        .subtitle { font-style: italic; color: #555; margin-bottom: 40px; }
+
+        .services-list {
+            text-align: left;
+            display: inline-block;
+            margin-bottom: 50px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 30px 0;
+        }
+
+        .services-list h2 { text-align: center; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; }
+
+        ul { list-style: none; columns: 2; -webkit-columns: 2; gap: 40px; }
+        li { margin-bottom: 10px; font-size: 0.95rem; position: relative; padding-left: 20px; }
+        li::before { content: "•"; color: var(--dorado); position: absolute; left: 0; }
+
+        /* --- ESTILO DEL FORMULARIO (Basado en tu imagen) --- */
+        form { text-align: left; margin-top: 40px; }
+        .form-header { text-align: center; border-top: 1px solid #ddd; padding-top: 30px; margin-bottom: 30px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-row { display: flex; gap: 20px; margin-bottom: 20px; }
+        .form-row > div { flex: 1; }
+
+        label { display: block; font-size: 0.85rem; margin-bottom: 8px; color: #333; }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            background: #fff;
+            font-family: 'Garamond', serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus, textarea:focus { border-color: var(--dorado); }
+
+        .btn-send {
+            width: 100%;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover { background: var(--dorado); }
+
+        .important-note { font-size: 0.8rem; margin-top: 30px; color: #777; border-top: 1px solid #ddd; padding-top: 20px; }
+
+        footer { text-align: center; padding: 40px; color: #999; font-size: 0.7rem; margin-top: 60px; }
+
+        @media (max-width: 600px) {
+            ul { columns: 1; }
+            .form-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <h1>Work With Me</h1>
+        <p class="subtitle">For collaborations, consulting, events, and professional inquiries.</p>
+
+        <div class="services-list">
+            <h2>How I can help</h2>
+            <ul>
+                <li>Wine list development</li>
+                <li>Staff training</li>
+                <li>Restaurant openings</li>
+                <li>Guest experience</li>
+                <li>Event collaborations</li>
+                <li>Brand partnerships</li>
+                <li>Private tastings</li>
+                <li>Speaking & judging</li>
+            </ul>
+        </div>
+
+        <div class="form-header">
+            <h2>Tell me about your project</h2>
+        </div>
+
+        <form name="work-with-me" method="POST" data-netlify="true">
+            <div class="form-row">
+                <div>
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Company / Brand (optional)</label>
+                <input type="text" name="company">
+            </div>
+
+            <div class="form-group">
+                <label>What do you need help with?</label>
+                <textarea name="description" rows="5" placeholder="Describe your project, goals, or collaboration idea." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-send">Send inquiry</button>
+        </form>
+
+        <div class="important-note">
+            <p><strong>Important:</strong> This form is for professional inquiries only.</p>
+            <p>For general wine questions, please use the Ask the Sommelier page.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+</body>
+</html>
