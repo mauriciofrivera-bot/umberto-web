@@ -3,40 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post | Umberto Sommelier</title>
+    <title>Artículo | Umberto Campioni</title>
     <style>
-        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --carbón: #121212; }
-        body { background-color: var(--oscuro); color: white; font-family: 'Times New Roman', serif; line-height: 1.6; }
-        .post-container { max-width: 800px; margin: 50px auto; padding: 0 20px; }
-        .post-header h1 { font-size: 2.5rem; color: var(--dorado); margin-bottom: 10px; }
-        .post-content img, .post-content iframe { max-width: 100%; height: auto; margin: 20px 0; border: 1px solid #333; }
-        #disqus_thread { margin-top: 80px; padding: 20px; background: var(--carbón); border-radius: 4px; }
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --carbón: #121212;
+            --blanco-suave: #f0f0f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--oscuro);
+            color: var(--blanco-suave);
+            font-family: 'Garamond', 'Times New Roman', serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 25px;
+            background: var(--oscuro);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--blanco-suave);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+        }
+
+        /* --- CONTENIDO DEL POST --- */
+        .post-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .post-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .post-meta {
+            font-style: italic;
+            color: var(--dorado);
+            font-size: 0.9rem;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            margin-bottom: 40px;
+            border: 1px solid #222;
+        }
+
+        /* --- ESTILOS DE TEXTO (MARKDOWN) --- */
+        .post-body {
+            font-size: 1.15rem;
+            color: #ddd;
+        }
+
+        .post-body p { margin-bottom: 25px; }
+        .post-body h2, .post-body h3 { 
+            color: white; 
+            margin: 40px 0 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+        
+        .post-body blockquote {
+            border-left: 2px solid var(--dorado);
+            padding-left: 25px;
+            font-style: italic;
+            color: var(--blanco-suave);
+            margin: 40px 0;
+        }
+
+        .post-body ul, .post-body ol {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 60px;
+            color: var(--dorado);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--dorado);
+        }
+
+        footer { text-align: center; padding: 60px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
+
+        /* REVELADO INICIAL */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInAnim 1.5s cubic-bezier(0.15, 0.45, 0.15, 1) forwards;
+        }
+
+        @keyframes fadeInAnim {
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <nav style="padding: 20px;"><a href="blog.html" style="color: white; text-decoration: none;">← Volver al Blog</a></nav>
-    <article class="post-container">
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <article class="post-container fade-in">
         <header class="post-header">
+            <div id="post-category" class="post-meta">Cargando...</div>
             <h1 id="post-title"></h1>
-            <p id="post-date" style="color: var(--dorado); font-style: italic;"></p>
         </header>
-        
-        <div class="post-content" id="post-body">
+
+        <img id="post-image" class="featured-image" style="display: none;" src="" alt="">
+
+        <div id="post-content" class="post-body">
             </div>
 
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = window.location.href;
-                this.page.identifier = window.location.pathname;
-            };
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://umberto-sommelier.disqus.com/embed.js'; // Cambiaremos esto por tu nombre de usuario en Disqus
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
+        <a href="blog.html" class="back-link">← Volver al Journal</a>
     </article>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+    <script>
+        const GITHUB_USER = 'mauriciorivera-bot';
+        const GITHUB_REPO = 'umberto-web';
+
+        async function loadFullPost() {
+            const params = new URLSearchParams(window.location.search);
+            const fileName = params.get('article');
+
+            if (!fileName) {
+                window.location.href = 'blog.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/_posts/${fileName}`);
+                const data = await response.json();
+                const rawText = atob(data.content); // GitHub devuelve base64
+
+                const parts = rawText.split('---');
+                if (parts.length >= 3) {
+                    const metadata = jsyaml.load(parts[1]);
+                    const markdownBody = parts.slice(2).join('---');
+
+                    // Llenar datos en el HTML
+                    document.title = `${metadata.title} | Umberto Campioni`;
+                    document.getElementById('post-title').innerText = metadata.title;
+                    document.getElementById('post-category').innerText = metadata.category || 'Journal';
+                    
+                    if (metadata.featured_image) {
+                        const img = document.getElementById('post-image');
+                        img.src = metadata.featured_image;
+                        img.style.display = 'block';
+                    }
+
+                    // Convertir Markdown a HTML usando marked.js
+                    document.getElementById('post-content').innerHTML = marked.parse(markdownBody);
+                }
+
+            } catch (error) {
+                console.error("Error cargando el artículo:", error);
+                document.getElementById('post-content').innerHTML = "<p>Lo sentimos, no se pudo cargar el artículo.</p>";
+            }
+        }
+
+        window.onload = loadFullPost;
+    </script>
 </body>
 </html>
