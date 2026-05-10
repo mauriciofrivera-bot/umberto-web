@@ -1,8 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
 <script>
-    // CONFIGURACIÓN RIVERA ENGINEERING
     const USER = 'mauriciofrivera-bot';
     const REPO = 'umberto-web';
 
@@ -16,54 +12,49 @@
             return;
         }
 
-        // Usamos la API oficial para mayor compatibilidad
-        const apiUrl = `https://api.github.com/repos/${USER}/${REPO}/contents/_posts/${fileName}`;
+        // Añadimos un timestamp (?t=...) para obligar a GitHub a darnos la versión más nueva
+        const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}?t=${Date.now()}`;
 
         try {
-            const res = await fetch(apiUrl);
-            if (!res.ok) throw new Error(`No se encontró el archivo: ${res.status}`);
-
-            const data = await res.json();
+            const res = await fetch(url);
             
-            // Decodificamos Base64 manejando caracteres latinos (UTF-8)
-            const rawText = decodeURIComponent(escape(atob(data.content)));
-            
-            // Limpieza de caracteres invisibles
-            const cleanText = rawText.trim();
-            const parts = cleanText.split('---');
+            if (!res.ok) {
+                throw new Error(`No se pudo acceder al archivo. Estado: ${res.status}`);
+            }
 
-            // Lógica para extraer metadatos y cuerpo
+            const rawText = await res.text();
+            const parts = rawText.split('---');
+
             if (parts.length >= 3) {
-                // El CMS pone los metadatos entre los dos primeros conjuntos de ---
                 const meta = jsyaml.load(parts[1]);
                 const markdownContent = parts.slice(2).join('---');
 
-                // Llenar la interfaz
-                document.getElementById('post-title').innerText = meta.title || "Untitled Post";
+                document.getElementById('post-title').innerText = meta.title || "Sin Título";
                 document.getElementById('post-category').innerText = meta.category || "Journal";
                 
-                if (meta.featured_image) {
+                if (metadata.featured_image) {
                     const img = document.getElementById('post-image');
-                    img.src = meta.featured_image;
+                    img.src = metadata.featured_image;
                     img.style.display = 'block';
                 }
 
-                // Renderizar Markdown a HTML
                 display.innerHTML = marked.parse(markdownContent);
-                console.log("Post renderizado con éxito.");
             } else {
-                // Si el archivo no tiene --- iniciales, intentamos renderizarlo completo
-                display.innerHTML = marked.parse(cleanText);
+                // Si no hay separadores ---, renderizar todo el texto
+                display.innerHTML = marked.parse(rawText);
             }
         } catch (err) {
-            console.error("ERROR CRÍTICO:", err);
+            console.error("Detalle del error:", err);
             display.innerHTML = `
                 <div style="text-align:center; padding: 40px; border: 1px solid #222;">
-                    <p style="color: var(--dorado); font-size: 1.2rem;">SINCRONIZANDO...</p>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
-                        Verificando archivo: <strong>${fileName}</strong> en la rama <strong>main</strong>.
+                    <p style="color: var(--dorado); font-weight: bold;">AVISO DE SISTEMA</p>
+                    <p style="font-size: 0.85rem; color: #888; margin-top: 10px;">
+                        ${err.message}<br>
+                        Intentando leer: <strong>_posts/${fileName}</strong>
                     </p>
-                    <a href="blog.html" style="color: white; display: block; margin-top: 20px; font-size: 0.7rem;">[ REINTENTAR ]</a>
+                    <p style="font-size: 0.7rem; margin-top: 20px;">
+                        Si acabas de hacer el cambio a Público, espera 30 segundos y presiona <strong>CTRL + F5</strong>.
+                    </p>
                 </div>
             `;
         }
