@@ -26,7 +26,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- NAVEGACIÓN --- */
         nav {
             display: flex;
             justify-content: center;
@@ -49,14 +48,13 @@
 
         .container {
             max-width: 900px;
-            margin: 80px auto;
+            margin: 60px auto;
             padding: 0 40px;
         }
 
-        /* --- ENCABEZADO --- */
         .contact-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         h1 { 
@@ -71,61 +69,27 @@
 
         .subtitle { 
             font-family: 'EB Garamond', serif;
-            font-size: 1.1rem; 
+            font-size: 1rem; 
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--dorado);
             font-weight: 700;
         }
 
-        /* --- SECCIÓN DE INFORMACIÓN --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .info-item h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--dorado);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .info-item p, .info-item li {
-            color: var(--gris-claro);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            list-style: none;
-        }
-
-        .info-item li::before {
-            content: "◆ ";
-            color: var(--dorado);
-            font-size: 0.8rem;
-            margin-right: 10px;
-        }
-
-        /* --- FORMULARIO ESTILO OSCURO --- */
+        /* --- FORMULARIO SEGÚN LA IMAGEN --- */
         .form-wrapper {
-            border: 1px solid #1a1a1a;
-            padding: 60px;
-            background-color: var(--oscuro-suave);
+            margin-top: 40px;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         label {
@@ -133,9 +97,9 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--dorado);
-            margin-bottom: 10px;
-            font-weight: 700;
+            color: var(--gris-claro);
+            margin-bottom: 8px;
+            font-weight: 400;
         }
 
         input, textarea {
@@ -146,7 +110,7 @@
             color: var(--blanco);
             padding: 10px 0;
             font-family: 'EB Garamond', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             outline: none;
             transition: border-color 0.4s;
         }
@@ -157,20 +121,21 @@
 
         textarea {
             resize: none;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
+        /* --- BOTÓN --- */
         .btn-submit {
             background: transparent;
             border: 1px solid var(--dorado);
             color: var(--dorado);
-            padding: 20px 60px;
+            padding: 20px 0;
             text-transform: uppercase;
             letter-spacing: 5px;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 40px;
+            margin-top: 30px;
             transition: all 0.4s ease;
         }
 
@@ -181,16 +146,15 @@
 
         footer {
             text-align: center;
-            padding: 100px 20px 40px;
+            padding: 80px 20px 40px;
             color: #333;
             font-size: 0.7rem;
             letter-spacing: 3px;
         }
 
         @media (max-width: 768px) {
-            .info-grid, .form-row { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
             .container { margin: 40px auto; padding: 0 20px; }
-            .form-wrapper { padding: 30px; }
         }
     </style>
 </head>
@@ -206,24 +170,8 @@
     <div class="container">
         <header class="contact-header">
             <h1>Contact</h1>
-            <p class="subtitle">Rivera Engineering x Umberto</p>
+            <p class="subtitle">Inquiry Form</p>
         </header>
-
-        <div class="info-grid">
-            <div class="info-item">
-                <h3>Services</h3>
-                <ul>
-                    <li>Wine List Consulting</li>
-                    <li>Staff Education</li>
-                    <li>Private Cellar Management</li>
-                    <li>Event Curation</li>
-                </ul>
-            </div>
-            <div class="info-item">
-                <h3>Inquiries</h3>
-                <p>For bookings and professional collaborations, please use the form or reach out directly via email.</p>
-            </div>
-        </div>
 
         <div class="form-wrapper">
             <form name="contact" method="POST" data-netlify="true" action="/success.html">
@@ -231,21 +179,32 @@
                 
                 <div class="form-row">
                     <div class="input-group">
-                        <label>Name</label>
-                        <input type="text" name="name" required>
+                        <label>First Name</label>
+                        <input type="text" name="first_name" required>
                     </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text" name="last_name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
                     <div class="input-group">
                         <label>Email Address</label>
                         <input type="email" name="email" required>
                     </div>
+                    <div class="input-group">
+                        <label>Organization</label>
+                        <input type="text" name="organization">
+                    </div>
                 </div>
 
                 <div class="input-group">
-                    <label>Message</label>
+                    <label>How can we help you?</label>
                     <textarea name="message" rows="4" required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Send Message</button>
+                <button type="submit" class="btn-submit">Submit</button>
             </form>
         </div>
     </div>
