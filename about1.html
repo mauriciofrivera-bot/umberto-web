@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Umberto Campioni</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --gris-texto: #a0a0a0;
+            --blanco-suave: #f0f0f0;
+            --linea: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--oscuro);
+            color: var(--blanco-suave);
+            font-family: 'EB Garamond', serif;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 25px;
+            background: var(--oscuro);
+            border-bottom: 1px solid var(--linea);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--gris-texto);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+
+        .article-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 30px; /* Un poco menos de padding lateral para móviles */
+        }
+
+        .diamond {
+            color: var(--dorado);
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 4rem);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            line-height: 1.1;
+        }
+
+        .bio-wrapper {
+            overflow: hidden;
+        }
+
+        /* --- DISEÑO DESKTOP (ESCRITORIO) --- */
+        .bio-image {
+            width: 42%; 
+            max-width: 450px;
+            float: left;
+            margin: 0 40px 30px 0;
+            border: 1px solid var(--linea);
+            padding: 8px;
+            background: #111;
+        }
+
+        .bio-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .bio-text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #e0e0e0;
+        }
+
+        .bio-text p:first-of-type::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            float: left;
+            margin-right: 12px;
+            line-height: 0.85;
+            color: var(--dorado);
+            font-weight: bold;
+        }
+
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            color: var(--dorado);
+            margin: 40px 0;
+            padding: 25px 0;
+            border-top: 1px solid var(--linea);
+            border-bottom: 1px solid var(--linea);
+            text-align: center;
+            clear: both;
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            margin-top: 40px;
+            display: block;
+            text-align: right;
+            color: var(--dorado);
+        }
+
+        /* --- AJUSTE CRÍTICO PARA SMARTPHONES --- */
+        @media (max-width: 768px) {
+            .article-container {
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .bio-image {
+                width: 100%;      /* La imagen toma todo el ancho */
+                max-width: none;
+                float: none;      /* Eliminamos el flujo lateral */
+                margin: 0 0 30px 0; /* Espacio solo abajo */
+                padding: 5px;
+            }
+
+            .bio-text p {
+                font-size: 1.1rem;
+                text-align: left; /* En móviles es más legible alineado a la izquierda */
+            }
+
+            .bio-text p:first-of-type::first-letter {
+                font-size: 3.5rem; /* Letra un poco más pequeña en móvil */
+            }
+
+            h1 {
+                margin-bottom: 30px;
+            }
+        }
+
+        footer { 
+            text-align: center; padding: 50px 20px; color: #444; font-size: 0.65rem; 
+            border-top: 1px solid var(--linea); margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Journal</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main class="article-container">
+        <span class="diamond">◆</span>
+        <h1>Beyond the Glass</h1>
+
+        <div class="bio-wrapper">
+            <div class="bio-image">
+                <img src="images/Umberto_Biography.jpeg" alt="Umberto Campioni">
+            </div>
+
+            <div class="bio-text">
+                <p>
+                    Umberto Campioni is an Italian sommelier, hospitality professional, and wine educator based in Boston. With nearly two decades of experience in luxury hospitality, Michelin-starred restaurants, and fine dining, Umberto combines Italian culture, professional service, and modern hospitality leadership.
+                </p>
+
+                <p>
+                    His career includes roles within renowned Michelin-starred restaurants and luxury hotels in Italy, alongside experience in restaurant management, wine education, guest experience, staff training, and curated wine events.
+                </p>
+
+                <p>
+                    Beyond restaurant operations, Umberto has served as an international wine judge and tasting panel member in Brussels, as well as a speaker and educator within professional sommelier programs and hospitality events.
+                </p>
+
+                <div class="quote">
+                    "Elevating hospitality through knowledge, culture, passion, and unforgettable guest experiences."
+                </div>
+
+                <p>
+                    Through his platform, he shares wine culture, hospitality insights, industry stories, and real experiences from the floor — with an authentic, educational, and approachable voice. 
+                </p>
+                
+                <p>
+                    His mission is to empower teams and brands by providing a sharper guest experience and a deeper connection to the products they serve.
+                </p>
+
+                <span class="signature">Umberto Campioni</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
+    </footer>
+
+</body>
+</html>

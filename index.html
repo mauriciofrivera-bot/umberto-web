@@ -85,8 +85,8 @@
             background: url('images/Umberto_Main_Photo.jpg') no-repeat;
             background-size: cover;
             background-position: center 15%; 
-            mask-image: linear-gradient(to left, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
+            mask-image: linear-gradient(to left, black 30%, transparent 90%);
+            -webkit-mask-image: linear-gradient(to left, black 30%, transparent 90%);
             z-index: 2;
         }
 
@@ -94,11 +94,18 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            text-align: center;
-            padding: 0 5%;
+            text-align: left;
+            padding-left: 10%;
         }
 
-        .hero h1 { font-size: clamp(1.8rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 3px; }
+        .hero h1 { 
+            font-size: clamp(1.8rem, 5vw, 4rem); 
+            text-transform: uppercase; 
+            margin-bottom: 15px; 
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+        
         .hero p { font-size: clamp(0.9rem, 2vw, 1.4rem); font-style: italic; margin-bottom: 30px; }
 
         .btn-gold {
@@ -112,6 +119,68 @@
             color: var(--oscuro) !important;
         }
 
+        /* --- BIO OVERLAY AJUSTADO --- */
+        .bio-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            z-index: 20;
+            opacity: 0;
+            visibility: hidden;
+            /* Salida instantánea al quitar el mouse */
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        /* Activación con retraso de 1.5s */
+        .hero:hover .bio-overlay {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 1.5s; 
+        }
+
+        .bio-overlay-content {
+            max-width: 380px;
+            text-align: center;
+            transform: translateY(20px);
+            /* Salida instantánea del movimiento */
+            transition: transform 0.4s ease;
+        }
+
+        .hero:hover .bio-overlay-content {
+            transform: translateY(0);
+            transition-delay: 1.5s;
+        }
+
+        .bio-overlay h3 {
+            font-family: 'Garamond', serif;
+            color: var(--dorado);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .bio-overlay p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--blanco-suave);
+        }
+
+        @media (max-width: 768px) {
+            .bio-overlay { display: none; }
+        }
+
+        /* --- RESTO DEL DISEÑO --- */
         .article-banner {
             width: 100%;
             min-height: 280px;
@@ -173,6 +242,7 @@
             .article-banner { background-size: cover; }
             .grid-item { height: 140px; }
             .item-img-box { padding: 10px; }
+            .hero-content { padding-left: 5%; text-align: center; }
         }
     </style>
 </head>
@@ -188,11 +258,20 @@
     <header class="hero">
         <div class="hero-left"></div>
         <div class="hero-right"></div>
+        
         <div class="hero-content reveal">
-            <h1>Wine. Hospitality. <br>No Bullshit.</h1>
+            <h1>Wine. <br>Hospitality. <br>Culture.</h1>
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
                 <a href="ask.html" class="btn-gold">Ask me anything</a>
+            </div>
+        </div>
+
+        <div class="bio-overlay">
+            <div class="bio-overlay-content">
+                <h3>Umberto Campioni</h3>
+                <p>Italian sommelier and wine educator based in Boston. With nearly two decades of experience in Michelin-starred restaurants, he combines Italian culture with modern hospitality leadership.</p>
+                <a href="about.html" style="color: var(--dorado); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">EXPLORE FULL BIO →</a>
             </div>
         </div>
     </header>
@@ -210,20 +289,20 @@
     <section class="grid-section">
         <div class="grid-container">
             <a href="blog.html?cat=Choose+the+wine" class="grid-item reveal">
-                <div class="item-img-box" style="width: 100%; height: 100%;">
-                    <img src="images/Wine_Uncorked_Logo_transparent.png" alt="Wine Uncorked" style="width: 100%; height: 100%; object-fit: contain;">
+                <div class="item-img-box">
+                    <img src="images/Wine_Uncorked_Logo_transparent.png" alt="Wine Uncorked">
                 </div>
             </a>
 
             <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item reveal">
-                <div class="item-img-box" style="width: 100%; height: 100%;">
-                    <img src="images/NBS_Logo_transparent.png" alt="No BS Truth" style="width: 100%; height: 100%; object-fit: contain;">
+                <div class="item-img-box">
+                    <img src="images/NBS_Logo_transparent.png" alt="No BS Truth">
                 </div>
             </a>
 
             <a href="blog.html?cat=Work+the+Floor" class="grid-item reveal">
-                <div class="item-img-box" style="width: 100%; height: 100%;">
-                    <img src="images/from_the_floor_transparent.png" alt="From the Floor" style="width: 100%; height: 100%; object-fit: contain;">
+                <div class="item-img-box">
+                    <img src="images/from_the_floor_transparent.png" alt="From the Floor">
                 </div>
             </a>
         </div>
