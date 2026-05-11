@@ -14,6 +14,8 @@
             --oscuro: #0a0a0a;
             --blanco: #f0f0f0;
             --gris-texto: #d1d1d1;
+            /* Fuente de alta compatibilidad para símbolos ingleses como apóstrofes o comillas */
+            --fuente-serif: 'EB Garamond', 'Garamond', 'Hoefler Text', 'Times New Roman', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,21 +23,21 @@
         body { 
             background-color: var(--oscuro); 
             color: var(--blanco); 
-            font-family: 'Garamond', serif; 
+            font-family: var(--fuente-serif); 
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- NAVEGACIÓN MÓVIL OPTIMIZADA --- */
+        /* --- NAVEGACIÓN --- */
         nav { 
             display: flex; 
             justify-content: center; 
-            padding: 20px 10px; 
-            gap: 15px; 
-            border-bottom: 1px solid #111; 
+            padding: 20px; 
+            gap: 25px; 
+            border-bottom: 1px solid #1a1a1a; 
             position: sticky;
             top: 0;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgba(10, 10, 10, 0.9);
             z-index: 100;
             backdrop-filter: blur(10px);
         }
@@ -43,128 +45,124 @@
             color: var(--blanco); 
             text-decoration: none; 
             text-transform: uppercase; 
-            font-size: 0.65rem; 
-            letter-spacing: 1.5px; 
+            font-size: 0.7rem; 
+            letter-spacing: 2px; 
         }
 
         /* --- CONTENEDOR PRINCIPAL --- */
         .post-container {
-            max-width: 750px; 
-            margin: 40px auto;
-            padding: 0 25px; /* Más margen en móviles para que el texto no toque los bordes */
+            max-width: 780px; 
+            margin: 60px auto;
+            padding: 0 30px;
         }
 
+        /* --- TÍTULO ENMARCADO Y ELEGANTE --- */
         .post-header {
             text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .post-meta {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--dorado);
-            display: block;
-            margin-bottom: 10px;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            border: 1px solid rgba(181, 141, 82, 0.3); /* Marco sutil dorado */
+            position: relative;
         }
 
         .post-header h1 {
-            font-size: 2.8rem; /* Tamaño masivo para escritorio */
+            font-size: 3.2rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            line-height: 1.1;
-            font-weight: normal;
+            letter-spacing: 6px;
+            line-height: 1.2;
+            font-weight: 400;
+            margin: 0;
         }
 
+        /* --- EFECTO EN LA FOTOGRAFÍA --- */
         #img-wrapper {
             width: 100%;
-            margin: 30px 0 40px 0;
+            margin: 40px 0 60px 0;
             display: none;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #1a1a1a;
+            transition: transform 0.8s ease;
+        }
+
+        #img-wrapper:hover {
+            transform: scale(1.02); /* Efecto de zoom sutil al pasar el mouse */
         }
 
         #post-image {
             width: 100%;
             height: auto;
-            border: 1px solid #1a1a1a;
-            padding: 5px;
+            display: block;
+            filter: grayscale(20%) contrast(110%); /* Efecto visual elegante */
+            transition: filter 0.5s ease;
         }
 
-        /* --- CUERPO DEL TEXTO --- */
+        #img-wrapper:hover #post-image {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* --- CONTENIDO --- */
         .post-content {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--gris-texto);
             text-align: justify;
-            hyphens: auto; /* Mejora la justificación en pantallas estrechas */
         }
 
-        /* Letra Capital Adaptable */
+        /* Letra Capital */
         .post-content > p:first-of-type::first-letter {
             float: left;
-            font-size: 4.5rem;
+            font-size: 5rem;
             line-height: 0.8;
-            padding-right: 12px;
-            padding-top: 8px;
+            padding-right: 15px;
+            padding-top: 10px;
             color: var(--dorado);
         }
 
-        .post-content p { margin-bottom: 25px; }
+        /* VIÑETAS ELEGANTES */
+        .post-content ul {
+            list-style: none;
+            margin: 30px 0;
+            padding-left: 20px;
+        }
 
-        .post-content h2 {
-            font-size: 1.4rem;
-            color: var(--blanco);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 45px 0 20px 0;
-            border-left: 2px solid var(--dorado);
-            padding-left: 15px;
+        .post-content li {
+            position: relative;
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+
+        .post-content li::before {
+            content: "◆"; /* Diamante elegante en lugar de punto común */
+            position: absolute;
+            left: 0;
+            color: var(--dorado);
+            font-size: 0.8rem;
         }
 
         blockquote {
             font-style: italic;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--dorado);
-            margin: 40px 10px;
+            margin: 50px 0;
             text-align: center;
-            line-height: 1.5;
+            border: none;
+            position: relative;
         }
 
-        /* --- AJUSTES ESPECÍFICOS PARA SMARTPHONES --- */
+        /* --- MÓVIL --- */
         @media (max-width: 600px) {
-            .post-container { margin: 20px auto; padding: 0 20px; }
-            
-            .post-header h1 { font-size: 2rem; letter-spacing: 2px; }
-            
-            .post-content { 
-                font-size: 1.1rem; /* Texto ligeramente más pequeño para móvil */
-                text-align: left; /* En móvil es mejor alinear a la izquierda para evitar huecos */
-            }
-
-            .post-content > p:first-of-type::first-letter {
-                font-size: 3.5rem; /* Letra capital más pequeña en móvil */
-            }
-
-            blockquote { font-size: 1.2rem; margin: 30px 5px; }
-
-            nav { gap: 10px; }
-            nav a { font-size: 0.6rem; letter-spacing: 1px; }
+            .post-header h1 { font-size: 2rem; letter-spacing: 3px; }
+            .post-content { font-size: 1.15rem; text-align: left; }
+            .post-container { margin: 30px auto; padding: 0 20px; }
         }
 
-        /* --- DISQUS --- */
         #comments-section {
-            margin-top: 80px;
+            margin-top: 100px;
             border-top: 1px solid #222;
-            padding-top: 40px;
-        }
-        #comments-section h3 {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            margin-bottom: 30px;
-            color: var(--dorado);
-            text-align: center;
+            padding-top: 50px;
         }
 
-        footer { text-align: center; padding: 60px 20px; color: #444; font-size: 0.65rem; letter-spacing: 2px; }
+        footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -178,7 +176,7 @@
 
     <article class="post-container">
         <header class="post-header">
-            <span id="post-category" class="post-meta">Journal</span>
+            <span id="post-category" style="display: none;"></span>
             <h1 id="post-title">...</h1>
         </header>
 
@@ -190,7 +188,6 @@
             </div>
 
         <section id="comments-section">
-            <h3>Thoughts & Conversations</h3>
             <div id="disqus_thread"></div>
         </section>
     </article>
@@ -218,8 +215,7 @@
                     const meta = jsyaml.load(parts[1]);
                     document.title = `${meta.title} | Umberto Campioni`;
                     document.getElementById('post-title').innerText = meta.title;
-                    document.getElementById('post-category').innerText = (meta.categories && meta.categories[0]) || "Journal";
-
+                    
                     if (meta.thumbnail) {
                         const img = document.getElementById('post-image');
                         const wrapper = document.getElementById('img-wrapper');
@@ -229,9 +225,10 @@
                         img.onerror = () => img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileName}`;
                     }
 
+                    // Renderizado del contenido
                     document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
                     
-                    // Inicializar Disqus
+                    // Disqus
                     var disqus_config = function () {
                         this.page.url = window.location.href;
                         this.page.identifier = article;
