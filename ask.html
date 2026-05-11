@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ask Me Anything | Umberto Campioni</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --dorado: #b58d52;
+            --dorado-brillante: #e0b36e;
+            --oscuro-puro: #000000;
+            --blanco: #ffffff;
+            --gris-linea: #444444;
+            --gris-texto: #888888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--oscuro-puro);
+            color: var(--blanco);
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+            gap: 25px;
+            background: var(--oscuro-puro);
+            border-bottom: 1px solid #111;
+        }
+
+        nav a {
+            color: var(--gris-texto);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--dorado); }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        /* --- TÍTULO ESTILO IMAGEN --- */
+        .ask-header {
+            margin-bottom: 70px;
+        }
+
+        h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 10vw, 3.5rem); 
+            text-transform: uppercase; 
+            letter-spacing: 10px; 
+            font-weight: 700; 
+            color: var(--blanco);
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--dorado);
+            margin: 20px auto;
+        }
+
+        .intro-text {
+            color: var(--gris-texto);
+            font-style: italic;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- FORMULARIO --- */
+        .form-ask {
+            margin-top: 60px;
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--dorado);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--gris-linea);
+            color: var(--blanco);
+            padding: 15px 0;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.3rem;
+            outline: none;
+            transition: all 0.4s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-bottom-color: var(--dorado-brillante);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* --- BOTÓN SUBMIT --- */
+        .btn-submit {
+            background: transparent;
+            border: 1px solid var(--dorado);
+            color: var(--dorado);
+            padding: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--dorado);
+            color: var(--oscuro-puro);
+            box-shadow: 0 0 30px rgba(181, 141, 82, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 100px 20px 40px;
+            color: #333;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container { margin: 40px auto; padding: 0 25px; }
+            h1 { font-size: 2rem; letter-spacing: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="blog.html">Journal</a>
+        <a href="about.html">About</a>
+        <a href="ask.html">Ask Me Anything</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <header class="ask-header">
+            <h1>Ask Me Anything</h1>
+            <div class="divider"></div>
+            <p class="intro-text">Unfiltered insights into the world of wine, service, and hospitality.</p>
+        </header>
+
+        <div class="form-wrapper">
+            <form name="ask-anything" method="POST" data-netlify="true" action="/success.html">
+                <input type="hidden" name="form-name" value="ask-anything" />
+                
+                <div class="input-group">
+                    <label>Your Name</label>
+                    <input type="text" name="name" required placeholder="How should I address you?">
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required placeholder="Where should I send the answer?">
+                </div>
+
+                <div class="input-group">
+                    <label>Your Question</label>
+                    <textarea name="question" rows="5" required placeholder="Ask about a specific bottle, region, or industry secret..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Question</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
+    </footer>
+
+</body>
+</html>
