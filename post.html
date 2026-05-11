@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Journal | Umberto Campioni</title>
     
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -23,149 +23,148 @@
             color: var(--blanco); 
             font-family: 'Garamond', serif; 
             line-height: 1.8;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- NAVEGACIÓN --- */
+        /* --- NAVEGACIÓN MÓVIL OPTIMIZADA --- */
         nav { 
             display: flex; 
             justify-content: center; 
-            padding: 25px; 
-            gap: 30px; 
+            padding: 20px 10px; 
+            gap: 15px; 
             border-bottom: 1px solid #111; 
-            background: var(--oscuro);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 100;
+            backdrop-filter: blur(10px);
         }
         nav a { 
             color: var(--blanco); 
             text-decoration: none; 
             text-transform: uppercase; 
-            font-size: 0.7rem; 
-            letter-spacing: 2px; 
+            font-size: 0.65rem; 
+            letter-spacing: 1.5px; 
         }
 
-        /* --- CONTENEDOR EDITORIAL --- */
+        /* --- CONTENEDOR PRINCIPAL --- */
         .post-container {
-            max-width: 750px; /* Ancho optimizado para lectura elegante */
-            margin: 60px auto;
-            padding: 0 20px;
+            max-width: 750px; 
+            margin: 40px auto;
+            padding: 0 25px; /* Más margen en móviles para que el texto no toque los bordes */
         }
 
         .post-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .post-meta {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--dorado);
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .post-header h1 {
-            font-size: 3.5rem;
+            font-size: 2.8rem; /* Tamaño masivo para escritorio */
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             line-height: 1.1;
             font-weight: normal;
-            margin-bottom: 20px;
         }
 
         #img-wrapper {
             width: 100%;
-            margin-bottom: 50px;
-            display: none; /* Se activa por JS */
+            margin: 30px 0 40px 0;
+            display: none;
         }
 
         #post-image {
             width: 100%;
             height: auto;
             border: 1px solid #1a1a1a;
-            padding: 10px;
+            padding: 5px;
         }
 
-        /* --- CONTENIDO DEL ARTÍCULO --- */
+        /* --- CUERPO DEL TEXTO --- */
         .post-content {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--gris-texto);
             text-align: justify;
+            hyphens: auto; /* Mejora la justificación en pantallas estrechas */
         }
 
-        /* Letra Capital (Drop Cap) */
+        /* Letra Capital Adaptable */
         .post-content > p:first-of-type::first-letter {
             float: left;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 0.8;
-            padding-right: 15px;
-            padding-top: 10px;
+            padding-right: 12px;
+            padding-top: 8px;
             color: var(--dorado);
-            font-family: serif;
         }
 
-        .post-content p {
-            margin-bottom: 25px;
-        }
+        .post-content p { margin-bottom: 25px; }
 
-        .post-content h2, .post-content h3 {
+        .post-content h2 {
+            font-size: 1.4rem;
             color: var(--blanco);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 50px 0 20px 0;
-            font-weight: normal;
-            border-left: 3px solid var(--dorado);
+            margin: 45px 0 20px 0;
+            border-left: 2px solid var(--dorado);
             padding-left: 15px;
         }
 
-        .post-content blockquote {
+        blockquote {
             font-style: italic;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--dorado);
-            margin: 40px 0;
-            padding: 0 30px;
+            margin: 40px 10px;
             text-align: center;
-            border: none;
+            line-height: 1.5;
         }
 
-        .post-content img {
-            max-width: 100%;
-            height: auto;
-            margin: 40px 0;
-            display: block;
+        /* --- AJUSTES ESPECÍFICOS PARA SMARTPHONES --- */
+        @media (max-width: 600px) {
+            .post-container { margin: 20px auto; padding: 0 20px; }
+            
+            .post-header h1 { font-size: 2rem; letter-spacing: 2px; }
+            
+            .post-content { 
+                font-size: 1.1rem; /* Texto ligeramente más pequeño para móvil */
+                text-align: left; /* En móvil es mejor alinear a la izquierda para evitar huecos */
+            }
+
+            .post-content > p:first-of-type::first-letter {
+                font-size: 3.5rem; /* Letra capital más pequeña en móvil */
+            }
+
+            blockquote { font-size: 1.2rem; margin: 30px 5px; }
+
+            nav { gap: 10px; }
+            nav a { font-size: 0.6rem; letter-spacing: 1px; }
         }
 
-        .post-content ul, .post-content ol {
-            margin-bottom: 25px;
-            padding-left: 20px;
-        }
-
-        .post-content li {
-            margin-bottom: 10px;
-        }
-
-        /* --- SECCIÓN DISQUS --- */
+        /* --- DISQUS --- */
         #comments-section {
-            margin-top: 100px;
+            margin-top: 80px;
             border-top: 1px solid #222;
-            padding-top: 50px;
+            padding-top: 40px;
         }
-
         #comments-section h3 {
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
             margin-bottom: 30px;
             color: var(--dorado);
             text-align: center;
         }
 
-        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
-
-        @media (max-width: 768px) {
-            .post-header h1 { font-size: 2.2rem; }
-            .post-content { text-align: left; }
-        }
+        footer { text-align: center; padding: 60px 20px; color: #444; font-size: 0.65rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -197,7 +196,7 @@
     </article>
 
     <footer>
-        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
+        &copy; 2026 UMBERTO CAMPIONI. <br> BUILT BY RIVERA ENGINEERING.
     </footer>
 
     <script>
@@ -207,61 +206,43 @@
         async function loadPost() {
             const params = new URLSearchParams(window.location.search);
             const article = params.get('article');
-
             if (!article) return;
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts/${article}`);
                 const data = await res.json();
                 const text = atob(data.content);
-
                 const parts = text.split('---');
+
                 if (parts.length >= 3) {
                     const meta = jsyaml.load(parts[1]);
-                    
                     document.title = `${meta.title} | Umberto Campioni`;
                     document.getElementById('post-title').innerText = meta.title;
                     document.getElementById('post-category').innerText = (meta.categories && meta.categories[0]) || "Journal";
 
-                    // Manejo de imagen destacada
                     if (meta.thumbnail) {
                         const img = document.getElementById('post-image');
                         const wrapper = document.getElementById('img-wrapper');
-                        const fileNameOnly = meta.thumbnail.split('/').pop();
-                        const cleanSrc = `images/blog/${fileNameOnly}`;
-                        
-                        img.src = cleanSrc;
+                        const fileName = meta.thumbnail.split('/').pop();
+                        img.src = `images/blog/${fileName}`;
                         wrapper.style.display = 'block';
-
-                        img.onerror = () => {
-                            img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileNameOnly}`;
-                            img.onerror = () => wrapper.style.display = 'none';
-                        };
+                        img.onerror = () => img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileName}`;
                     }
 
-                    // Renderizado del contenido Markdown
-                    const rawContent = parts.slice(2).join('---');
-                    document.getElementById('post-content').innerHTML = marked.parse(rawContent);
-
-                    // CARGAR DISQUS UNA VEZ QUE EL CONTENIDO ESTÁ LISTO
-                    loadDisqus(article);
+                    document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
+                    
+                    // Inicializar Disqus
+                    var disqus_config = function () {
+                        this.page.url = window.location.href;
+                        this.page.identifier = article;
+                    };
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://umberto-sommelier.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                 }
-            } catch (err) {
-                console.error("Error cargando el post:", err);
-            }
+            } catch (err) { console.error(err); }
         }
-
-        function loadDisqus(articleId) {
-            var disqus_config = function () {
-                this.page.url = window.location.href;
-                this.page.identifier = articleId;
-            };
-            var d = document, s = d.createElement('script');
-            s.src = 'https://umberto-sommelier.disqus.com/embed.js'; 
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        }
-
         window.onload = loadPost;
     </script>
 </body>
