@@ -56,16 +56,23 @@
     </h3>
 
     <div id="disqus_thread"></div>
+    
     <script>
         var disqus_config = function () {
+            // Obtener el nombre del archivo .md de la URL para que cada post tenga su propia conversación
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('article');
+            
             this.page.url = window.location.href;  
-            this.page.identifier = window.location.search; 
+            this.page.identifier = articleId; // Esto asegura que los comentarios no se mezclen entre posts
         };
 
         (function() { 
             var d = document, s = d.createElement('script');
-            // IMPORTANTE: Reemplaza 'umberto-campioni' con tu Shortname real de Disqus
+            
+            // IMPORTANTE: Asegúrate de que 'umberto-campioni' sea el shortname exacto que creaste
             s.src = 'https://umberto-campioni.disqus.com/embed.js'; 
+            
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         })();
