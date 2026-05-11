@@ -101,16 +101,16 @@
         .hero h1 { font-size: clamp(1.8rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 3px; }
         .hero p { font-size: clamp(0.9rem, 2vw, 1.4rem); font-style: italic; margin-bottom: 30px; }
 
-        .btn-gold {
+        .btn-gold, .btn-outline {
             text-decoration: none;
             padding: 12px 20px;
             text-transform: uppercase;
             font-size: 0.75rem;
             font-weight: bold;
             display: inline-block;
-            background: var(--dorado); 
-            color: var(--oscuro) !important;
         }
+        .btn-gold { background: var(--dorado); color: var(--oscuro) !important; }
+        .btn-outline { border: 1px solid var(--dorado); color: white !important; margin-left: 10px; }
 
         .article-banner {
             width: 100%;
@@ -192,7 +192,8 @@
             <h1>Wine. Hospitality. <br>No Bullshit.</h1>
             <p>I work the floor, I choose the wine. <br>And I tell you what really matters.</p>
             <div class="hero-buttons">
-                <a href="ask.html" class="btn-gold">Ask me anything</a>
+                <a href="blog.html" class="btn-gold">Start Reading</a>
+                <a href="contact.html" class="btn-outline">Contact Me</a>
             </div>
         </div>
     </header>
@@ -210,20 +211,20 @@
     <section class="grid-section">
     <div class="grid-container">
         <a href="blog.html?cat=Choose+the+wine" class="grid-item reveal">
-            <div class="item-img-box">
-                <img src="images/Wine_Uncorked_Logo_transparent.png" alt="Wine Uncorked">
+            <div class="item-img-box" style="width: 100%; height: 100%;">
+                <img src="images/Wine_Uncorked_Logo_transparent.png" alt="Wine Uncorked" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
         </a>
 
         <a href="blog.html?cat=Tell+you+what+really+matters" class="grid-item reveal">
-            <div class="item-img-box">
-                <img src="images/NBS_Logo_transparent.png" alt="No BS Truth">
+            <div class="item-img-box" style="width: 100%; height: 100%;">
+                <img src="images/NBS_Logo_transparent.png" alt="No BS Truth" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
         </a>
 
         <a href="blog.html?cat=Work+the+Floor" class="grid-item reveal">
-            <div class="item-img-box">
-                <img src="images/from_the_floor_transparent.png" alt="From the Floor">
+            <div class="item-img-box" style="width: 100%; height: 100%;">
+                <img src="images/from_the_floor_transparent.png" alt="From the Floor" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
         </a>
     </div>
