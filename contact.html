@@ -1,153 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Contact | Umberto Campioni</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work With Me | Umberto Campioni</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --dorado: #b58d52;
-            --dorado-brillante: #e0b36e;
-            --oscuro-puro: #000000;
-            --blanco: #ffffff;
-            --gris-linea: #444444;
+            --oscuro: #0a0a0a;
             --gris-texto: #888888;
+            --linea: #333333;
+            --blanco-suave: #f0f0f0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--oscuro-puro);
-            color: var(--blanco);
+            background-color: var(--oscuro);
+            color: var(--blanco-suave);
             font-family: 'EB Garamond', serif;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         /* --- NAVEGACIÓN --- */
         nav {
             display: flex;
             justify-content: center;
-            padding: 30px;
-            gap: 25px;
-            background: var(--oscuro-puro);
-            border-bottom: 1px solid #111;
+            padding: 15px;
+            gap: 20px;
+            background: var(--oscuro);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         nav a {
-            color: var(--gris-texto);
+            color: var(--blanco-suave);
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.7rem;
-            letter-spacing: 3px;
-            transition: color 0.3s;
+            letter-spacing: 1px;
         }
-
-        nav a:hover { color: var(--dorado); }
 
         .container {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 0 40px;
-            text-align: center;
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
         }
 
-        /* --- TÍTULO --- */
-        .contact-header {
-            margin-bottom: 60px;
-        }
-
-        h1 { 
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 10vw, 3.5rem); 
-            text-transform: uppercase; 
-            letter-spacing: 10px; 
-            font-weight: 700; 
-            margin-bottom: 20px;
-        }
-
-        .divider {
-            width: 60px;
-            height: 2px;
-            background: var(--dorado);
-            margin: 20px auto;
-        }
-
-        .intro-text {
-            color: var(--gris-texto);
-            font-style: italic;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- FORMULARIO --- */
-        .form-wrapper {
-            margin-top: 50px;
+        /* --- LADO IZQUIERDO (SERVICIOS) --- */
+        .info-content {
             text-align: left;
         }
 
-        .input-group {
-            margin-bottom: 40px;
+        .diamond {
+            color: var(--dorado);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
         }
 
-        label {
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--gris-texto);
+            margin-bottom: 35px;
+            font-size: 1.1rem;
+        }
+
+        .services-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .services-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+
+        .services-list li::before {
+            content: "◆";
+            color: var(--dorado);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .tagline {
+            margin-top: 40px;
+            border-top: 1px solid var(--linea);
+            padding-top: 20px;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 1px;
+            color: var(--dorado);
+        }
+
+        /* --- LADO DERECHO (FORMULARIO) --- */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
             display: block;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--dorado);
-            margin-bottom: 15px;
-            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gris-texto);
+            margin-bottom: 8px;
         }
 
-        input, textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1.5px solid var(--gris-linea);
-            color: var(--blanco);
-            padding: 15px 0;
+            border-bottom: 1px solid var(--linea);
+            color: #ffffff;
+            padding: 10px 0;
             font-family: 'EB Garamond', serif;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             outline: none;
-            transition: all 0.4s ease;
+            transition: border-bottom-color 0.3s;
         }
 
-        input:focus, textarea:focus {
-            border-bottom-color: var(--dorado-brillante);
-            background: rgba(255, 255, 255, 0.03);
+        .form-group input:focus, .form-group textarea:focus {
+            border-bottom-color: var(--dorado);
         }
 
-        /* --- BOTÓN --- */
         .btn-submit {
             background: transparent;
             border: 1px solid var(--dorado);
             color: var(--dorado);
-            padding: 20px 0;
+            padding: 15px 45px;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            font-weight: 700;
+            letter-spacing: 4px;
+            font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
             width: 100%;
             margin-top: 20px;
-            transition: all 0.4s ease;
         }
 
         .btn-submit:hover {
             background: var(--dorado);
-            color: var(--oscuro-puro);
+            color: var(--oscuro);
         }
 
-        footer {
+        .note {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--gris-texto);
             text-align: center;
-            padding: 80px 20px 40px;
-            color: #333;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
+            line-height: 1.4;
+        }
+
+        .note a {
+            color: var(--dorado);
+            text-decoration: none;
+        }
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.7rem; border-top: 1px solid #111; }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; gap: 60px; margin: 40px auto; }
         }
     </style>
 </head>
@@ -157,48 +190,56 @@
         <a href="index.html">Home</a>
         <a href="blog.html">Journal</a>
         <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html">Work With Me</a>
     </nav>
 
-    <div class="container">
-        <header class="contact-header">
-            <h1>Contact Me</h1>
-            <div class="divider"></div>
-            <p class="intro-text">For inquiries, collaborations, or professional consulting.</p>
-        </header>
+    <main class="container">
+        <section class="info-content">
+            <span class="diamond">◆</span>
+            <h1>Work With Me</h1>
+            <p class="subtitle">For collaborations, consulting, events, and professional inquiries.</p>
+            
+            <p>I work with restaurants, hospitality teams, wine brands, and event partners looking for real expertise and a sharper guest experience.</p>
 
-        <div class="form-wrapper">
-            <form name="contact-general" method="POST" data-netlify="true" action="/success.html">
-                <input type="hidden" name="form-name" value="contact-general" />
+            <ul class="services-list">
+                <li>Wine list development & optimization</li>
+                <li>Staff training & service standards</li>
+                <li>Restaurant openings & repositioning</li>
+                <li>Guest experience consulting</li>
+                <li>Event collaborations & wine experiences</li>
+                <li>Brand partnerships</li>
+                <li>Private tastings</li>
+                <li>Speaking & judging</li>
+            </ul>
+
+            <p class="tagline">No fluff. No generic consulting. Just real experience from the floor.</p>
+        </section>
+
+        <section class="contact-form">
+            <form name="contact-professional" method="POST" data-netlify="true" action="/success.html">
+                <input type="hidden" name="form-name" value="contact-professional" />
                 
-                <div class="input-group">
-                    <label>Full Name</label>
+                <div class="form-group">
+                    <label>Name</label>
                     <input type="text" name="name" required>
                 </div>
 
-                <div class="input-group">
-                    <label>Email</label>
+                <div class="form-group">
+                    <label>Email Address</label>
                     <input type="email" name="email" required>
                 </div>
 
-                <div class="input-group">
-                    <label>Subject</label>
-                    <input type="text" name="subject" required>
+                <div class="form-group">
+                    <label>Company / Brand (Optional)</label>
+                    <input type="text" name="brand">
                 </div>
 
-                <div class="input-group">
-                    <label>Message</label>
-                    <textarea name="message" rows="5" required></textarea>
+                <div class="form-group">
+                    <label>What do you need help with?</label>
+                    <textarea name="message" rows="4" placeholder="Describe your project, goals, or collaboration idea." required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Send Message</button>
-            </form>
-        </div>
-    </div>
+                <button type="submit" class="btn-submit">Send Inquiry</button>
 
-    <footer>
-        &copy; 2026 UMBERTO CAMPIONI.
-    </footer>
-
-</body>
-</html>
+                <p class="note">
+                    This
