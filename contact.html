@@ -49,7 +49,6 @@
             text-align: center;
         }
 
-        /* --- TÍTULO ENMARCADO Y DORADO --- */
         .contact-header {
             border: 2px solid var(--dorado);
             padding: 40px 20px;
@@ -64,17 +63,16 @@
             text-transform: uppercase; 
             letter-spacing: 4px; 
             font-weight: 700; 
-            color: var(--dorado); /* Título en Dorado */
+            color: var(--dorado);
             margin: 0;
         }
 
         .subtitle { 
             font-style: italic; 
-            color: #555; 
-            margin-top: 20px; 
             font-size: 1.2rem; 
-            font-weight: 700; /* Negrita */
-            color: var(--dorado); /* Subtítulo en Dorado */
+            font-weight: 700;
+            color: var(--dorado);
+            margin-top: 15px;
         }
 
         /* --- SECCIÓN SERVICIOS --- */
@@ -108,7 +106,6 @@
             font-size: 1rem; 
             position: relative; 
             padding-left: 25px;
-            font-weight: 400;
         }
 
         li::before { 
@@ -160,7 +157,6 @@
             font-family: 'EB Garamond', serif;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
         }
 
         input:focus, textarea:focus { border-color: var(--dorado); }
@@ -179,27 +175,13 @@
             transition: all 0.3s;
         }
 
-        .btn-send:hover { 
-            background: var(--dorado); 
-            letter-spacing: 5px;
-        }
-
-        .note { 
-            font-size: 0.8rem; 
-            margin-top: 30px; 
-            color: #777; 
-            font-style: italic; 
-            text-align: center; 
-        }
+        .btn-send:hover { background: var(--dorado); letter-spacing: 5px; }
 
         footer { text-align: center; padding: 60px 20px; color: #999; font-size: 0.7rem; letter-spacing: 2px; }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             ul { grid-template-columns: 1fr; }
             .form-row { flex-direction: column; }
-            .container { margin: 30px auto; }
-            .form-container { padding: 25px; }
             h1 { font-size: 1.8rem; }
         }
     </style>
@@ -220,12 +202,12 @@
         </header>
 
         <div class="services-grid">
-            <h2>How I can help</h2>
+            <h2>Services</h2>
             <ul>
-                <li>Wine list development & optimization</li>
-                <li>Staff training & service standards</li>
-                <li>Restaurant openings & repositioning</li>
-                <li>Guest experience consulting</li>
+                <li>Wine list development</li>
+                <li>Staff training</li>
+                <li>Restaurant openings</li>
+                <li>Guest experience</li>
                 <li>Event collaborations</li>
                 <li>Brand partnerships</li>
                 <li>Private tastings</li>
@@ -234,11 +216,9 @@
         </div>
 
         <div class="form-container">
-            <div class="form-header">
-                <h2>Tell me about your project</h2>
-            </div>
-
-            <form name="work-with-me" method="POST" data-netlify="true" action="/success.html">
+            <form name="contact" method="POST" data-netlify="true" action="/success.html">
+                <input type="hidden" name="form-name" value="contact" />
+                
                 <div class="form-row">
                     <div>
                         <label>Name</label>
@@ -251,23 +231,13 @@
                 </div>
 
                 <div style="margin-bottom: 20px;">
-                    <label>Company / Brand (optional)</label>
-                    <input type="text" name="company">
+                    <label>Message</label>
+                    <textarea name="message" rows="5" required></textarea>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <label>What do you need help with?</label>
-                    <textarea name="message" rows="5" placeholder="Describe your project, goals, or collaboration idea." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-send">Send inquiry</button>
+                <button type="submit" class="btn-send">Send Inquiry</button>
             </form>
         </div>
-
-        <p class="note">
-            <strong>Important:</strong> This form is for professional inquiries only.<br>
-            For general wine questions, please use the Ask the Sommelier page.
-        </p>
     </div>
 
     <footer>
