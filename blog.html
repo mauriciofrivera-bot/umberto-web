@@ -1,76 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal | Umberto Campioni</title>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --dorado: #b58d52;
             --oscuro: #0a0a0a;
-            --gris-texto: #888888;
+            --blanco: #f0f0f0;
             --linea: rgba(255,255,255,0.1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; }
+        
+        nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
 
-        body {
-            background-color: var(--oscuro);
-            color: #ffffff;
-            font-family: 'EB Garamond', serif;
-            line-height: 1.6;
-        }
+        .blog-header { text-align: center; padding: 80px 20px 40px; }
+        .blog-header h1 { font-size: 3.5rem; text-transform: uppercase; letter-spacing: 5px; font-weight: normal; }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            gap: 25px;
-            border-bottom: 1px solid var(--linea);
-        }
-
-        nav a {
-            color: var(--gris-texto);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-        }
-
-        /* --- SECCIÓN DE FILTROS --- */
-        .filters {
+        /* --- NUEVA BARRA DE FILTROS --- */
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--linea);
-            margin-bottom: 40px;
             flex-wrap: wrap;
             gap: 20px;
+            border-bottom: 1px solid var(--linea);
+            padding-bottom: 20px;
         }
 
-        .filter-group { display: flex; gap: 15px; align-items: center; }
+        .filter-group { display: flex; gap: 15px; }
 
         .filter-btn {
             background: transparent;
             border: 1px solid var(--linea);
-            color: var(--gris-texto);
+            color: #888;
             padding: 8px 15px;
             cursor: pointer;
             text-transform: uppercase;
@@ -89,52 +58,42 @@
             border: 1px solid var(--linea);
             color: var(--dorado);
             padding: 8px;
-            font-family: 'EB Garamond', serif;
+            font-family: 'Garamond', serif;
             outline: none;
-        }
-
-        /* --- GRID DE ARTÍCULOS --- */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .post-card {
-            border-bottom: 1px solid var(--linea);
-            padding-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .post-card:hover { transform: translateY(-5px); }
-
-        .post-category {
-            color: var(--dorado);
-            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 10px;
+            font-size: 0.7rem;
         }
 
-        .post-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #fff;
-            text-decoration: none;
-            display: block;
+        .blog-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 40px; 
+            padding: 0 5% 40px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
         }
 
-        .post-date {
-            font-size: 0.8rem;
-            color: var(--gris-texto);
-            margin-bottom: 15px;
-            display: block;
+        .post-card { 
+            text-decoration: none; 
+            color: inherit; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: 1s all ease; 
         }
+        .post-card.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 600px) {
-            .filters { flex-direction: column; align-items: flex-start; }
+        .img-box { width: 100%; height: 280px; background: #111; overflow: hidden; margin-bottom: 20px; border: 1px solid #1a1a1a; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .post-info span { color: var(--dorado); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; }
+        .post-info h2 { font-size: 1.6rem; text-transform: uppercase; margin: 10px 0; font-weight: normal; }
+        .post-date { color: #666; font-size: 0.8rem; display: block; margin-bottom: 15px; }
+        .read-link { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
+
+        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
+
+        @media (max-width: 768px) {
+            .filters-container { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -142,86 +101,160 @@
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="blog.html">Journal</a>
+        <a href="blog.html">Blog</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="container">
+    <header class="blog-header">
         <h1>Journal</h1>
+        <p style="color: var(--dorado); font-style: italic; margin-top: 10px;">Expertise in every detail.</p>
+    </header>
 
-        <div class="filters">
-            <div class="filter-group">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">All</button>
-                <button class="filter-btn" onclick="filterCategory('Choose the wine', this)">Wine Uncorked</button>
-                <button class="filter-btn" onclick="filterCategory('Tell you what really matters', this)">No BS Truth</button>
-                <button class="filter-btn" onclick="filterCategory('Work the Floor', this)">From the Floor</button>
-            </div>
-            
-            <div class="filter-group">
-                <label style="font-size: 0.7rem; color: var(--gris-texto);">ORDER BY:</label>
-                <select id="sortDate" onchange="sortPosts()">
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                </select>
-            </div>
+    <div class="filters-container">
+        <div class="filter-group">
+            <button class="filter-btn active" onclick="updateFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="updateFilter('Choose the wine', this)">Wine Uncorked</button>
+            <button class="filter-btn" onclick="updateFilter('Tell you what really matters', this)">No BS Truth</button>
+            <button class="filter-btn" onclick="updateFilter('Work the Floor', this)">From the Floor</button>
         </div>
-
-        <div class="blog-grid" id="blogGrid">
-            <div class="post-card" data-category="Choose the wine" data-date="2026-05-10">
-                <span class="post-category">Wine Uncorked</span>
-                <a href="#" class="post-title">Expensive wine is not always better</a>
-                <span class="post-date">May 10, 2026</span>
-                <p>If you think expensive means better, you're wasting money...</p>
-            </div>
-
-            <div class="post-card" data-category="Tell you what really matters" data-date="2026-04-15">
-                <span class="post-category">No BS Truth</span>
-                <a href="#" class="post-title">The dark side of wine marketing</a>
-                <span class="post-date">April 15, 2026</span>
-                <p>What they don't tell you on the back of the label.</p>
-            </div>
-
-            <div class="post-card" data-category="Work the Floor" data-date="2026-05-01">
-                <span class="post-category">From the Floor</span>
-                <a href="#" class="post-title">Hospitality is a dying art</a>
-                <span class="post-date">May 01, 2026</span>
-                <p>Real stories from the night shift and the guest experience.</p>
-            </div>
+        
+        <div class="filter-group">
+            <select id="sortDate" onchange="loadBlog()">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
         </div>
     </div>
 
+    <main id="blog-grid" class="blog-grid">
+        </main>
+
+    <footer>
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    
     <script>
-        function filterCategory(category, btn) {
-            // Manejo de botones activos
+        const USER = 'mauriciofrivera-bot';
+        const REPO = 'umberto-web';
+        let currentCategory = new URLSearchParams(window.location.search).get('cat') || 'all';
+
+        // Manejar el clic en los botones de filtro
+        function updateFilter(cat, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            currentCategory = cat;
+            loadBlog();
+        }
 
-            // Filtrado lógico
-            const posts = document.querySelectorAll('.post-card');
-            posts.forEach(post => {
-                if (category === 'all' || post.getAttribute('data-category') === category) {
-                    post.style.display = 'block';
-                } else {
-                    post.style.display = 'none';
+        async function loadBlog() {
+            const grid = document.getElementById('blog-grid');
+            const sortOrder = document.getElementById('sortDate').value;
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts`);
+                if (!res.ok) throw new Error("Error conectando con GitHub");
+                
+                const files = await res.json();
+                let articles = [];
+
+                // 1. Obtener y procesar todos los archivos Markdown
+                for (const file of files) {
+                    if (file.name.endsWith('.md')) {
+                        const postRes = await fetch(file.download_url);
+                        const text = await postRes.text();
+                        const parts = text.split('---');
+
+                        if (parts.length >= 3) {
+                            const meta = jsyaml.load(parts[1]);
+                            articles.push({
+                                meta: meta,
+                                fileName: file.name,
+                                date: new Date(meta.date || '2000-01-01')
+                            });
+                        }
+                    }
                 }
-            });
+
+                // 2. Aplicar ordenamiento por fecha
+                articles.sort((a, b) => {
+                    return sortOrder === 'newest' ? b.date - a.date : a.date - b.date;
+                });
+
+                // 3. Limpiar grid y renderizar con el filtro de categoría
+                grid.innerHTML = ''; 
+                let count = 0;
+
+                articles.forEach(article => {
+                    const meta = article.meta;
+                    
+                    // Normalizamos categorías (ya que en config.yml es una lista)
+                    const postCategories = Array.isArray(meta.categories) 
+                        ? meta.categories.map(c => c.toLowerCase().trim()) 
+                        : (meta.categories ? [meta.categories.toLowerCase().trim()] : []);
+                    
+                    const matchesFilter = currentCategory === 'all' || 
+                                        postCategories.includes(currentCategory.toLowerCase().trim());
+
+                    if (matchesFilter) {
+                        count++;
+                        let imageSrc = '';
+                        if (meta.thumbnail) {
+                            const fileNameOnly = meta.thumbnail.split('/').pop();
+                            imageSrc = `images/blog/${fileNameOnly}`;
+                        }
+
+                        const card = document.createElement('a');
+                        card.href = `post.html?article=${article.fileName}`;
+                        card.className = 'post-card';
+                        
+                        // Formatear fecha para mostrar
+                        const dateString = article.date.toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric'
+                        });
+
+                        card.innerHTML = `
+                            <div class="img-box">
+                                <img src="${imageSrc}" alt="${meta.title}" 
+                                     onerror="this.src='https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${imageSrc.split('/').pop()}'">
+                            </div>
+                            <div class="post-info">
+                                <span>${postCategories[0] || ''}</span>
+                                <h2>${meta.title || 'Untitled'}</h2>
+                                <span class="post-date">${dateString}</span>
+                                <span class="read-link">Read article</span>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                        setTimeout(() => card.classList.add('active'), 100);
+                    }
+                });
+
+                if (count === 0) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--dorado); margin-top: 40px;">No articles found in this category.</p>';
+                }
+
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Error synchronizing the Journal.</p>';
+            }
         }
 
-        function sortPosts() {
-            const grid = document.getElementById('blogGrid');
-            const posts = Array.from(grid.getElementsByClassName('post-card'));
-            const order = document.getElementById('sortDate').value;
-
-            posts.sort((a, b) => {
-                const dateA = new Date(a.getAttribute('data-date'));
-                const dateB = new Date(b.getAttribute('data-date'));
-                return order === 'newest' ? dateB - dateA : dateA - dateB;
-            });
-
-            // Reordenar en el DOM
-            posts.forEach(post => grid.appendChild(post));
-        }
+        // Al iniciar, marcar el botón correcto si venimos con un parámetro 'cat'
+        window.onload = () => {
+            if (currentCategory !== 'all') {
+                const buttons = document.querySelectorAll('.filter-btn');
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes(currentCategory)) {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            loadBlog();
+        };
     </script>
 </body>
 </html>
