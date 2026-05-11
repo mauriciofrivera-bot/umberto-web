@@ -9,79 +9,195 @@
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
     <style>
-        :root { --dorado: #b58d52; --oscuro: #0a0a0a; --blanco: #f0f0f0; }
+        :root {
+            --dorado: #b58d52;
+            --oscuro: #0a0a0a;
+            --blanco: #f0f0f0;
+            --gris-texto: #d1d1d1;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; line-height: 1.8; }
-        nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
-        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
-        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
-        .header { text-align: center; margin-bottom: 50px; }
-        #post-title { font-size: 2.8rem; text-transform: uppercase; letter-spacing: 3px; font-weight: normal; margin-bottom: 10px; }
-        #post-category { color: var(--dorado); font-style: italic; font-size: 0.9rem; text-transform: uppercase; }
-        .img-wrapper { width: 100%; margin-bottom: 50px; display: none; border: 1px solid #1a1a1a; }
-        #post-image { width: 100%; height: auto; display: block; }
-        #post-content { font-size: 1.2rem; color: #ccc; }
-        #post-content p { margin-bottom: 25px; }
-        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
-        .back-link { display: block; margin-top: 60px; text-align: center; color: var(--dorado); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+
+        body { 
+            background-color: var(--oscuro); 
+            color: var(--blanco); 
+            font-family: 'Garamond', serif; 
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav { 
+            display: flex; 
+            justify-content: center; 
+            padding: 25px; 
+            gap: 30px; 
+            border-bottom: 1px solid #111; 
+            background: var(--oscuro);
+        }
+        nav a { 
+            color: var(--blanco); 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            font-size: 0.7rem; 
+            letter-spacing: 2px; 
+        }
+
+        /* --- CONTENEDOR EDITORIAL --- */
+        .post-container {
+            max-width: 750px; /* Ancho optimizado para lectura elegante */
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .post-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--dorado);
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .post-header h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        #img-wrapper {
+            width: 100%;
+            margin-bottom: 50px;
+            display: none; /* Se activa por JS */
+        }
+
+        #post-image {
+            width: 100%;
+            height: auto;
+            border: 1px solid #1a1a1a;
+            padding: 10px;
+        }
+
+        /* --- CONTENIDO DEL ARTÍCULO --- */
+        .post-content {
+            font-size: 1.2rem;
+            color: var(--gris-texto);
+            text-align: justify;
+        }
+
+        /* Letra Capital (Drop Cap) */
+        .post-content > p:first-of-type::first-letter {
+            float: left;
+            font-size: 5rem;
+            line-height: 0.8;
+            padding-right: 15px;
+            padding-top: 10px;
+            color: var(--dorado);
+            font-family: serif;
+        }
+
+        .post-content p {
+            margin-bottom: 25px;
+        }
+
+        .post-content h2, .post-content h3 {
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 50px 0 20px 0;
+            font-weight: normal;
+            border-left: 3px solid var(--dorado);
+            padding-left: 15px;
+        }
+
+        .post-content blockquote {
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--dorado);
+            margin: 40px 0;
+            padding: 0 30px;
+            text-align: center;
+            border: none;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 40px 0;
+            display: block;
+        }
+
+        .post-content ul, .post-content ol {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .post-content li {
+            margin-bottom: 10px;
+        }
+
+        /* --- SECCIÓN DISQUS --- */
+        #comments-section {
+            margin-top: 100px;
+            border-top: 1px solid #222;
+            padding-top: 50px;
+        }
+
+        #comments-section h3 {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            color: var(--dorado);
+            text-align: center;
+        }
+
+        footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
+
+        @media (max-width: 768px) {
+            .post-header h1 { font-size: 2.2rem; }
+            .post-content { text-align: left; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html">Home</a>
-        <a href="blog.html">Blog</a>
+        <a href="blog.html">Journal</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
     </nav>
 
-    <article class="container">
-        <header class="header">
-            <div id="post-category">Journal</div>
-            <h1 id="post-title">Cargando...</h1>
+    <article class="post-container">
+        <header class="post-header">
+            <span id="post-category" class="post-meta">Journal</span>
+            <h1 id="post-title">...</h1>
         </header>
 
-        <div id="img-wrapper" class="img-wrapper">
-            <img id="post-image" src="" alt="Portada">
+        <div id="img-wrapper">
+            <img id="post-image" src="" alt="">
         </div>
 
-        <div id="post-content"></div>
+        <div id="post-content" class="post-content">
+            </div>
 
-        <a href="blog.html" class="back-link">← Volver al Journal</a>
+        <section id="comments-section">
+            <h3>Thoughts & Conversations</h3>
+            <div id="disqus_thread"></div>
+        </section>
     </article>
 
-    <section style="max-width: 800px; margin: 60px auto; padding: 0 20px; border-top: 1px solid #222; padding-top: 40px;">
-    <h3 style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 30px; color: var(--dorado);">
-        Thoughts & Conversations
-    </h3>
-
-    <div id="disqus_thread"></div>
-    
-    <script>
-        var disqus_config = function () {
-            const params = new URLSearchParams(window.location.search);
-            const articleId = params.get('article');
-            
-            // Forzamos la URL y el identificador para que Disqus no se confunda
-            this.page.url = window.location.href;  
-            this.page.identifier = articleId || window.location.pathname; 
-        };
-
-        (function() { 
-            var d = document, s = d.createElement('script');
-            
-            // RUTA ACTUALIZADA CON TU SHORTNAME: umberto-sommelier
-            s.src = 'https://umberto-sommelier.disqus.com/embed.js'; 
-            
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-    
     <footer>
-        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
     </footer>
 
     <script>
@@ -90,49 +206,62 @@
 
         async function loadPost() {
             const params = new URLSearchParams(window.location.search);
-            const fileName = params.get('article');
-            if (!fileName) return;
+            const article = params.get('article');
 
-            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}?v=${Date.now()}`;
+            if (!article) return;
 
             try {
-                const res = await fetch(url);
-                const text = await res.text();
-                const parts = text.split('---');
+                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts/${article}`);
+                const data = await res.json();
+                const text = atob(data.content);
 
+                const parts = text.split('---');
                 if (parts.length >= 3) {
                     const meta = jsyaml.load(parts[1]);
                     
+                    document.title = `${meta.title} | Umberto Campioni`;
                     document.getElementById('post-title').innerText = meta.title;
                     document.getElementById('post-category').innerText = (meta.categories && meta.categories[0]) || "Journal";
 
-                    // CORRECCIÓN: Usamos meta.thumbnail que es el nombre en tu archivo
+                    // Manejo de imagen destacada
                     if (meta.thumbnail) {
                         const img = document.getElementById('post-image');
                         const wrapper = document.getElementById('img-wrapper');
-                        
-                        // Extraemos el nombre del archivo (primo-article.png) por si la ruta viene con /
                         const fileNameOnly = meta.thumbnail.split('/').pop();
-                        
-                        // Construimos la ruta limpia
                         const cleanSrc = `images/blog/${fileNameOnly}`;
                         
                         img.src = cleanSrc;
                         wrapper.style.display = 'block';
 
-                        // Intento de rescate si la ruta relativa falla
                         img.onerror = () => {
                             img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileNameOnly}`;
                             img.onerror = () => wrapper.style.display = 'none';
                         };
                     }
 
-                    document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
+                    // Renderizado del contenido Markdown
+                    const rawContent = parts.slice(2).join('---');
+                    document.getElementById('post-content').innerHTML = marked.parse(rawContent);
+
+                    // CARGAR DISQUS UNA VEZ QUE EL CONTENIDO ESTÁ LISTO
+                    loadDisqus(article);
                 }
             } catch (err) {
-                console.error("Error:", err);
+                console.error("Error cargando el post:", err);
             }
         }
+
+        function loadDisqus(articleId) {
+            var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = articleId;
+            };
+            var d = document, s = d.createElement('script');
+            s.src = 'https://umberto-sommelier.disqus.com/embed.js'; 
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        }
+
         window.onload = loadPost;
     </script>
 </body>
