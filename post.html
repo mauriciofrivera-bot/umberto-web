@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Journal | Umberto Campioni</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
@@ -14,8 +16,6 @@
             --oscuro: #0a0a0a;
             --blanco: #f0f0f0;
             --gris-texto: #d1d1d1;
-            /* Fuente de alta compatibilidad para símbolos ingleses como apóstrofes o comillas */
-            --fuente-serif: 'EB Garamond', 'Garamond', 'Hoefler Text', 'Times New Roman', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,12 +23,12 @@
         body { 
             background-color: var(--oscuro); 
             color: var(--blanco); 
-            font-family: var(--fuente-serif); 
+            font-family: 'EB Garamond', serif; 
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        /* --- NAVEGACIÓN --- */
         nav { 
             display: flex; 
             justify-content: center; 
@@ -41,15 +41,8 @@
             z-index: 100;
             backdrop-filter: blur(10px);
         }
-        nav a { 
-            color: var(--blanco); 
-            text-decoration: none; 
-            text-transform: uppercase; 
-            font-size: 0.7rem; 
-            letter-spacing: 2px; 
-        }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
         .post-container {
             max-width: 780px; 
             margin: 60px auto;
@@ -60,15 +53,16 @@
         .post-header {
             text-align: center;
             margin-bottom: 60px;
-            padding: 40px 20px;
-            border: 1px solid rgba(181, 141, 82, 0.3); /* Marco sutil dorado */
+            padding: 50px 20px;
+            border: 1px solid rgba(181, 141, 82, 0.2);
             position: relative;
         }
 
         .post-header h1 {
-            font-size: 3.2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 3.2rem);
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             line-height: 1.2;
             font-weight: 400;
             margin: 0;
@@ -80,87 +74,71 @@
             margin: 40px 0 60px 0;
             display: none;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
             border: 1px solid #1a1a1a;
-            transition: transform 0.8s ease;
+            transition: all 0.8s cubic-bezier(0.15, 0.45, 0.15, 1);
         }
 
-        #img-wrapper:hover {
-            transform: scale(1.02); /* Efecto de zoom sutil al pasar el mouse */
-        }
+        #img-wrapper:hover { transform: scale(1.01); border-color: var(--dorado); }
 
         #post-image {
             width: 100%;
             height: auto;
             display: block;
-            filter: grayscale(20%) contrast(110%); /* Efecto visual elegante */
-            transition: filter 0.5s ease;
+            filter: grayscale(30%) contrast(105%);
+            transition: filter 0.6s ease;
         }
 
-        #img-wrapper:hover #post-image {
-            filter: grayscale(0%) contrast(100%);
-        }
+        #img-wrapper:hover #post-image { filter: grayscale(0%) contrast(100%); }
 
-        /* --- CONTENIDO --- */
-        .post-content {
-            font-size: 1.3rem;
-            color: var(--gris-texto);
-            text-align: justify;
-        }
+        /* --- CONTENIDO EDITORIAL --- */
+        .post-content { font-size: 1.3rem; color: var(--gris-texto); text-align: justify; }
 
-        /* Letra Capital */
+        /* Letra Capital Dorada */
         .post-content > p:first-of-type::first-letter {
             float: left;
-            font-size: 5rem;
-            line-height: 0.8;
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            line-height: 0.7;
             padding-right: 15px;
-            padding-top: 10px;
+            padding-top: 12px;
             color: var(--dorado);
         }
 
-        /* VIÑETAS ELEGANTES */
-        .post-content ul {
-            list-style: none;
-            margin: 30px 0;
-            padding-left: 20px;
-        }
-
-        .post-content li {
-            position: relative;
-            margin-bottom: 15px;
-            padding-left: 30px;
-        }
-
+        /* VIÑETAS DE DIAMANTE --- */
+        .post-content ul { list-style: none; margin: 30px 0; padding-left: 10px; }
+        .post-content li { position: relative; margin-bottom: 18px; padding-left: 35px; }
         .post-content li::before {
-            content: "◆"; /* Diamante elegante en lugar de punto común */
+            content: "◆"; 
             position: absolute;
             left: 0;
             color: var(--dorado);
             font-size: 0.8rem;
+            top: 2px;
         }
 
         blockquote {
+            font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             color: var(--dorado);
             margin: 50px 0;
             text-align: center;
             border: none;
-            position: relative;
+            padding: 0 20px;
         }
 
-        /* --- MÓVIL --- */
+        /* --- RESPONSIVE SMARTPHONE --- */
         @media (max-width: 600px) {
-            .post-header h1 { font-size: 2rem; letter-spacing: 3px; }
-            .post-content { font-size: 1.15rem; text-align: left; }
             .post-container { margin: 30px auto; padding: 0 20px; }
+            .post-header { padding: 30px 15px; }
+            .post-content { font-size: 1.15rem; text-align: left; }
+            .post-content > p:first-of-type::first-letter { font-size: 4rem; }
+            nav { gap: 15px; }
+            nav a { font-size: 0.6rem; }
         }
 
-        #comments-section {
-            margin-top: 100px;
-            border-top: 1px solid #222;
-            padding-top: 50px;
-        }
+        #comments-section { margin-top: 100px; border-top: 1px solid #222; padding-top: 50px; }
 
         footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
@@ -184,8 +162,7 @@
             <img id="post-image" src="" alt="">
         </div>
 
-        <div id="post-content" class="post-content">
-            </div>
+        <div id="post-content" class="post-content"></div>
 
         <section id="comments-section">
             <div id="disqus_thread"></div>
@@ -193,7 +170,7 @@
     </article>
 
     <footer>
-        &copy; 2026 UMBERTO CAMPIONI. <br> BUILT BY RIVERA ENGINEERING.
+        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
     </footer>
 
     <script>
@@ -202,36 +179,38 @@
 
         async function loadPost() {
             const params = new URLSearchParams(window.location.search);
-            const article = params.get('article');
-            if (!article) return;
+            const fileName = params.get('article');
+            if (!fileName) return;
+
+            // Agregamos el header de decodificación UTF-8
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
             try {
-                const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/contents/_posts/${article}`);
-                const data = await res.json();
-                const text = atob(data.content);
+                const res = await fetch(url);
+                const buffer = await res.arrayBuffer();
+                const decoder = new TextDecoder('utf-8');
+                const text = decoder.decode(buffer);
+                
                 const parts = text.split('---');
-
                 if (parts.length >= 3) {
                     const meta = jsyaml.load(parts[1]);
-                    document.title = `${meta.title} | Umberto Campioni`;
                     document.getElementById('post-title').innerText = meta.title;
-                    
+
                     if (meta.thumbnail) {
                         const img = document.getElementById('post-image');
                         const wrapper = document.getElementById('img-wrapper');
-                        const fileName = meta.thumbnail.split('/').pop();
-                        img.src = `images/blog/${fileName}`;
+                        const fileNameOnly = meta.thumbnail.split('/').pop();
+                        img.src = `images/blog/${fileNameOnly}`;
                         wrapper.style.display = 'block';
-                        img.onerror = () => img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileName}`;
+                        img.onerror = () => img.src = `https://raw.githubusercontent.com/${USER}/${REPO}/main/images/blog/${fileNameOnly}`;
                     }
 
-                    // Renderizado del contenido
                     document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
                     
-                    // Disqus
+                    // Iniciar Disqus
                     var disqus_config = function () {
                         this.page.url = window.location.href;
-                        this.page.identifier = article;
+                        this.page.identifier = fileName;
                     };
                     var d = document, s = d.createElement('script');
                     s.src = 'https://umberto-sommelier.disqus.com/embed.js';
