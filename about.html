@@ -4,163 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Umberto Campioni</title>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
             --dorado: #b58d52;
-            --oscuro: #0a0a0a;
-            --gris-texto: #a0a0a0;
-            --blanco-suave: #f0f0f0;
-            --linea: rgba(255, 255, 255, 0.1);
+            --dorado-medio: rgba(181, 141, 82, 0.4);
+            --dorado-sutil: rgba(181, 141, 82, 0.15);
+            --carbón-puro: #0a0a0a;
+            --crema-texto: #e3dfd5; /* Texto marfil para un contraste suave sobre fondo oscuro */
+            --gris-atenuado: #b8b5ad;
+            --linea-divisoria: rgba(255, 255, 255, 0.06);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--oscuro);
-            color: var(--blanco-suave);
+            /* Fondo gris oscuro con textura de líneas verticales finas (efecto cortina/textil) */
+            background-color: #16171b;
+            background-image: 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 50%, transparent 50%),
+                linear-gradient(rgba(18, 19, 22, 0.96), rgba(14, 15, 17, 0.98));
+            background-size: 4px 100%, 100% 100%;
+            
+            color: var(--crema-texto);
             font-family: 'EB Garamond', serif;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* --- MARCO EDITORIAL ELEGANTE --- */
+        html {
+            padding: 24px;
+            background-color: var(--carbón-puro); /* Borde perimetral exterior */
+            box-sizing: border-box;
+        }
+
+        body {
+            border: 1px solid var(--dorado-medio);
+            position: relative;
+        }
+
+        /* Línea interna fina para el acabado clásico */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid var(--dorado-sutil);
+            pointer-events: none;
         }
 
         nav {
             display: flex;
             justify-content: center;
-            padding: 20px;
-            gap: 25px;
-            background: var(--oscuro);
-            border-bottom: 1px solid var(--linea);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 35px 20px 25px;
+            gap: 40px;
+            border-bottom: 1px solid var(--linea-divisoria);
+            position: relative;
+            z-index: 10;
         }
 
         nav a {
-            color: var(--gris-texto);
+            color: var(--crema-texto);
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            transition: color 0.3s;
         }
 
-        .article-container {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 30px; /* Un poco menos de padding lateral para móviles */
-        }
-
-        .diamond {
+        nav a:hover {
             color: var(--dorado);
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 8vw, 4rem);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 50px;
-            line-height: 1.1;
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 10;
         }
 
-        .bio-wrapper {
-            overflow: hidden;
+        .about-container {
+            display: block; 
         }
 
-        /* --- DISEÑO DESKTOP (ESCRITORIO) --- */
-        .bio-image {
-            width: 42%; 
-            max-width: 450px;
+        /* Enmarcado de la fotografía principal */
+        .image-wrapper {
             float: left;
-            margin: 0 40px 30px 0;
-            border: 1px solid var(--linea);
-            padding: 8px;
-            background: #111;
+            width: 40%;
+            max-width: 400px;
+            margin-right: 50px;
+            margin-bottom: 30px;
+            border: 1px solid var(--dorado-medio);
+            padding: 12px;
+            background: var(--carbón-puro);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
 
-        .bio-image img {
+        .image-wrapper img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .bio-text p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            text-align: justify;
-            color: #e0e0e0;
+        .about-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            font-weight: 400;
         }
 
-        .bio-text p:first-of-type::first-letter {
+        /* Subtítulo y Cita simétricos en tamaño (1.4rem) */
+        .about-text .subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            float: left;
-            margin-right: 12px;
-            line-height: 0.85;
-            color: var(--dorado);
-            font-weight: bold;
-        }
-
-        .quote {
-            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
             font-style: italic;
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
             color: var(--dorado);
-            margin: 40px 0;
-            padding: 25px 0;
-            border-top: 1px solid var(--linea);
-            border-bottom: 1px solid var(--linea);
-            text-align: center;
-            clear: both;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            color: var(--gris-atenuado);
+            font-size: 1.15rem;
+            text-align: justify;
+        }
+
+        .about-text .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--dorado);
+            border-left: 3px solid var(--dorado);
+            padding-left: 25px;
+            margin: 45px 0;
+            line-height: 1.6;
+            clear: both; 
+        }
+
+        /* Bloque de la Firma Final */
+        .signature-container {
+            margin-top: 45px;
+            padding-top: 25px;
+            border-top: 1px solid var(--linea-divisoria);
+            display: block;
+            text-align: right;
         }
 
         .signature {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            margin-top: 40px;
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.8rem;
+            color: #ffffff;
             display: block;
-            text-align: right;
+            line-height: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .signature-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             color: var(--dorado);
+            display: block;
+            font-weight: 700;
         }
 
-        /* --- AJUSTE CRÍTICO PARA SMARTPHONES --- */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            border-top: 1px solid var(--linea-divisoria);
+            margin-top: 80px;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
-            .article-container {
-                margin: 40px auto;
-                padding: 0 20px;
-            }
-
-            .bio-image {
-                width: 100%;      /* La imagen toma todo el ancho */
+            html { padding: 12px; }
+            main { padding: 40px 20px; }
+            .image-wrapper {
+                float: none;
+                width: 100%;
                 max-width: none;
-                float: none;      /* Eliminamos el flujo lateral */
-                margin: 0 0 30px 0; /* Espacio solo abajo */
-                padding: 5px;
+                margin-right: 0;
+                margin-bottom: 40px;
             }
-
-            .bio-text p {
-                font-size: 1.1rem;
-                text-align: left; /* En móviles es más legible alineado a la izquierda */
-            }
-
-            .bio-text p:first-of-type::first-letter {
-                font-size: 3.5rem; /* Letra un poco más pequeña en móvil */
-            }
-
-            h1 {
-                margin-bottom: 30px;
-            }
-        }
-
-        footer { 
-            text-align: center; padding: 50px 20px; color: #444; font-size: 0.65rem; 
-            border-top: 1px solid var(--linea); margin-top: 60px;
+            .about-text h1 { font-size: 2.6rem; }
+            .about-text p { text-align: left; font-size: 1.1rem; }
+            .signature-container { text-align: center; }
         }
     </style>
 </head>
@@ -173,18 +213,18 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <main class="article-container">
-        <span class="diamond">◆</span>
-        <h1>Beyond the Glass</h1>
-
-        <div class="bio-wrapper">
-            <div class="bio-image">
-                <img src="images/Umberto_Biography.jpeg" alt="Umberto Campioni">
+    <main>
+        <div class="about-container">
+            <div class="image-wrapper">
+                <img src="images\f31982ef-1503-4865-910f-b9902f4aee99.png" alt="Umberto Campioni">
             </div>
-
-            <div class="bio-text">
+            
+            <div class="about-text">
+                <h1>Umberto Campioni</h1>
+                <div class="subtitle">Hospitality Professional & Wine Educator</div>
+                
                 <p>
-                    Umberto Campioni is an Italian sommelier, hospitality professional, and wine educator based in Boston. With nearly two decades of experience in luxury hospitality, Michelin-starred restaurants, and fine dining, Umberto combines Italian culture, professional service, and modern hospitality leadership.
+                    Umberto Campioni is an Italian sommelier, wine educator, and hospitality consultant currently based in Boston. Known for his deep understanding of wine culture and practical approach to hospitality, he focuses on elevating dining operations through smart beverage program designs and modern hospitality leadership.
                 </p>
 
                 <p>
@@ -207,7 +247,10 @@
                     His mission is to empower teams and brands by providing a sharper guest experience and a deeper connection to the products they serve.
                 </p>
 
-                <span class="signature">Umberto Campioni</span>
+                <div class="signature-container">
+                    <span class="signature">Umberto Campioni</span>
+                    <span class="signature-title">Founder & Consultant</span>
+                </div>
             </div>
         </div>
     </main>
