@@ -31,7 +31,7 @@ Good wine?  **Yes.**
 
 Over-ordered?  **Also yes**.
 
-***Here’s the truth most people doesn’t know:***
+> ***Here’s the truth most people doesn’t know:***
 
 The best value on a wine list is usually not the most expensive bottle  
 
