@@ -7,11 +7,14 @@ thumbnail: /images/blog/primo-article.png
 ---
 Most people think that the more they spend, the better the wine.
 
+
+
 **That’s not true.**
 
 After years working in high-end restaurants and managing wine programs, I can tell you one thing:
 
 ***price is not quality — it’s positioning.***
+
 
 When you open a wine list, you’re not just looking a twine. You’re looking at:
 
@@ -20,7 +23,8 @@ When you open a wine list, you’re not just looking a twine. You’re looking a
 * Psychology
 
 That famous bottle everyone orders?
-You’re often paying for the name, not the experience.
+
+**You’re often paying for the name, not the experience.**
 
 Take something like Caymus Cabernet Sauvignon.
 Good wine? Yes.
