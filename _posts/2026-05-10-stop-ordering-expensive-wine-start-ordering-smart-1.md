@@ -55,7 +55,7 @@ They play it safe. They order what they recognize. They miss the experience.
 
 Next time you’re at a restaurant, do something different: ***ask for a recommendation.***
 
-> ##### Don't you like drink something way better spending the same?
+> ##### Don't you like drinking something way better, spending the same?
 
 
 
@@ -65,6 +65,6 @@ Follow for more real wine advice
 
 
 
-No BS. Just experience.
+> ##### No BS. Just experience.
 
 ![]()
