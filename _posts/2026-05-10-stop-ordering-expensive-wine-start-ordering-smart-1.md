@@ -6,9 +6,10 @@ date: 2026-05-10T14:55:00.000-04:00
 thumbnail: images/blog/primo-article.png
 ---
 Most people think that the more they spend,
-
+#
+#
 The better the wine
-
+#
 **That’s not true.**
 
 After years working in high-end restaurants and managing wine programs, I can tell you one thing:
