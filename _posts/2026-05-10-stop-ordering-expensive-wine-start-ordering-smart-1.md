@@ -5,13 +5,9 @@ categories:
 date: 2026-05-10T14:55:00.000-04:00
 thumbnail: images/blog/primo-article.png
 ---
+Most people think that the more they spend,
 
-
-# Most people think that the more they spend, 
-#
-# the better the wine. 
-
-
+The better the wine
 
 **That’s not true.**
 
@@ -34,8 +30,6 @@ Take something like Caymus Cabernet Sauvignon.
 Good wine?  **Yes.** 
 
 Over-ordered?  **Also yes**.
-
-
 
 ***Here’s the truth most people doesn’t know:***
 
@@ -63,11 +57,7 @@ Next time you’re at a restaurant, do something different: ***ask for a recomm
 
 You might spend the same… but drink something much better.
 
- 
-
 Don’t order to impress the table. Order to enjoy the wine.
-
- 
 
 Follow for more real wine advice
 
