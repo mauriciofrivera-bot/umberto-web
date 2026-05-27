@@ -202,7 +202,141 @@
             .about-text p { text-align: left; font-size: 1.1rem; }
             .signature-container { text-align: center; }
         }
-    </style>
+    
+/* ===== SMARTPHONE OPTIMIZATION ===== */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+@media (max-width: 768px) {
+
+    html {
+        padding: 8px;
+    }
+
+    body::before {
+        top: 6px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
+    }
+
+    nav {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 18px 10px 16px;
+        overflow-x: auto;
+    }
+
+    nav a {
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    main {
+        padding: 35px 18px;
+    }
+
+    .image-wrapper {
+        float: none;
+        width: 100%;
+        max-width: none;
+        margin-right: 0;
+        margin-bottom: 28px;
+        padding: 8px;
+    }
+
+    .about-text h1 {
+        font-size: 2rem;
+        line-height: 1.15;
+        text-align: center;
+        margin-bottom: 14px;
+    }
+
+    .about-text .subtitle {
+        font-size: 1rem;
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .about-text p {
+        text-align: left;
+        font-size: 1rem;
+        line-height: 1.75;
+        margin-bottom: 20px;
+    }
+
+    .about-text .quote {
+        font-size: 1.05rem;
+        padding-left: 18px;
+        margin: 30px 0;
+        line-height: 1.6;
+    }
+
+    .signature-container {
+        text-align: center;
+        margin-top: 35px;
+        padding-top: 20px;
+    }
+
+    .signature {
+        font-size: 2.8rem;
+    }
+
+    .signature-title {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    footer {
+        padding: 35px 15px;
+        font-size: 0.62rem;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    nav {
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 0.62rem;
+        letter-spacing: 0.5px;
+    }
+
+    .about-text h1 {
+        font-size: 1.7rem;
+    }
+
+    .about-text .subtitle {
+        font-size: 0.92rem;
+    }
+
+    .about-text p {
+        font-size: 0.95rem;
+    }
+
+    .about-text .quote {
+        font-size: 1rem;
+    }
+
+    .signature {
+        font-size: 2.4rem;
+    }
+}
+
+</style>
 </head>
 <body>
 
@@ -256,7 +390,7 @@
     </main>
 
     <footer>
-        &copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.
+        &copy; 2026 UMBERTO CAMPIONI.
     </footer>
 
 </body>

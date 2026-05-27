@@ -15,7 +15,7 @@
         body { background-color: var(--oscuro); color: var(--blanco); font-family: 'Garamond', serif; }
         
         nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
-        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; }
 
         .blog-header { text-align: center; padding: 80px 20px 40px; }
         .blog-header h1 { font-size: 3.5rem; text-transform: uppercase; letter-spacing: 5px; font-weight: normal; }
@@ -43,7 +43,7 @@
             padding: 8px 15px;
             cursor: pointer;
             text-transform: uppercase;
-            font-size: 0.65rem;
+            font-size: 1.1rem;
             letter-spacing: 1px;
             transition: 0.3s;
         }
@@ -66,7 +66,7 @@
 
         .blog-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 40px; 
             padding: 0 5% 40px; 
             max-width: 1200px; 
@@ -85,17 +85,137 @@
         .img-box { width: 100%; height: 280px; background: #111; overflow: hidden; margin-bottom: 20px; border: 1px solid #1a1a1a; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .post-info span { color: var(--dorado); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; }
+        .post-info span { color: var(--dorado); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
         .post-info h2 { font-size: 1.6rem; text-transform: uppercase; margin: 10px 0; font-weight: normal; }
-        .post-date { color: #666; font-size: 0.8rem; display: block; margin-bottom: 15px; }
-        .read-link { color: var(--dorado); text-transform: uppercase; font-size: 0.7rem; font-weight: bold; letter-spacing: 2px; }
+        .post-date { color: #666; font-size: 1.1rem; display: block; margin-bottom: 15px; }
+        .read-link { color: var(--dorado); text-transform: uppercase; font-size: 1.1rem; font-weight: bold; letter-spacing: 2px; }
 
         footer { text-align: center; padding: 80px; color: #444; font-size: 0.7rem; }
 
         @media (max-width: 768px) {
             .filters-container { flex-direction: column; align-items: center; }
         }
-    </style>
+    
+/* ===== MOBILE OPTIMIZATION ===== */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 16px 8px;
+        overflow-x: auto;
+    }
+
+    nav a {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .blog-header {
+        padding: 50px 16px 30px;
+    }
+
+    .blog-header h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+
+    .blog-header p {
+        font-size: 1rem !important;
+        padding: 0 10px;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 0 16px 20px;
+    }
+
+    .filter-group {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .filter-btn {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 12px;
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 0 16px 30px;
+    }
+
+    .img-box {
+        height: 220px;
+        margin-bottom: 16px;
+    }
+
+    .post-info span {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .post-info h2 {
+        font-size: 1.25rem;
+        line-height: 1.35;
+    }
+
+    .post-date {
+        font-size: 0.9rem;
+    }
+
+    .read-link {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        padding: 40px 20px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .blog-header h1 {
+        font-size: 1.7rem;
+    }
+
+    .img-box {
+        height: 200px;
+    }
+
+    .filter-btn {
+        font-size: 0.82rem;
+    }
+}
+
+</style>
 </head>
 <body>
 
@@ -108,7 +228,7 @@
 
     <header class="blog-header">
         <h1>Journal</h1>
-        <p style="color: var(--dorado); font-style: italic; margin-top: 10px;">Expertise in every detail.</p>
+        <p style="color: var(--dorado); font-style: italic; margin-top: 10px; font-size: 1.5rem;">Expertise in every detail.</p>
     </header>
 
     <div class="filters-container">
@@ -131,7 +251,7 @@
         </main>
 
     <footer>
-        <p>&copy; 2026 UMBERTO CAMPIONI. BUILT BY RIVERA ENGINEERING.</p>
+        <p>&copy; 2026 UMBERTO CAMPIONI.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
