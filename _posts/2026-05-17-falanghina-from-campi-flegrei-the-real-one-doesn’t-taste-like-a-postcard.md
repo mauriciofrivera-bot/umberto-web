@@ -21,11 +21,13 @@ Then suddenly you reach the top, look at the sea, smell sulfur in the air, and t
 
 A lot of tourists look for Naples in the “Instagrammable” places.
 
-But some wines only make sense in normal places. A small trattoria near the port. Simple seafood. Fried anchovies. Spaghetti with clams. A cold bottle on the table without too many explanations.
+> But some wines only make sense in normal places.
+
+ A small trattoria near the port. Simple seafood. Fried anchovies. Spaghetti with clams. A cold bottle on the table without too many explanations.
 
 That’s where Falanghina from Campi Flegrei completely changes.
 
-It’s not a wine that screams for attention.
+> It’s not a wine that screams for attention.
 
 It doesn’t try to impress you with oak, power, or special effects.
 
@@ -37,8 +39,6 @@ People who know Campi Flegrei recognize that feeling immediately.
 
 Maybe that’s why so many wine professionals genuinely love these wines.
 
-Because they don’t feel manufactured.
-
-They feel real.
-
-thats is my concept that my blog
+> Because they don’t feel manufactured.
+>
+> They feel real.
