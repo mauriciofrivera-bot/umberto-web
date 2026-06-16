@@ -18,9 +18,7 @@ I can tell you one thing:
 > ***price is not quality — it’s positioning.***
 
 * Branding
-
 * Margins
-
 * Psychology
 
   
@@ -30,6 +28,8 @@ Take something like Caymus Cabernet Sauvignon.
 Good wine?  **Yes.** 
 
 Over-ordered?  **Also yes**.
+
+
 
 > ##### ***Here’s the truth most people doesn’t know:***
 
@@ -45,20 +45,26 @@ That’s where real quality hides:
 * Marketing
 * More character
 
-And this is where a good sommelier makes the difference.
+> ##### And this is where a good sommelier makes the difference.
 
 A real professional is not there to sell you the highest price. He’s there to guide you to the right bottle for your taste, your food, and your moment.
 
-The problem is, most people don’t ask.
+##### The problem is, most people don’t ask.
 
 They play it safe. They order what they recognize. They miss the experience.
 
 Next time you’re at a restaurant, do something different: ***ask for a recommendation.***
 
-You might spend the same… but drink something much better.
+> ##### Don't you like drinking something way better, spending the same?
 
-Don’t order to impress the table. Order to enjoy the wine.
+
+
+Don’t order to impress the table.........Order to enjoy the wine.
 
 Follow for more real wine advice
 
-No BS. Just experience.
+
+
+> ##### No BS. Just experience.
+
+![]()
