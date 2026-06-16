@@ -305,6 +305,73 @@
     </section>
 
     <footer>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<a href="https://instagram.com/umberto_campioni" class="instagram-link" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-instagram"></i>
+    <span>Umberto_Campioni</span>
+</a>
+
+<style>
+    .instagram-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px; /* Espacio entre el logo y el texto */
+        color: var(--blanco, #f0f0f0); /* Color blanco suave por defecto */
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Garamond', serif;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* El tamaño del icono de Instagram se ajusta automáticamente con el font-size */
+    .instagram-link i {
+        font-size: 1.3rem; 
+    }
+
+    /* Efecto sutil al pasar el cursor (Cambia al color dorado característico) */
+    .instagram-link:hover {
+        color: #b58d52; /* Tu color --dorado corporativo */
+        transform: translateY(-2px); /* Pequeño movimiento hacia arriba muy elegante */
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<a href="https://instagram.com/fashion_gourmet" class="instagram-link" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-instagram"></i>
+    <span>Fashion_Gourmet</span>
+</a>
+
+<style>
+    .instagram-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px; /* Espacio entre el logo y el texto */
+        color: var(--blanco, #f0f0f0); /* Color blanco suave por defecto */
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Garamond', serif;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* El tamaño del icono de Instagram se ajusta automáticamente con el font-size */
+    .instagram-link i {
+        font-size: 1.3rem; 
+    }
+
+    /* Efecto sutil al pasar el cursor (Cambia al color dorado característico) */
+    .instagram-link:hover {
+        color: #b58d52; /* Tu color --dorado corporativo */
+        transform: translateY(-2px); /* Pequeño movimiento hacia arriba muy elegante */
+    }
+</style>
+
+
         <p>&copy; 2026 UMBERTO CAMPIONI.</p>
     </footer>
 
@@ -315,5 +382,17 @@
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
+
+
+    </footer>
+
+    <script>
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    
 </body>
 </html>
