@@ -138,11 +138,36 @@
             border: none;
         }
 
-        /* Caja de comentarios Cusdis */
+        /* --- INYECCIÓN DE ESTILOS CORREGIDOS PARA CUSDIS --- */
         #cusdis_thread { 
             margin-top: 60px; 
             padding-top: 40px; 
             border-top: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        /* Forzar visibilidad del texto que el usuario escribe y marcadores */
+        #cusdis_thread iframe {
+            color-scheme: dark !important;
+        }
+
+        /* Clases de personalización nativas e inyecciones de Cusdis para modo oscuro */
+        #cusdis_thread .cusdis-input, 
+        #cusdis_thread textarea, 
+        #cusdis_thread input {
+            background-color: #121212 !important;
+            color: var(--blanco) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        #cusdis_thread textarea::placeholder, 
+        #cusdis_thread input::placeholder {
+            color: #666 !important;
+        }
+
+        #cusdis_thread button[type="submit"] {
+            background-color: var(--dorado) !important;
+            color: var(--oscuro) !important;
+            font-weight: bold !important;
         }
 
         /* --- RESPONSIVE --- */
@@ -194,13 +219,11 @@
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
     <script>
-        // CORRECCIÓN: Volvemos a tus credenciales correctas de producción
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
 
         async function loadPost() {
             const params = new URLSearchParams(window.location.search);
-            // CORRECCIÓN: Leemos 'article' que es lo que envía blog.html
             const fileName = params.get('article');
             
             if (!fileName) {
