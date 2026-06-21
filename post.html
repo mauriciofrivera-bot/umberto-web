@@ -24,40 +24,136 @@
             background-color: var(--oscuro); 
             color: var(--blanco); 
             font-family: 'EB Garamond', serif; 
-            line-height: 1.6;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        nav { display: flex; justify-content: center; padding: 25px; gap: 30px; border-bottom: 1px solid #111; }
-        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; }
+        nav { 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            gap: 25px; 
+            border-bottom: 1px solid #1a1a1a; 
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav a { color: var(--blanco); text-decoration: none; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; }
 
-        .post-container { max-width: 800px; margin: 0 auto; padding: 60px 20px 80px; }
-        
-        .post-header { text-align: center; margin-bottom: 40px; }
-        .post-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); text-transform: uppercase; letter-spacing: 2px; line-height: 1.2; margin-bottom: 15px; }
-        
-        .img-wrapper { width: 100%; height: auto; max-height: 480px; overflow: hidden; margin-bottom: 40px; display: none; border: 1px solid #111; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .post-content { font-size: 1.15rem; color: var(--gris-texto); text-align: justify; }
-        .post-content p { margin-bottom: 25px; }
-        .post-content h2, .post-content h3 { font-family: 'Playfair Display', serif; color: var(--blanco); margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .post-content blockquote { border-left: 3px solid var(--dorado); padding-left: 20px; font-style: italic; margin: 35px 0; color: var(--dorado); font-size: 1.25rem; }
-
-        /* Estilos específicos para la caja de comentarios de Cusdis */
-        #cusdis_thread {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .post-container {
+            max-width: 780px; 
+            margin: 60px auto;
+            padding: 0 30px;
         }
 
-        footer { text-align: center; padding: 40px; color: #444; font-size: 0.75rem; border-top: 1px solid #111; margin-top: 60px; }
+        /* --- TÍTULO ENMARCADO ORIGINAL --- */
+        .post-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 20px;
+            border: 2px solid var(--dorado); 
+            position: relative;
+        }
 
+        .post-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 3.2rem);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.2;
+            font-weight: 700; 
+            color: var(--dorado); 
+            margin: 0;
+        }
+
+        /* --- FOTOGRAFÍA --- */
+        #img-wrapper {
+            width: 100%;
+            margin: 40px 0 60px 0;
+            display: none;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            border: 1px solid var(--dorado);
+            transition: all 0.8s ease;
+        }
+
+        #post-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(110%);
+        }
+
+        /* --- CONTENIDO EDITORIAL ORIGINAL --- */
+        .post-content { font-size: 1.3rem; color: var(--gris-texto); text-align: justify; }
+
+        /* Letra Capital Dorada */
+        .post-content > p:first-of-type::first-letter {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            line-height: 0.7;
+            padding-right: 15px;
+            padding-top: 12px;
+            color: var(--dorado);
+            font-weight: 700;
+        }
+
+        .post-content strong, .post-content b {
+            color: var(--dorado);
+            font-weight: 700;
+        }
+
+        .post-content ul { list-style: none; margin: 30px 0; padding-left: 10px; }
+        .post-content li { position: relative; margin-bottom: 18px; padding-left: 35px; }
+        .post-content li::before {
+            content: "◆"; 
+            position: absolute;
+            left: 0;
+            color: var(--dorado);
+            font-size: 0.9rem;
+            font-weight: 700;
+            top: 2px;
+        }
+
+        .post-content h2, .post-content h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dorado);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 40px 0 20px 0;
+        }
+
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.7rem;
+            color: var(--dorado);
+            font-weight: 700;
+            margin: 50px 0;
+            text-align: center;
+            border: none;
+        }
+
+        /* Caja de comentarios Cusdis */
+        #cusdis_thread { 
+            margin-top: 60px; 
+            padding-top: 40px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
-            .post-container { padding: 40px 15px 60px; }
-            .post-content { text-align: left; font-size: 1.1rem; }
+            .post-container { margin: 30px auto; padding: 0 20px; }
+            .post-content { font-size: 1.15rem; text-align: left; }
+            .post-content > p:first-of-type::first-letter { font-size: 4rem; }
             #cusdis_thread { margin-top: 40px; padding-top: 30px; }
         }
+
+        footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -69,18 +165,19 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <main class="post-container">
+    <article class="post-container">
         <header class="post-header">
-            <h1 id="post-title">Loading...</h1>
+            <span id="post-category" style="display: none;"></span>
+            <h1 id="post-title">...</h1>
         </header>
 
-        <div class="img-wrapper" id="img-wrapper">
+        <div id="img-wrapper">
             <img id="post-image" src="" alt="">
         </div>
 
-        <article class="post-content" id="post-content">
-            </article>
+        <div id="post-content" class="post-content"></div>
 
+        <!-- Bloque Cusdis integrado -->
         <div id="cusdis_thread"
           data-host="https://cusdis.com"
           data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
@@ -88,7 +185,7 @@
           data-page-url=""
           data-page-title="">
         </div>
-    </main>
+    </article>
 
     <footer>
         <p>&copy; 2026 UMBERTO CAMPIONI.</p>
@@ -97,23 +194,30 @@
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
     <script>
-        const USER = "Arthemis80";
-        const REPO = "umberto-sommelier";
+        // CORRECCIÓN: Volvemos a tus credenciales correctas de producción
+        const USER = 'mauriciofrivera-bot';
+        const REPO = 'umberto-web';
 
         async function loadPost() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const fileName = urlParams.get('post');
-
+            const params = new URLSearchParams(window.location.search);
+            // CORRECCIÓN: Leemos 'article' que es lo que envía blog.html
+            const fileName = params.get('article');
+            
             if (!fileName) {
                 document.getElementById('post-title').innerText = "Post not found";
                 return;
             }
 
-            try {
-                const res = await fetch(`https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`);
-                if (!res.ok) throw new Error("No se pudo obtener el post");
-                const text = await res.text();
+            const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("No se pudo obtener el post");
+                
+                const buffer = await res.arrayBuffer();
+                const decoder = new TextDecoder('utf-8');
+                const text = decoder.decode(buffer);
+                
                 const parts = text.split('---');
                 if (parts.length >= 3) {
                     const meta = jsyaml.load(parts[1]);
@@ -130,15 +234,22 @@
 
                     document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
                     
-                    // Inicialización e inyección dinámica de los atributos para la URL del post actual
+                    // Sincronización limpia de Cusdis con el artículo cargado
                     const cusdisContainer = document.getElementById('cusdis_thread');
                     if (cusdisContainer) {
                         cusdisContainer.setAttribute('data-page-id', fileName);
                         cusdisContainer.setAttribute('data-page-url', window.location.href);
                         cusdisContainer.setAttribute('data-page-title', meta.title || 'Journal Post');
+                        
+                        if (window.CUSDIS && typeof window.CUSDIS.render === 'function') {
+                            window.CUSDIS.render();
+                        }
                     }
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error(err); 
+                document.getElementById('post-title').innerText = "Post not found";
+            }
         }
         window.onload = loadPost;
     </script>
