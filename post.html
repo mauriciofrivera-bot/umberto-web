@@ -47,6 +47,7 @@
             max-width: 780px; 
             margin: 60px auto;
             padding: 0 30px;
+            position: relative; /* Habilita el anclaje de la máscara inferior */
         }
 
         /* --- TÍTULO ENMARCADO ORIGINAL --- */
@@ -138,30 +139,41 @@
             border: none;
         }
 
-        /* --- INYECCIÓN DE ESTILOS CORREGIDOS PARA CUSDIS --- */
-        #cusdis_thread { 
+        /* --- CONTENEDOR TÁCTICO DE SEGUIDAD --- */
+        .cusdis-shield-wrapper {
             margin-top: 60px; 
             padding: 30px; 
             border: 1px solid rgba(181, 141, 82, 0.2); 
             background-color: #121212; 
-            border-top: 1px solid rgba(255, 255, 255, 0.05); 
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            height: 360px !important;
+            max-height: 360px !important;
+            overflow: hidden !important;
+        }
+
+        /* MÁSCARA INDESTRUCTIBLE: Bloque negro absoluto puesto encima de los comentarios */
+        .cusdis-shield-wrapper::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px; /* Cubre el área exacta donde empiezan a listarse las respuestas antiguas */
+            background-color: #121212; 
+            z-index: 99999 !important;
+        }
+
+        #cusdis_thread {
+            width: 100% !important;
+            height: 100% !important;
         }
 
         #cusdis_thread iframe {
             color-scheme: dark !important;
             background: transparent !important;
-            display: block !important;
-        }
-
-        /* Bloqueo estricto para ocultar la lista pública de comentarios */
-        #cusdis_thread .cusdis-comments,
-        #cusdis_thread [part="comments"],
-        .cusdis-list {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
+            height: 300px !important;
+            max-height: 300px !important;
         }
 
         /* --- RESPONSIVE --- */
@@ -169,7 +181,8 @@
             .post-container { margin: 30px auto; padding: 0 20px; }
             .post-content { font-size: 1.15rem; text-align: left; }
             .post-content > p:first-of-type::first-letter { font-size: 4rem; }
-            #cusdis_thread { margin-top: 40px; padding: 20px 15px; }
+            .cusdis-shield-wrapper { margin-top: 40px; padding: 20px 15px; height: 390px !important; max-height: 390px !important; }
+            .cusdis-shield-wrapper::after { height: 90px; }
         }
 
         footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
@@ -218,31 +231,28 @@
 
         <div id="post-content" class="post-content"></div>
 
-        <!-- Bloque Cusdis optimizado con tema oscuro y comentarios ocultos -->
-        <div id="cusdis_thread"
-                data-host="https://cusdis.com"
-                data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
-                data-theme="dark"
-                data-iframe-config='{"hideComments": true}'
-                data-page-id="" 
-                data-page-url=""
-                data-page-title="">
+        <div class="cusdis-shield-wrapper">
+            <div id="cusdis_thread"
+                    data-host="https://cusdis.com"
+                    data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
+                    data-theme="dark"
+                    data-page-id="" 
+                    data-page-url=""
+                    data-page-title="">
+            </div>
         </div>
     </article>
 
     <footer>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        <!-- Enlace Cuenta 1 -->
         <a href="https://instagram.com/umberto_campioni" class="instagram-link" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-instagram"></i>
             <span>Umberto_Campioni</span>
         </a>
 
-        <!-- Barra vertical con color visible y espacios -->
         <span style="color: var(--blanco, #f0f0f0); margin: 0 10px;">|</span>
 
-        <!-- Enlace Cuenta 2 -->
         <a href="https://www.instagram.com/fashion___gourmet" class="instagram-link" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-instagram"></i>
             <span>Fashion__Gourmet</span>
@@ -299,7 +309,15 @@
                         cusdisContainer.setAttribute('data-page-title', meta.title || 'Journal Post');
                         
                         if (window.CUSDIS && typeof window.CUSDIS.render === 'function') {
-                            window.CUSDIS.render();
+                            window.CUSDIS.render({
+                                target: cusdisContainer,
+                                appId: '1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4',
+                                host: 'https://cusdis.com',
+                                pageId: fileName,
+                                pageUrl: window.location.href,
+                                pageTitle: meta.title || 'Journal Post',
+                                theme: 'dark'
+                            });
                         }
                     }
                 }
@@ -311,4 +329,3 @@
         window.onload = loadPost;
     </script>
 </body>
-</html>
