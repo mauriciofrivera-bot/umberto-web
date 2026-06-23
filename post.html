@@ -202,10 +202,11 @@
 
         <div id="post-content" class="post-content"></div>
 
-        <!-- Bloque Cusdis integrado -->
+        <!-- Bloque Cusdis configurado para ocultar la lista de comentarios públicos -->
         <div id="cusdis_thread"
           data-host="https://cusdis.com"
           data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
+          data-iframe-config='{"hideComments": true}'
           data-page-id="" 
           data-page-url=""
           data-page-title="">
@@ -257,7 +258,6 @@
 
                     document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
                     
-                    // Sincronización limpia de Cusdis con el artículo cargado
                     const cusdisContainer = document.getElementById('cusdis_thread');
                     if (cusdisContainer) {
                         cusdisContainer.setAttribute('data-page-id', fileName);
@@ -276,5 +276,71 @@
         }
         window.onload = loadPost;
     </script>
+        <footer>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <!-- Enlace Cuenta 1 -->
+        <a href="https://instagram.com/umberto_campioni" class="instagram-link" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Umberto_Campioni</span>
+        </a>
+
+        <!-- Barra vertical con color visible y espacios -->
+        <span style="color: var(--blanco-suave, #f0f0f0); margin: 0 10px;">|</span>
+
+        <!-- Enlace Cuenta 2 -->
+        <a href="https://instagram.com/fashion_gourmet" class="instagram-link" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Fashion_Gourmet</span>
+        </a>
+
+
+<style>
+    .instagram-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px; /* Espacio entre el logo y el texto */
+        color: var(--blanco, #f0f0f0); /* Color blanco suave por defecto */
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Garamond', serif;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* El tamaño del icono de Instagram se ajusta automáticamente con el font-size */
+    .instagram-link i {
+        font-size: 1.3rem; 
+    }
+
+    /* Efecto sutil al pasar el cursor (Cambia al color dorado característico) */
+    .instagram-link:hover {
+        color: #b58d52; /* Tu color --dorado corporativo */
+        transform: translateY(-2px); /* Pequeño movimiento hacia arriba muy elegante */
+    }
+</style>
+
+    </footer>
+
+    <script>
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+
+    </footer>
+
+    <script>
+        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    
 </body>
 </html>
