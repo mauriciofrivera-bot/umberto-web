@@ -141,33 +141,27 @@
         /* --- INYECCIÓN DE ESTILOS CORREGIDOS PARA CUSDIS --- */
         #cusdis_thread { 
             margin-top: 60px; 
-            padding-top: 40px; 
+            padding: 30px; 
+            border: 1px solid rgba(181, 141, 82, 0.2); 
+            background-color: #121212; 
             border-top: 1px solid rgba(255, 255, 255, 0.05); 
         }
 
-        /* Forzar visibilidad del texto que el usuario escribe y marcadores */
         #cusdis_thread iframe {
             color-scheme: dark !important;
+            background: transparent !important;
+            display: block !important;
         }
 
-        /* Clases de personalización nativas e inyecciones de Cusdis para modo oscuro */
-        #cusdis_thread .cusdis-input, 
-        #cusdis_thread textarea, 
-        #cusdis_thread input {
-            background-color: #121212 !important;
-            color: var(--blanco) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-
-        #cusdis_thread textarea::placeholder, 
-        #cusdis_thread input::placeholder {
-            color: #666 !important;
-        }
-
-        #cusdis_thread button[type="submit"] {
-            background-color: var(--dorado) !important;
-            color: var(--oscuro) !important;
-            font-weight: bold !important;
+        /* Bloqueo estricto para ocultar la lista pública de comentarios */
+        #cusdis_thread .cusdis-comments,
+        #cusdis_thread [part="comments"],
+        .cusdis-list {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
 
         /* --- RESPONSIVE --- */
@@ -175,10 +169,32 @@
             .post-container { margin: 30px auto; padding: 0 20px; }
             .post-content { font-size: 1.15rem; text-align: left; }
             .post-content > p:first-of-type::first-letter { font-size: 4rem; }
-            #cusdis_thread { margin-top: 40px; padding-top: 30px; }
+            #cusdis_thread { margin-top: 40px; padding: 20px 15px; }
         }
 
         footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
+
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px; 
+            color: var(--blanco, #f0f0f0); 
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .instagram-link i {
+            font-size: 1.3rem; 
+        }
+
+        .instagram-link:hover {
+            color: #b58d52; 
+            transform: translateY(-2px); 
+        }
     </style>
 </head>
 <body>
@@ -202,10 +218,11 @@
 
         <div id="post-content" class="post-content"></div>
 
-        <!-- Bloque Cusdis configurado para ocultar la lista de comentarios públicos -->
+        <!-- Bloque Cusdis optimizado con tema oscuro y comentarios ocultos -->
         <div id="cusdis_thread"
                 data-host="https://cusdis.com"
                 data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
+                data-theme="dark"
                 data-iframe-config='{"hideComments": true}'
                 data-page-id="" 
                 data-page-url=""
@@ -214,7 +231,24 @@
     </article>
 
     <footer>
-        <p>&copy; 2026 UMBERTO CAMPIONI.</p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <!-- Enlace Cuenta 1 -->
+        <a href="https://instagram.com/umberto_campioni" class="instagram-link" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Umberto_Campioni</span>
+        </a>
+
+        <!-- Barra vertical con color visible y espacios -->
+        <span style="color: var(--blanco, #f0f0f0); margin: 0 10px;">|</span>
+
+        <!-- Enlace Cuenta 2 -->
+        <a href="https://www.instagram.com/fashion___gourmet" class="instagram-link" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Fashion__Gourmet</span>
+        </a>
+
+        <p style="margin-top: 40px;">&copy; 2026 UMBERTO CAMPIONI.</p>
     </footer>
 
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
@@ -276,71 +310,5 @@
         }
         window.onload = loadPost;
     </script>
-        <footer>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-        <!-- Enlace Cuenta 1 -->
-        <a href="https://instagram.com/umberto_campioni" class="instagram-link" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-instagram"></i>
-            <span>Umberto_Campioni</span>
-        </a>
-
-        <!-- Barra vertical con color visible y espacios -->
-        <span style="color: var(--blanco-suave, #f0f0f0); margin: 0 10px;">|</span>
-
-        <!-- Enlace Cuenta 2 -->
-        <a href="https://instagram.com/fashion__gourmet" class="instagram-link" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-instagram"></i>
-            <span>Fashion__Gourmet</span>
-        </a>
-
-
-<style>
-    .instagram-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px; /* Espacio entre el logo y el texto */
-        color: var(--blanco, #f0f0f0); /* Color blanco suave por defecto */
-        text-decoration: none;
-        text-transform: uppercase;
-        font-family: 'Garamond', serif;
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-        transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    /* El tamaño del icono de Instagram se ajusta automáticamente con el font-size */
-    .instagram-link i {
-        font-size: 1.3rem; 
-    }
-
-    /* Efecto sutil al pasar el cursor (Cambia al color dorado característico) */
-    .instagram-link:hover {
-        color: #b58d52; /* Tu color --dorado corporativo */
-        transform: translateY(-2px); /* Pequeño movimiento hacia arriba muy elegante */
-    }
-</style>
-
-    </footer>
-
-    <script>
-        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-
-
-    </footer>
-
-    <script>
-        const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-    
 </body>
 </html>
