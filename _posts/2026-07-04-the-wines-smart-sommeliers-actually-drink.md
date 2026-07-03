@@ -5,7 +5,7 @@ categories:
 date: 2026-07-04T17:24:00.000-04:00
 thumbnail: images/blog/chatgpt-image-3-lug-2026-17_20_35.jpg
 ---
-###### There’s a funny idea in the wine world:
+##### There’s a funny idea in the wine world:
 
 that sommeliers constantly drink rare and extremely expensive bottles.
 
@@ -14,6 +14,7 @@ Reality is often completely different.
 Many sommeliers, when drinking for genuine pleasure, look for honest wines.
 
 # Not necessarily famous.
+
 Not necessarily expensive**.**
 
 Wines with energy.
