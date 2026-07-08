@@ -1,7 +1,7 @@
 ---
 title: What Makes A Great Restaurant Manager
 categories:
-  - Work the Floor
+  - From the Floor
 date: 2026-05-27T15:56:00.000-04:00
 thumbnail: images/blog/great-restaurant-manager.jpeg
 ---
