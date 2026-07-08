@@ -1,7 +1,7 @@
 ---
 title: "Falanghina From Campi Flegrei: The Real One Doesn’t Taste Like a Postcard"
 categories:
-  - Choose the wine
+  - Wine Uncorcked
 date: 2026-05-17T15:41:00.000-04:00
 thumbnail: images/blog/fallangina-article.png
 ---
