@@ -1,7 +1,7 @@
 ---
 title: Stop Ordering Expensive Wine. Start Ordering Smart
 categories:
-  - Tell you what really matters
+  - No BS Truth
 date: 2026-05-10T14:55:00.000-04:00
 thumbnail: images/blog/primo-article.png
 ---
