@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin - Umberto Sommelier</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Widget de Identidad de Netlify -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Script Principal de Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+        // Importamos las mismas fuentes tipográficas que usas en el frontend de tus posts
+        CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap");
+
+        // Inyectamos el CSS exacto de tu post.html adaptado para el entorno de Decap CMS
+        CMS.registerPreviewStyle("/admin/preview-styles.css");
+
+        // Creamos la plantilla de previsualización para tu colección "blog" o "journal"
+        CMS.registerPreviewTemplate("blog", createClass({
+            render: function() {
+                const entry = this.props.entry;
+                
+                // Extraemos la metadata que el usuario escribe en tiempo real en el formulario del CMS
+                const title = entry.getIn(['data', 'title']) || 'Sin Título';
+                const thumbnail = entry.getIn(['data', 'thumbnail']);
+                const bodyHtml = this.props.widgetFor('body');
+
+                // Reconstruimos la estructura exacta de .post-container de tu post.html
+                return h('div', { className: 'post-container' },
+                    h('header', { className: 'post-header' },
+                        h('h1', null, title)
+                    ),
+                    // Si hay una imagen seleccionada, emulamos tu #img-wrapper
+                    thumbnail ? h('div', { id: 'img-wrapper', style: { display: 'block' } },
+                        h('img', { id: 'post-image', src: this.props.getAsset(thumbnail).toString() })
+                    ) : null,
+                    // Renderizamos el cuerpo del texto con tu clase .post-content (incluye tu letra capital)
+                    h('div', { className: 'post-content' }, bodyHtml)
+                );
+            }
+        }));
+    </script>
 </body>
 </html>
