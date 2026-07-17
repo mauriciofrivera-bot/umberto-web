@@ -1,7 +1,7 @@
 ---
 title: The older I get, the more I understand Taurasi
 categories:
-  - Choose the wine
+  - Wine Uncorcked
 date: 2026-05-24T15:51:00.000-04:00
 thumbnail: images/blog/the-older-i-get_article.jpeg
 ---
