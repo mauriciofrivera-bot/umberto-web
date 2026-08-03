@@ -50,7 +50,6 @@
             position: relative;
         }
 
-        /* --- TÍTULO ENMARCADO ORIGINAL --- */
         .post-header {
             text-align: center;
             margin-bottom: 60px;
@@ -70,7 +69,6 @@
             margin: 0;
         }
 
-        /* --- FOTOGRAFÍA --- */
         #img-wrapper {
             width: 100%;
             margin: 40px 0 60px 0;
@@ -88,10 +86,8 @@
             filter: contrast(110%);
         }
 
-        /* --- CONTENIDO EDITORIAL ORIGINAL --- */
         .post-content { font-size: 1.3rem; color: var(--gris-texto); text-align: justify; }
 
-        /* Letra Capital Dorada */
         .post-content > p:first-of-type::first-letter {
             float: left;
             font-family: 'Playfair Display', serif;
@@ -139,7 +135,7 @@
             border: none;
         }
 
-        /* --- SECCIÓN DE COMENTARIOS DE NETLIFY --- */
+        /* --- SECCIÓN DE COMENTARIOS --- */
         .comments-section {
             margin-top: 60px; 
             padding: 40px 30px; 
@@ -147,13 +143,12 @@
             background-color: #121212; 
         }
 
-        .comments-section h3 {
+        .comments-section h3, .comments-section h4 {
             font-family: 'Playfair Display', serif; 
             color: var(--dorado); 
             text-transform: uppercase; 
             letter-spacing: 2px; 
             margin-bottom: 25px;
-            font-size: 1.5rem;
         }
 
         .form-group {
@@ -205,7 +200,6 @@
             color: var(--oscuro);
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             .post-container { margin: 30px auto; padding: 0 20px; }
             .post-content { font-size: 1.15rem; text-align: left; }
@@ -228,19 +222,13 @@
             transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        .instagram-link i {
-            font-size: 1.3rem; 
-        }
-
-        .instagram-link:hover {
-            color: #b58d52; 
-            transform: translateY(-2px); 
-        }
+        .instagram-link i { font-size: 1.3rem; }
+        .instagram-link:hover { color: #b58d52; transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-    <!-- Formulario invisible para que Netlify detecte los campos en compilación -->
+    <!-- Formulario invisible para detección de Netlify -->
     <form name="post-comments" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
       <input type="text" name="post_id" />
@@ -266,12 +254,21 @@
 
         <div id="post-content" class="post-content"></div>
 
-        <!-- Formulario de Comentarios Sin Login -->
+        <!-- Lista de Comentarios Existentes -->
+        <div id="comments-display" style="margin-top: 60px;">
+            <h4 style="font-size: 1.3rem; border-bottom: 1px solid var(--dorado); padding-bottom: 10px;">
+                Comments
+            </h4>
+            <div id="comments-list" style="margin-top: 20px;">
+                <p style="color: #888; font-style: italic;">Loading comments...</p>
+            </div>
+        </div>
+
+        <!-- Formulario de Nuevo Comentario -->
         <section class="comments-section">
             <h3>Leave a Comment</h3>
 
             <form id="comment-form">
-                <!-- Campo Oculto para almacenar la ID única de la entrada (fileName) -->
                 <input type="hidden" id="post-id-input" name="post_id" value="">
 
                 <div class="form-group">
@@ -311,6 +308,52 @@
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
 
+        // CONFIGURACIÓN DE LA API DE NETLIFY (Reemplaza con tus datos reales)
+        const NETLIFY_TOKEN = 'nfp_6BC8FxxcZRNweSA3ey3bUU1UBx3Rdpndf334'; 
+        const FORM_ID = '6a708e43a15443000898d03b'; 
+
+        async function fetchComments(fileName) {
+            const listContainer = document.getElementById('comments-list');
+
+            if (NETLIFY_TOKEN === 'TU_PERSONAL_ACCESS_TOKEN' || FORM_ID === 'TU_FORM_ID') {
+                listContainer.innerHTML = '<p style="color: #666; font-style: italic;">Please configure your NETLIFY_TOKEN and FORM_ID in the script.</p>';
+                return;
+            }
+
+            try {
+                const res = await fetch(`https://api.netlify.com/api/v1/forms/${FORM_ID}/submissions?access_token=${NETLIFY_TOKEN}`);
+                if (!res.ok) throw new Error('Error fetching comments');
+                
+                const submissions = await res.json();
+                
+                // Filtrar comentarios únicos del post actual usando fileName
+                const postComments = submissions.filter(sub => sub.data && sub.data.post_id === fileName);
+
+                if (postComments.length === 0) {
+                    listContainer.innerHTML = '<p style="color: #666; font-style: italic;">No comments yet. Be the first to leave one!</p>';
+                    return;
+                }
+
+                // Renderizar comentarios en pantalla
+                listContainer.innerHTML = postComments.map(c => `
+                    <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 0; margin-bottom: 15px;">
+                        <strong style="color: var(--dorado); font-size: 1.1rem; display: block;">${escapeHtml(c.data.name)}</strong>
+                        <p style="color: #ccc; margin-top: 5px; font-size: 1.05rem;">${escapeHtml(c.data.comment)}</p>
+                        <span style="color: #555; font-size: 0.75rem;">${new Date(c.created_at).toLocaleDateString()}</span>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error(err);
+                listContainer.innerHTML = '<p style="color: #666;">Unable to load comments at this time.</p>';
+            }
+        }
+
+        // Función para evitar la inyección de código malicioso en comentarios HTML
+        function escapeHtml(str) {
+            return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
         async function loadPost() {
             const params = new URLSearchParams(window.location.search);
             const fileName = params.get('article');
@@ -320,9 +363,11 @@
                 return;
             }
 
-            // Asignar el nombre del archivo de Decap CMS como ID del post para los comentarios
             const postIdInput = document.getElementById('post-id-input');
             if (postIdInput) postIdInput.value = fileName;
+
+            // Cargar comentarios desde Netlify
+            fetchComments(fileName);
 
             const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
@@ -356,16 +401,17 @@
             }
         }
 
-        // Manejar envío del formulario de comentarios sin recargar la página
+        // Manejar el envío del formulario mediante AJAX y recargar los comentarios de inmediato
         document.addEventListener("DOMContentLoaded", () => {
             const commentForm = document.getElementById('comment-form');
             if (commentForm) {
                 commentForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
+                    const currentFileName = document.getElementById('post-id-input').value;
                     const formData = new URLSearchParams();
                     formData.append('form-name', 'post-comments');
-                    formData.append('post_id', document.getElementById('post-id-input').value);
+                    formData.append('post_id', currentFileName);
                     formData.append('name', document.getElementById('comment-name').value);
                     formData.append('comment', document.getElementById('comment-text').value);
 
@@ -379,6 +425,8 @@
                         if (response.ok) {
                             alert('Thank you! Your comment has been submitted.');
                             commentForm.reset();
+                            // Refrescar lista de comentarios sin recargar la página completa
+                            fetchComments(currentFileName);
                         } else {
                             alert('Error submitting comment. Please try again.');
                         }
