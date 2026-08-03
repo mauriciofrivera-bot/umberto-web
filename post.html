@@ -47,7 +47,7 @@
             max-width: 780px; 
             margin: 60px auto;
             padding: 0 30px;
-            position: relative; /* Habilita el anclaje de la máscara inferior */
+            position: relative;
         }
 
         /* --- TÍTULO ENMARCADO ORIGINAL --- */
@@ -139,41 +139,70 @@
             border: none;
         }
 
-        /* --- CONTENEDOR TÁCTICO DE SEGUIDAD --- */
-        .cusdis-shield-wrapper {
+        /* --- SECCIÓN DE COMENTARIOS DE NETLIFY --- */
+        .comments-section {
             margin-top: 60px; 
-            padding: 30px; 
-            border: 1px solid rgba(181, 141, 82, 0.2); 
+            padding: 40px 30px; 
+            border: 1px solid rgba(181, 141, 82, 0.3); 
             background-color: #121212; 
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            height: 360px !important;
-            max-height: 360px !important;
-            overflow: hidden !important;
         }
 
-        /* MÁSCARA INDESTRUCTIBLE: Bloque negro absoluto puesto encima de los comentarios */
-        .cusdis-shield-wrapper::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px; /* Cubre el área exacta donde empiezan a listarse las respuestas antiguas */
-            background-color: #121212; 
-            z-index: 99999 !important;
+        .comments-section h3 {
+            font-family: 'Playfair Display', serif; 
+            color: var(--dorado); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 25px;
+            font-size: 1.5rem;
         }
 
-        #cusdis_thread {
-            width: 100% !important;
-            height: 100% !important;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        #cusdis_thread iframe {
-            color-scheme: dark !important;
-            background: transparent !important;
-            height: 300px !important;
-            max-height: 300px !important;
+        .form-group label {
+            display: block; 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #888; 
+            margin-bottom: 8px;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%; 
+            background: transparent; 
+            border: none; 
+            border-bottom: 1px solid #333; 
+            color: #fff; 
+            padding: 10px 0; 
+            font-family: 'EB Garamond', serif; 
+            font-size: 1.1rem; 
+            outline: none;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-bottom-color: var(--dorado);
+        }
+
+        .btn-submit {
+            background: transparent; 
+            border: 1px solid var(--dorado); 
+            color: var(--dorado); 
+            padding: 12px 30px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--dorado);
+            color: var(--oscuro);
         }
 
         /* --- RESPONSIVE --- */
@@ -181,8 +210,7 @@
             .post-container { margin: 30px auto; padding: 0 20px; }
             .post-content { font-size: 1.15rem; text-align: left; }
             .post-content > p:first-of-type::first-letter { font-size: 4rem; }
-            .cusdis-shield-wrapper { margin-top: 40px; padding: 20px 15px; height: 390px !important; max-height: 390px !important; }
-            .cusdis-shield-wrapper::after { height: 90px; }
+            .comments-section { margin-top: 40px; padding: 25px 20px; }
         }
 
         footer { text-align: center; padding: 80px 20px; color: #444; font-size: 0.7rem; letter-spacing: 2px; }
@@ -194,7 +222,7 @@
             color: var(--blanco, #f0f0f0); 
             text-decoration: none;
             text-transform: uppercase;
-            font-family: 'Garamond', serif;
+            font-family: 'EB Garamond', serif;
             font-size: 0.9rem;
             letter-spacing: 2px;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -211,6 +239,13 @@
     </style>
 </head>
 <body>
+
+    <!-- Formulario invisible para que Netlify detecte los campos en compilación -->
+    <form name="post-comments" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="post_id" />
+      <textarea name="comment"></textarea>
+    </form>
 
     <nav>
         <a href="index.html">Home</a>
@@ -231,16 +266,27 @@
 
         <div id="post-content" class="post-content"></div>
 
-        <div class="cusdis-shield-wrapper">
-            <div id="cusdis_thread"
-                    data-host="https://cusdis.com"
-                    data-app-id="1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4"
-                    data-theme="dark"
-                    data-page-id="" 
-                    data-page-url=""
-                    data-page-title="">
-            </div>
-        </div>
+        <!-- Formulario de Comentarios Sin Login -->
+        <section class="comments-section">
+            <h3>Leave a Comment</h3>
+
+            <form id="comment-form">
+                <!-- Campo Oculto para almacenar la ID única de la entrada (fileName) -->
+                <input type="hidden" id="post-id-input" name="post_id" value="">
+
+                <div class="form-group">
+                    <label for="comment-name">Name</label>
+                    <input type="text" id="comment-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment-text">Comment</label>
+                    <textarea id="comment-text" name="comment" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Comment</button>
+            </form>
+        </section>
     </article>
 
     <footer>
@@ -261,8 +307,6 @@
         <p style="margin-top: 40px;">&copy; 2026 UMBERTO CAMPIONI.</p>
     </footer>
 
-    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-
     <script>
         const USER = 'mauriciofrivera-bot';
         const REPO = 'umberto-web';
@@ -275,6 +319,10 @@
                 document.getElementById('post-title').innerText = "Post not found";
                 return;
             }
+
+            // Asignar el nombre del archivo de Decap CMS como ID del post para los comentarios
+            const postIdInput = document.getElementById('post-id-input');
+            if (postIdInput) postIdInput.value = fileName;
 
             const url = `https://raw.githubusercontent.com/${USER}/${REPO}/main/_posts/${fileName}`;
 
@@ -301,31 +349,48 @@
                     }
 
                     document.getElementById('post-content').innerHTML = marked.parse(parts.slice(2).join('---'));
-                    
-                    const cusdisContainer = document.getElementById('cusdis_thread');
-                    if (cusdisContainer) {
-                        cusdisContainer.setAttribute('data-page-id', fileName);
-                        cusdisContainer.setAttribute('data-page-url', window.location.href);
-                        cusdisContainer.setAttribute('data-page-title', meta.title || 'Journal Post');
-                        
-                        if (window.CUSDIS && typeof window.CUSDIS.render === 'function') {
-                            window.CUSDIS.render({
-                                target: cusdisContainer,
-                                appId: '1f76b7ff-8c4d-45a5-bb7f-d3279c2929d4',
-                                host: 'https://cusdis.com',
-                                pageId: fileName,
-                                pageUrl: window.location.href,
-                                pageTitle: meta.title || 'Journal Post',
-                                theme: 'dark'
-                            });
-                        }
-                    }
                 }
             } catch (err) { 
                 console.error(err); 
                 document.getElementById('post-title').innerText = "Post not found";
             }
         }
+
+        // Manejar envío del formulario de comentarios sin recargar la página
+        document.addEventListener("DOMContentLoaded", () => {
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const formData = new URLSearchParams();
+                    formData.append('form-name', 'post-comments');
+                    formData.append('post_id', document.getElementById('post-id-input').value);
+                    formData.append('name', document.getElementById('comment-name').value);
+                    formData.append('comment', document.getElementById('comment-text').value);
+
+                    try {
+                        const response = await fetch('/', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: formData.toString()
+                        });
+
+                        if (response.ok) {
+                            alert('Thank you! Your comment has been submitted.');
+                            commentForm.reset();
+                        } else {
+                            alert('Error submitting comment. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Connection error. Please try again later.');
+                    }
+                });
+            }
+        });
+
         window.onload = loadPost;
     </script>
 </body>
+</html>
