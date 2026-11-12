@@ -11,6 +11,10 @@ A lot of people think service and hospitality are the same thing.
 
  They’re not.
 
+
+
+
+
 #### **Service is technical. Hospitality is emotional.**
 
 Service is bringing a plate correctly to the table.
